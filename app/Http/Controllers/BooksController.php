@@ -39,7 +39,7 @@ class BooksController extends Controller
 
     public function increaseByOne($id)
     {
-        //才能進購物車頁面才有增減商品
+        //才能進購物車頁面增減商品
         $cart = new Cart(Session::get('cart'));
         $cart->increaseByOne($id);
         session()->put('cart', $cart);
@@ -47,7 +47,7 @@ class BooksController extends Controller
 
     public function decreaseByOne($id)
     {
-        //才能進購物車頁面才有增減商品
+        //才能進購物車頁面增減商品
         $cart = new Cart(Session::get('cart'));
         $cart->decreaseByOne($id);
         session()->put('cart', $cart);
