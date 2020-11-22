@@ -4,6 +4,7 @@ namespace App\Services\Account\Registration;
 
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\MemberRepository;
+use Illuminate\Support\Str;
 
 
 class Email extends BaseRegistration
@@ -48,5 +49,10 @@ class Email extends BaseRegistration
             'message'   => 'verification ok!!'
         ];
         return true;
+    }
+
+    public function getActivateCode()
+    {
+        return Str::random(64);
     }
 }

@@ -15,11 +15,20 @@ abstract class BaseRegistration
     public function __construct()
     {
         $this->member = new MemberRepository();
+        $this->activator = new MemberActivatorRepository();
     }
 
-    public function activate()
+    public function activate(int $memberId, string $code)
     {
-        $message = "hello activate";
-        return $message;
+        $insertData = [
+            'member_id' => $memberId,
+            'code' => $code,
+            'type' => $this->type,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+
+        $this->activator->create($insertData);
+
+        return true;
     }
 }

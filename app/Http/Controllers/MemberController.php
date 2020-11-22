@@ -23,13 +23,19 @@ class MemberController extends Controller
         $account = new $class;
 
         //在這裡要先插入註冊會員資料，回傳插入後的id
-        // $account->register($request->input());
         $memberId = $account->register($request->input());
-        return $memberId;
 
         // 如果順利註冊，就取得啟用驗證碼
-        // 寫入會員啟用資料表
+        $activateCode = $account->getActivateCode();
 
-        // return $account->activate();
+        // 寫入會員啟用資料表
+        $account->activate($memberId, $activateCode);
+
+        $result = [
+            'code' => 200,
+            'message'   => 'registed success.'
+        ];
+
+        return response()->json($result);
     }
 }
