@@ -13,6 +13,10 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        // $this->assertTrue(true);
+
+        $this->assertDatabaseHas('member', [
+            'reg_email' => 'sally@example.com',
+        ]);
     }
 }
