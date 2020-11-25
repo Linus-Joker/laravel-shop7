@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MemberController extends Controller
 {
@@ -11,31 +12,36 @@ class MemberController extends Controller
     {
         // 依照傳進來的路徑來呼叫要使用的物件
         $class = 'App\Services\Account\Registration\\' . ucfirst($type);
-
         if (class_exists($class) === false) {
-            $result = [
-                'code'      => 422,
-                'message'   => 'class  ' . $class . '  Not exist.',
-            ];
-            return response()->json($result);
+            return $this->response(422, 'class  ' . $class . '  Not exist.');
         }
 
-        $account = new $class;
+        $account = new $class();
+        // $memberId = $account->register($request->input());
+        // return $memberId;
 
-        //在這裡要先插入註冊會員資料，回傳插入後的id
-        $memberId = $account->register($request->input());
+        try {
+            //在這裡要先插入註冊會員資料，回傳插入後的id
+            $memberId = $account->register($request->input());
 
-        // 如果順利註冊，就取得啟用驗證碼
-        $activateCode = $account->getActivateCode();
+            // 如果順利註冊，就取得啟用驗證碼
+            $activateCode = $account->getActivateCode();
 
-        // 寫入會員啟用資料表
-        $account->activate($memberId, $activateCode);
+            // 寫入會員啟用資料表
+            $account->activate($memberId, $activateCode);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
 
-        $result = [
-            'code' => 200,
-            'message'   => 'registed success.'
-        ];
+        return $this->response(200, '會員註冊成功');
+    }
 
-        return response()->json($result);
+    private function response(int $code, $message, array $data = [])
+    {
+        return response()->json([
+            'status' => $code,
+            'message' => $message,
+            'data'  => $data
+        ]);
     }
 }

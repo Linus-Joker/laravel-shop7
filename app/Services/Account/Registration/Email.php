@@ -35,19 +35,16 @@ class Email extends BaseRegistration
         $rules = [
             'type'      => 'required|integer',
             'sex'       => 'required|in:1,2',
-            'password'  => 'required|password|min:8|max:20',
-            'account'   => 'required|email|unique:App\Models\Member,reg_email'
+            'password'  => 'required|password|min:8|max:40',
+            // 'account'   => 'required|email|unique:App\Models\Member,reg_email'
         ];
 
         $validator = validator::make($input, $rules);
         if ($validator->fails()) {
+            // throw new \App\Exceptions\InvalidParameterException($validator->errors()->first());
             return $validator->errors();
         }
 
-        $result = [
-            'code'      => 200,
-            'message'   => 'verification ok!!'
-        ];
         return true;
     }
 

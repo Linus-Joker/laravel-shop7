@@ -9,3 +9,4 @@ try SOLID
 
 ## Other Question
 uniqure verdator db column
+Exceptions question

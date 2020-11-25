@@ -32,19 +32,25 @@ class MemberRepository
         $rules = [
             'reg_email' => 'nullable|email',
             'reg_phone' => 'nullable|regex:/^09\d{8}$/',
-            'password' => 'required|string|min:8|max:16',
+            'password' => 'required|string|min:8|max:40',
             'sex' => 'nullable|integer',
             'type' => 'required|integer'
         ];
 
         $this->validate($data, $rules);
-
-        $this->member->reg_email = $data['reg_email'] ?? null;
-        $this->member->reg_phone = $data['reg_phone'] ?? null;
-        $this->member->password = $data['password'];
-        $this->member->sex = $data['sex'] ?? null;
-        $this->member->type = $data['type'];
-        $this->member->save();
+        try {
+            $this->member->reg_email = $data['reg_email'] ?? null;
+            $this->member->reg_phone = $data['reg_phone'] ?? null;
+            $this->member->password = $data['password'];
+            $this->member->sex = $data['sex'] ?? null;
+            $this->member->type = $data['type'];
+            // $this->member->save();
+            if ($this->member->save() !== true) {
+                throw new \App\Exceptions\DatabaseQueryException('新增 member 資料表失敗');
+            }
+        } catch (\Exception $e) {
+            throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
+        }
 
         return $this->member->id;
     }
