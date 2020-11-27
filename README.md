@@ -1,5 +1,5 @@
 # Laravel Shop Project Practice
-try SOLID
+try SOLID and unit test
 
 ## Registe 
 ## Login
@@ -9,5 +9,6 @@ try SOLID
 
 
 ## Other Question
-uniqure verdator db column
-Exceptions question
+* uniqure verdator db column
+* password validate
+* Exceptions question

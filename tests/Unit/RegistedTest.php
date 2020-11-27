@@ -14,7 +14,7 @@ class RegistedTest extends TestCase
     protected $phone = "Phone";
 
     /**
-     * class unit test example.
+     * class registed unit test .
      *
      * @return void
      */
@@ -30,17 +30,67 @@ class RegistedTest extends TestCase
         $this->assertEquals($phoneClass, $ucfirstPhoneClass);
     }
 
-    public function testValidateTest()
+    public function testEmailAccountRegisteValidate()
     {
-        $data = [
-            'account' => 'test',
+        $result = $this->emailAccountRegisteValidate();
+        $this->assertTrue($result);
+    }
+
+    protected function emailAccountRegisteValidate()
+    {
+        $rules = [
+            'type'      => 'required|integer',
+            'sex'       => 'required|in:1,2',
+            'password'  => 'required|string|min:8|max:40',
+            'account'   => 'required|email'
         ];
-        $response = $this->json('POST', 'api/member/login', $data);
-        // $response->assertOk();
-        $response->assertExactJson([
-            'status' => 200,
-            'message' => '會員註冊成功',
-            'data' => []
-        ]);
+
+        $data = [
+            'type'      => 1,
+            'sex'       => 1,
+            'password'  => 'password12',
+            'account'   => 'testaccount01@example.com'
+        ];
+
+        $validator = validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return true;
+    }
+
+    public function testMemberRegisteValidate()
+    {
+        $result = $this->memberRegistedValidate();
+        $this->assertTrue($result);
+    }
+
+    protected function memberRegistedValidate()
+    {
+        $rules = [
+            'reg_email' => 'nullable|email',
+            'reg_phone' => 'nullable|regex:/^09\d{8}$/',
+            'password' => 'required|string|min:8|max:40',
+            'sex' => 'nullable|integer',
+            'type' => 'required|integer'
+        ];
+
+        $data = [
+            'reg_email' => 'testaccount01@example.com',
+            'reg_phone' => '0988123456',
+            'password'  => 'password12',
+            'sex'       => 1,
+            'type'      => 1
+        ];
+
+        $validator = validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        return true;
     }
 }

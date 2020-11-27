@@ -53,21 +53,11 @@ class MemberController extends Controller
             'account' => 'required',
         ];
 
-        // $data = [
-        //     'account' => 'milk',
-        // ];
-
         $validator = validator::make($request->all(), $rules);
-
         if ($validator->fails()) {
             return $validator->errors();
         }
 
-        // return response()->json([
-        //     'code' => 200,
-        //     'message' => '會員註冊成功'
-        // ]);
-
-        return $this->response(200, '會員註冊成功');
+        return $this->response(200, '會員登入成功');
     }
 }
