@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('member/registed/{type}', 'MemberController@register');
+
+Route::post('member/login', 'MemberController@login');

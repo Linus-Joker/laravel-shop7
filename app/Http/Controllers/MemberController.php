@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 use PhpParser\Node\Stmt\TryCatch;
 
 class MemberController extends Controller
@@ -41,7 +43,31 @@ class MemberController extends Controller
         return response()->json([
             'status' => $code,
             'message' => $message,
-            'data'  => $data
+            'data' => $data
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        $rules = [
+            'account' => 'required',
+        ];
+
+        // $data = [
+        //     'account' => 'milk',
+        // ];
+
+        $validator = validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        // return response()->json([
+        //     'code' => 200,
+        //     'message' => '會員註冊成功'
+        // ]);
+
+        return $this->response(200, '會員註冊成功');
     }
 }
