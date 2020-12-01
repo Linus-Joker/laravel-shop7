@@ -13,7 +13,7 @@ use App\Models\Member;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
+
 
     public function testRules()
     {
