@@ -17,7 +17,6 @@ class LoginTest extends TestCase
     {
         $emailResult = $this->emailLoginRule();
         $phoneResult = $this->phoneLoginRule();
-        //$emailAccountData = $this->returnEmailAccountData();
         $this->assertTrue($emailResult);
         $this->assertTrue($phoneResult);
     }
@@ -25,7 +24,7 @@ class LoginTest extends TestCase
     protected function emailLoginRule()
     {
         $rules = [
-            'account' => 'required|email',
+            'account' => 'required|email|',
             'password'  => 'required'
         ];
 
