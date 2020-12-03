@@ -13,8 +13,6 @@ use App\Models\Member;
 
 class LoginTest extends TestCase
 {
-
-
     public function testRules()
     {
         $emailResult = $this->emailLoginRule();
@@ -64,29 +62,34 @@ class LoginTest extends TestCase
         return true;
     }
 
-    protected function returnEmailAccountData()
+    public function testEmailAccountLoginDataBaseCheck()
     {
         $data = [
             'reg_email' => 'test01@mail.com',
+            'password'  => 'password12'
         ];
 
-        return $data;
+        $this->assertDatabaseHas('member', $data);
     }
 
-    public function testEmailAccountDB()
+    public function testPhoneAccountLoginDataBaseCheck()
+    {
+        $data = [
+            'reg_phone'  => '0987654321',
+            'password'  => 'password22'
+        ];
+
+        $this->assertDatabaseHas('member', $data);
+    }
+
+
+    //如果要插入資料先用這個，懶得用工廠了
+    protected function insertData()
     {
         $data = [
             'reg_email' => 'test01@mail.com',
             'password'  => 'password12'
         ];
         member::create($data);
-
-        $this->assertDatabaseHas('member', [
-            'reg_email' => 'test01@mail.com',
-            'password'  => 'password12'
-        ]);
     }
-
-    protected function checkDBdata()
-    { }
 }
