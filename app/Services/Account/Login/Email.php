@@ -10,10 +10,10 @@ class Email extends BaseLogin
     public function login($data)
     {
         $this->validate($data);
-        $this->member->checkEmailAccountDB($data['account']);
+        $memberData = $this->member->checkEmailAccountDB($data['account']);
         //hash password ckech寫在共通的地方
-        //再去調用一次DB check password ??
-        $memberData = $this->member->checkEmailPasswordDB($data['password']);
+        $this->checkPassword($data['password'], $memberData['password']);
+
         //假設都沒問題那我返回sex,type,status，因為要給前端傳資料??
         $data = [
             'sex'  => $memberData['sex'],
@@ -34,7 +34,6 @@ class Email extends BaseLogin
         $validator = validator::make($checkData, $rules);
         if ($validator->fails()) {
             throw new \App\Exceptions\InvalidParameterException($validator->errors()->first());
-            // return $validator->errors();
         }
 
         return true;

@@ -41,8 +41,8 @@ class MemberController extends Controller
 
     public function login(Request $request)
     {
+        // 依照傳進來的類型來呼叫要使用的物件
         $value = request()->input('account');
-
         $fieldType = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Phone';
 
         $class = 'App\Services\Account\Login\\' . $fieldType;
@@ -54,6 +54,7 @@ class MemberController extends Controller
         $account = new $class;
 
         try {
+            //進行登入檢查，成功就返回會員資料
             $memberData = $account->login($request->input());
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
@@ -69,5 +70,35 @@ class MemberController extends Controller
             'message' => $message,
             'data' => $data
         ]);
+    }
+
+    public function hashTest(Request $request)
+    {
+        $hashPassword = Hash::make($request->input('password'), [
+            'rounds' => 10
+        ]);
+
+        $member = new Member;
+
+        $member::where('id', 1)->update(
+            [
+                'password' => $hashPassword
+            ]
+        );
+
+        return $hashPassword;
+    }
+
+    public function hashCheckTest(Request $request)
+    {
+        $member = new Member;
+
+        $dbPassword = $member::find(1)->password;
+
+        if (Hash::check($request->input('password'), $dbPassword)) {
+            return true;
+        }
+
+        return 'password error.';
     }
 }

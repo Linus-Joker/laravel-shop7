@@ -77,16 +77,4 @@ class MemberRepository
 
         return $memberData;
     }
-
-    public function checkEmailPasswordDB($checkPassword)
-    {
-        $memberData = $this->member::where('password', $checkPassword)
-            ->first();
-
-        if (empty($memberData)) {
-            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
-        }
-
-        return $memberData;
-    }
 }
