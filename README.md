@@ -9,6 +9,4 @@ try SOLID and unit test
 
 
 ## Other Question
-* uniqure verdator db column
-* password validate
-* Exceptions question
+* 
