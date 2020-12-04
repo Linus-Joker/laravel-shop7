@@ -64,4 +64,29 @@ class MemberRepository
 
         return true;
     }
+
+    public function checkEmailAccountDB($checkData)
+    {
+        $memberData = $this->member::where('reg_email', $checkData)
+            ->first();
+
+        if (empty($memberData)) {
+            // return '你輸入的帳號或密碼錯誤，請重新輸入';
+            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
+        }
+
+        return $memberData;
+    }
+
+    public function checkEmailPasswordDB($checkPassword)
+    {
+        $memberData = $this->member::where('password', $checkPassword)
+            ->first();
+
+        if (empty($memberData)) {
+            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
+        }
+
+        return $memberData;
+    }
 }

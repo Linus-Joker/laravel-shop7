@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 use PhpParser\Node\Stmt\TryCatch;
+
+use App\Models\Member;
 
 class MemberController extends Controller
 {
@@ -38,6 +39,29 @@ class MemberController extends Controller
         return $this->response(200, '會員註冊成功');
     }
 
+    public function login(Request $request)
+    {
+        $value = request()->input('account');
+
+        $fieldType = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Phone';
+
+        $class = 'App\Services\Account\Login\\' . $fieldType;
+
+        if (class_exists($class) === false) {
+            return $this->response(422, 'class  ' . $class . '  Not exist.');
+        }
+
+        $account = new $class;
+
+        try {
+            $memberData = $account->login($request->input());
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        return $this->response(200, '會員登入成功', $memberData);
+    }
+
     private function response(int $code, $message, array $data = [])
     {
         return response()->json([
@@ -45,19 +69,5 @@ class MemberController extends Controller
             'message' => $message,
             'data' => $data
         ]);
-    }
-
-    public function login(Request $request)
-    {
-        $rules = [
-            'account' => 'required',
-        ];
-
-        $validator = validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-
-        return $this->response(200, '會員登入成功');
     }
 }
