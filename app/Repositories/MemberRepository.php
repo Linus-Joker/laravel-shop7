@@ -32,7 +32,7 @@ class MemberRepository
         $rules = [
             'reg_email' => 'nullable|email',
             'reg_phone' => 'nullable|regex:/^09\d{8}$/',
-            'password' => 'required|string|min:8|max:40',
+            'password' => 'required|alpha_num|min:8|max:40',
             'sex' => 'nullable|integer',
             'type' => 'required|integer'
         ];
@@ -59,7 +59,8 @@ class MemberRepository
     {
         $validator = validator::make($input, $rules);
         if ($validator->fails()) {
-            return $validator->errors();
+            // return $validator->errors();
+            throw new \App\Exceptions\InvalidParameterException($validator->errors()->first());
         }
 
         return true;

@@ -47,7 +47,8 @@ class MemberActivatorRepository
     {
         $validator = validator::make($input, $rules);
         if ($validator->fails()) {
-            return $validator->errors();
+            // return $validator->errors();
+            throw new \App\Exceptions\InvalidParameterException($validator->errors()->first());
         }
 
         return true;

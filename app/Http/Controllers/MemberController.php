@@ -20,8 +20,6 @@ class MemberController extends Controller
         }
 
         $account = new $class();
-        // $memberId = $account->register($request->input());
-        // return $memberId;
 
         try {
             //在這裡要先插入註冊會員資料，回傳插入後的id
@@ -32,6 +30,10 @@ class MemberController extends Controller
 
             // 寫入會員啟用資料表
             $account->activate($memberId, $activateCode);
+
+            /*
+                之後傳驗證碼到視圖或者其他媒體，做信箱或手機驗證成功才返回註冊成功
+            */
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
