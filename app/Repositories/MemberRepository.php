@@ -65,6 +65,14 @@ class MemberRepository
         return true;
     }
 
+    /**
+     * 尋找會員資料
+     *
+     * @param str $checkData
+     *      @var string $data['account'] 使用者傳過來的會員帳號
+     * @return array
+     */
+
     public function checkEmailAccountDB($checkData)
     {
         $memberData = $this->member::where('reg_email', $checkData)

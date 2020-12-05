@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('member/registed/{type}', 'MemberController@register');
 
 Route::post('member/login', 'MemberController@login');
+Route::post('member/hash-test', 'MemberController@hashTest');
+Route::post('member/hash-check', 'MemberController@hashCheckTest');
