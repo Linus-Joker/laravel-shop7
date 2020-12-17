@@ -10,7 +10,9 @@ class Email extends BaseLogin
     public function login($data)
     {
         $this->validate($data);
+        //這裡應該要寫成介面?
         $memberData = $this->member->checkEmailAccountDB($data['account']);
+
         //hash password ckech寫在共通的地方
         $this->checkPassword($data['password'], $memberData['password']);
 
