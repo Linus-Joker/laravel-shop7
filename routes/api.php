@@ -18,8 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//會員系統
 Route::post('member/registed/{type}', 'MemberController@register');
-
 Route::post('member/login', 'MemberController@login');
 Route::post('member/hash-test', 'MemberController@hashTest');
 Route::post('member/hash-check', 'MemberController@hashCheckTest');
+
+//產品系統
+Route::apiResource('products', 'BooksController');
