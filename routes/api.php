@@ -19,10 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //會員系統
-Route::post('member/registed/{type}', 'MemberController@register');
-Route::post('member/login', 'MemberController@login');
-Route::post('member/hash-test', 'MemberController@hashTest');
-Route::post('member/hash-check', 'MemberController@hashCheckTest');
+Route::post('member/registed/{type}', 'Api\MemberController@register');
+Route::post('member/login', 'Api\MemberController@login');
+Route::post('member/hash-test', 'Api\MemberController@hashTest');
+Route::post('member/hash-check', 'Api\MemberController@hashCheckTest');
 
 //產品系統
-Route::apiResource('products', 'BooksController');
+Route::apiResource('products', 'Api\BooksController');

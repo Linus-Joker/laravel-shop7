@@ -24,3 +24,7 @@ Route::get('/decrease/{id}', 'BooksController@decreaseByOne');
 Route::get('/remove-item/{id}', 'BooksController@removeItem');
 Route::get('/addcart/{id}', 'BooksController@addToCart');
 Route::get('/clear-cart', 'BooksController@clearCart');
+
+Route::get('books', function () {
+    return view('books');
+});
