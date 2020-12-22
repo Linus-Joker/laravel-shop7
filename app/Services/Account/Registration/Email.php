@@ -33,7 +33,7 @@ class Email extends BaseRegistration
         $input['type'] = $this->type;
         // $rules['account'] = 'required|email|unique:member,reg_email';
         $rules = [
-            'account'   => 'required|email||unique:member,reg_email',
+            'account'   => 'required|email|unique:member,reg_email',
             'type'      => 'required|integer',
             'sex'       => 'required|in:1,2',
             'password'  => 'required|alpha_num|min:8|max:40',
