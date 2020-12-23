@@ -18,11 +18,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//會員系統
-Route::post('member/registed/{type}', 'Api\MemberController@register');
-Route::post('member/login', 'Api\MemberController@login');
-Route::post('member/hash-test', 'Api\MemberController@hashTest');
-Route::post('member/hash-check', 'Api\MemberController@hashCheckTest');
 
-//產品系統
-Route::apiResource('products', 'Api\BooksController');
+/**
+    namespace: controller 命名空間,
+    prefix: 路由前缀
+ **/
+Route::namespace('Api')->group(function () {
+    Route::prefix('v1')->group(function () {
+        //會員系統
+        Route::post('member/registed/{type}', 'MemberController@register');
+        Route::post('member/login', 'MemberController@login');
+        Route::post('member/hash-test', 'MemberController@hashTest');
+        Route::post('member/hash-check', 'MemberController@hashCheckTest');
+
+        //產品系統
+        Route::apiResource('products', 'Api\BooksController');
+    });
+});
