@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,10 +12,7 @@ class BooksController extends Controller
     public function index()
     {
         $products = Books::all();
-
         return $this->response(200, 'data read success.', $products);
-        // return $products;
-
     }
 
     private function response(int $code, $message, $data = [])
