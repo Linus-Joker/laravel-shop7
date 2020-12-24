@@ -16,7 +16,6 @@ class BooksController extends Controller
         return $this->response(200, 'data read success.', $products);
         // return $products;
 
-
     }
 
     private function response(int $code, $message, $data = [])
