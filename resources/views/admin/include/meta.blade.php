@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 {{--  CSRF Token  --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Shop7</title>
+<title>Shop7-後台管理介面</title>
 {{--  Icon  --}}
 <link rel="Shortcut Icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 <!-- Fonts -->
@@ -13,8 +13,3 @@
 {{--  Styles  --}}
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/other.css') }}" rel="stylesheet">
-
-{{--  Scripts  --}}
-<script src="{{ asset('js/app.js') }}" defer></script>
-
-

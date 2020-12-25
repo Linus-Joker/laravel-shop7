@@ -3,24 +3,22 @@
 <head>
     @include('admin.include.meta')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
-        @include('admin.include.header')
-        @include('admin.include.aside')
+<body>
+    {{-- header nav --}}
+    @include('admin.include.header')
+    <div class="container-fluid">
+        <div class="row">
 
-        @yield('content')
+            <!-- 側邊aside -->
+            @include('admin.include.aside')
+            {{-- content --}}
+            @yield('content')
 
-        @include('admin.include.footer')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+        </div>
     </div>
+    @include('admin.include.footer')
+
     @include('admin.include.js')
-
     @yield('js')
-
 </body>
 </html>

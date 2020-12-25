@@ -2,7 +2,7 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <i class="fas fa-house-user"></i>
-            <a href="{{url('webadm')}}">Dashboard</a>
+            <a href="{{url('webadm/index')}}">Dashboard</a>
         </li>
         <li class="list-group-item">
             <i class="fas fa-newspaper"></i>
