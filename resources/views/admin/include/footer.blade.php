@@ -1,8 +1,6 @@
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.1.0-rc
-        </div>
-    </footer>
+<footer class="footer">
+    <div class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>© 2020 - Linus, Shop7<a href="#"> Privacy</a> · <a href="#">Terms</a></p>
+    </div>
+</footer>

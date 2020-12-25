@@ -41,4 +41,8 @@ Route::prefix('webadm')->group(function () {
     Route::get('index', function () {
         return view('admin.index');
     });
+
+    Route::get('products', function () {
+        return view('admin.product.index');
+    });
 });
