@@ -1,0 +1,86 @@
+/* frontDesk nav styles
+-------------------------------------------------- */
+ul.navbar-nav ul {
+    display: none;
+    position: absolute;
+    background-color: #343a40;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+ul.navbar-nav ul>li {
+    padding: 8px 0;
+    /*border-bottom: #fff 1px solid;*/
+}
+
+ul.navbar-nav ul>li>a {
+    color: aliceblue;
+}
+
+ul.navbar-nav li:hover>ul {
+    list-style: none;
+    display: block;
+}
+
+ul.navbar-nav li:hover>a {
+    color: yellow;
+    text-decoration: none;
+}
+
+/* page1 styles
+-------------------------------------------------- */
+.card-list {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+}
+
+.item {
+    margin: 0 auto 20px auto;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px;
+    /* Vertically center the text there */
+    background-color: #f5f5f5;
+
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body>.container {
+    padding: 60px 15px 0;
+}
+
+.footer>.container {
+    padding-right: 15px;
+    padding-left: 15px;
+
+}
+
+code {
+    font-size: 80%;
+}
