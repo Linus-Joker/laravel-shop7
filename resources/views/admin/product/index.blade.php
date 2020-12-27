@@ -17,23 +17,28 @@
     </nav>
     {{-- 主標題 --}}
     <h4 class="text-primary">table</h4>
-
+    <button id="create" class="btn btn-primary">新增</button>
+    <button id="update" class="btn btn-warning">修改</button>
+    <button id="delete" class="btn btn-danger">刪除</button>
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">product_name</th>
+                <th scope="col">description</th>
+                <th scope="col">price</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
+            @foreach ($products as $p)
+                <tr>
+                    <th scope="row">#</th>
+                    <td>{{ $p->name }}</td>
+                    <td>{{ $p->description }}</td>
+                    <td>{{ $p->price }}</td>
+                </tr>
+            @endforeach
+
         </tbody>
     </table>
 </div>
@@ -42,7 +47,25 @@
 @section('js')
 <script>
     $(function(){
-        alert(45646);
+        $("#create").click(function (e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url:'products',
+                type:'post',
+                data:{
+                    name:'book5'
+                },
+                success:function(data){
+                    // var obj = jQuery.parseJSON(data);
+                    console.log(data);
+                    // alert(data.status);
+                }
+            });
+        });
     });
 </script>
 @endsection

@@ -32,6 +32,6 @@ Route::namespace('Api')->group(function () {
         Route::post('member/hash-check', 'MemberController@hashCheckTest');
 
         //產品系統
-        Route::apiResource('products', 'Api\BooksController');
+        Route::apiResource('products', 'admin\BooksController');
     });
 });
