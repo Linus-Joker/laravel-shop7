@@ -37,12 +37,19 @@ Route::get('books', function () {
 
 
 //後台顯示
+/**
+    想要前後端分離但是懶的用框架
+    僅用blade模板切視圖
+    又懶得make一堆Controller
+    所以先這樣吧~~
+ **/
 Route::prefix('webadm')->group(function () {
-    Route::get('index', function () {
-        return view('admin.index');
-    });
+    Route::get('index', 'Admin\HomeController@index');
 
     Route::get('products', function () {
         return view('admin.product.index');
     });
 });
+
+//測試
+Route::get('/{path}', 'BooksController@index')->where('path', '*');

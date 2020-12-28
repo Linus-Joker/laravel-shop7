@@ -12,8 +12,10 @@ class BooksController extends Controller
 {
     public function index()
     {
-        $products = Books::all();
-        dd($products);
+        // $products = Books::all();
+        // dd($products);
+
+        return view('books');
     }
 
     public function addToCart(Request $request, $id)

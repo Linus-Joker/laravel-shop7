@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     namespace: controller 命名空間,
     prefix: 路由前缀
  **/
+//前台使用
 Route::namespace('Api')->group(function () {
     Route::prefix('v1')->group(function () {
         //會員系統
@@ -32,6 +33,18 @@ Route::namespace('Api')->group(function () {
         Route::post('member/hash-check', 'MemberController@hashCheckTest');
 
         //產品系統
-        Route::apiResource('products', 'admin\BooksController');
+        Route::apiResource('products', 'BooksController');
     });
 });
+
+//後台使用
+// Route::namespace('Api/admin')->group(function () {
+//     Route::prefix('v1')->group(function () {
+//         //會員系統
+
+//         //產品系統
+//         Route::apiResource('webadmin/products', 'BooksController');
+//     });
+// });
+
+Route::apiResource('v1/admin/products', 'Api\admin\BooksController');

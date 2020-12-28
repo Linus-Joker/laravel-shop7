@@ -8,12 +8,10 @@
     @include('admin.include.header')
     <div class="container-fluid">
         <div class="row">
-
-            <!-- 側邊aside -->
+            {{-- aside --}}
             @include('admin.include.aside')
             {{-- content --}}
             @yield('content')
-
         </div>
     </div>
     @include('admin.include.footer')

@@ -30,14 +30,6 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $p)
-                <tr>
-                    <th scope="row">#</th>
-                    <td>{{ $p->name }}</td>
-                    <td>{{ $p->description }}</td>
-                    <td>{{ $p->price }}</td>
-                </tr>
-            @endforeach
 
         </tbody>
     </table>
@@ -54,7 +46,7 @@
                 }
             });
             $.ajax({
-                url:'products',
+                url:'api/v1/products',
                 type:'post',
                 data:{
                     name:'book5'
