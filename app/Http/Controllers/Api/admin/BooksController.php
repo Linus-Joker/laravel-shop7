@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Books;
+use App\Services\Admin\ProductServices;
 
 class BooksController extends Controller
 {
+    public function __construct()
+    {
+        $this->productService = new ProductServices();
+    }
+
     public function index()
     {
         $products = Books::all();
@@ -17,22 +23,18 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-        $class = 'App\Repositories\ProductRepository';
-        $book = new $class();
-        // try {
-        //     $book->create($request->input());
-        // } catch (\Throwable $e) {
-        //     return $this->response(500, $e->getMessage());
-        // }
+        try {
+            $this->productService->create($request->input());
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
         return $this->response(201, 'data create success.');
     }
 
     public function update(Request $request, $id)
     {
-        $class = 'App\Repositories\ProductRepository';
-        $book = new $class();
         try {
-            $book->update($request->input(), $id);
+            $this->productService->update($request->input(), $id);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
@@ -41,11 +43,8 @@ class BooksController extends Controller
 
     public function destroy($id)
     {
-        $class = 'App\Repositories\ProductRepository';
-        $book = new $class();
-
         try {
-            $book->delete($id);
+            $this->productService->delete($id);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
