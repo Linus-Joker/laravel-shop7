@@ -24,6 +24,10 @@ try SOLID、UnitTest、RESTApi
 
 -   POST /api/v1/login (測試帳號:test01@example.com;密碼:password12)
 
+## Admin
+
+-   新增商品
+
 ## Unit Test
 
 ## Other Question
