@@ -15,7 +15,7 @@ class ProductRepository
     }
 
     /**
-     * 新增一筆商品資料
+     * 商品資料
      *
      * @param array $data[
      *      @var string $name 商品名稱
@@ -66,11 +66,7 @@ class ProductRepository
         }
 
         try {
-            // $bookData->name = $data['name'];
-            // $bookData->description = $data['description'];
-            // $bookData->price = $data['price'];
             $bookData->update($data);
-
             if ($bookData->update() !== true) {
                 throw new \App\Exceptions\DatabaseQueryException('更新 book 資料失敗');
             }

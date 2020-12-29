@@ -38,13 +38,11 @@ Route::namespace('Api')->group(function () {
 });
 
 //後台使用
-// Route::namespace('Api/admin')->group(function () {
-//     Route::prefix('v1')->group(function () {
-//         //會員系統
+Route::namespace('Api\admin')->group(function () {
+    Route::prefix('v1/admin')->group(function () {
+        //會員系統
 
-//         //產品系統
-//         Route::apiResource('webadmin/products', 'BooksController');
-//     });
-// });
-
-Route::apiResource('v1/admin/products', 'Api\admin\BooksController');
+        //產品系統
+        Route::apiResource('products', 'BooksController');
+    });
+});

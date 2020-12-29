@@ -46,7 +46,7 @@
                 }
             });
             $.ajax({
-                url:'api/v1/products',
+                url:'api/v1/admin/products',
                 type:'post',
                 data:{
                     name:'book5'

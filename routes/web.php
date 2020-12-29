@@ -43,12 +43,10 @@ Route::get('books', function () {
     又懶得make一堆Controller
     所以先這樣吧~~
  **/
-Route::prefix('webadm')->group(function () {
-    Route::get('index', 'Admin\HomeController@index');
 
-    Route::get('products', function () {
-        return view('admin.product.index');
-    });
+Route::get('webadmin', 'Admin\HomeController@index');
+Route::get('adminProducts', function () {
+    return view('admin.product.index');
 });
 
 //測試
