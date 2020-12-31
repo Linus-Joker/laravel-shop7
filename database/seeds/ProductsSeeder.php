@@ -15,7 +15,7 @@ class ProductsSeeder extends Seeder
     {
         $price = 100;
 
-        for ($i = 1; $i < 5; $i++) {
+        for ($i = 1; $i < 4; $i++) {
             Books::create([
                 'name'  => 'book' . $i,
                 'description'   => "It's des" . $i,
