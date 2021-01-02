@@ -17,9 +17,10 @@ class ProductsSeeder extends Seeder
 
         for ($i = 1; $i < 4; $i++) {
             Books::create([
-                'name'  => 'book' . $i,
-                'description'   => "It's des" . $i,
-                'price'   => $i * $price
+                'name'                  => 'book' . $i,
+                'description'           => "It's des" . $i,
+                'price'                 => $i * $price,
+                'products_sort_id'      => 1
             ]);
         }
     }

@@ -13,10 +13,6 @@ class BooksController extends Controller
     {
         $products = Books::all();
         return $this->response(200, 'data read success.', $products);
-        // return view(
-        //     'admin.product.index',
-        //     ['products' => $products]
-        // );
     }
 
     public function store(Request $request)

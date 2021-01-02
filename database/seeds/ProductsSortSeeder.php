@@ -13,9 +13,23 @@ class ProductsSortSeeder extends Seeder
      */
     public function run()
     {
-        ProductSort::create([
-            'name'  => '書籍',
-            'products_sort_details_id'  => 1
-        ]);
+        $data = [
+            [
+                'name'  => '書籍',
+                'products_sort_details'  => '電腦科學'
+            ],
+            [
+                'name'  => '書籍',
+                'products_sort_details'  => '商業理財'
+            ]
+        ];
+        foreach ($data as $item) {
+            ProductSort::create(
+                [
+                    'name'  => $item['name'],
+                    'products_sort_details'  => $item['products_sort_details']
+                ]
+            );
+        };
     }
 }

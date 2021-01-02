@@ -17,14 +17,18 @@
         //path 在自己更換
         $(function(){
             $('.test').click(function (e) {
-                $.get("/api/products",function(data){
+                $.get("api/v1/products",function(data){
                     data_array = data.data;
-                    console.log(data.status);
-                    console.log(data.message);
+                    // console.log(data.status);
+                    // console.log(data.message);
                     for (let index = 0; index < data_array.length; index++) {
                         const element = data_array[index];
-                        console.log(element.name)
+                        console.log("產品名稱:" + element.name);
+                        console.log("產品分類:" + element.sort.products_sort_details);
+                        console.log("產品價格:" + element.price);
+                        console.log("------我是分隔線------")
                     }
+
                 });
             });
         });

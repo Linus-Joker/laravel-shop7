@@ -19,7 +19,7 @@ class CreateProductsSortTable extends Migration
             $table->collation = 'utf8_unicode_ci';
             $table->id('id')->autoIncrement();
             $table->string('name', 255)->nullable();
-            $table->integer('products_sort_details_id')->index()->nullable();
+            $table->string('products_sort_details', 255)->nullable();
             $table->timestamps();
         });
     }

@@ -28,9 +28,10 @@ class ProductRepository
     public function create($data)
     {
         $rules = [
-            'name'          => 'required|max:255',
-            'description'   => 'required|max:255',
-            'price'         => 'required|integer',
+            'name'              => 'required|max:255',
+            'description'       => 'required|max:255',
+            'price'             => 'required|integer',
+            'products_sort_id'  => 'required|integer',
         ];
 
         $this->validate($data, $rules);
@@ -39,6 +40,7 @@ class ProductRepository
             $this->book->name = $data['name'];
             $this->book->description = $data['description'];
             $this->book->price = $data['price'];
+            $this->book->products_sort_id = $data['products_sort_id'];
 
             if ($this->book->save() !== true) {
                 throw new \App\Exceptions\DatabaseQueryException('新增 book 資料失敗');
@@ -53,9 +55,10 @@ class ProductRepository
     public function update($data, $id)
     {
         $rules = [
-            'name'          => 'nullable|max:255',
-            'description'   => 'nullable|max:255',
-            'price'         => 'nullable|integer',
+            'name'              => 'nullable|max:255',
+            'description'       => 'nullable|max:255',
+            'price'             => 'nullable|integer',
+            'products_sort_id'  => 'nullable|integer',
         ];
         $this->validate($data, $rules);
 

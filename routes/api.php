@@ -44,5 +44,8 @@ Route::namespace('Api\admin')->group(function () {
 
         //產品系統
         Route::apiResource('products', 'BooksController');
+
+        //測試新加入資訊
+        Route::get('p', 'BooksController@test');
     });
 });

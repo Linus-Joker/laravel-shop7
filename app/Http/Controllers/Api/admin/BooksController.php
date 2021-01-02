@@ -60,4 +60,11 @@ class BooksController extends Controller
             'data' => $data
         ]);
     }
+
+    public function test()
+    {
+        // $post = Books::find(2)->sort;
+        $post = Books::all();
+        return $post;
+    }
 }
