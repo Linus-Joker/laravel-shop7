@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 /**
     namespace: controller 命名空間,
@@ -23,7 +23,7 @@ Route::get('/', function () {
  **/
 
 //前台顯示
-// Route::get('/', 'BooksController@index');
+Route::get('/', 'BooksController@index');
 Route::get('/cart', 'BooksController@cart');
 Route::get('/increase/{id}', 'BooksController@increaseByOne');
 Route::get('/decrease/{id}', 'BooksController@decreaseByOne');
