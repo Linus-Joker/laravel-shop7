@@ -37631,11 +37631,7 @@ var render = function() {
       _vm._l(_vm.apidata, function(data) {
         return _c(
           "div",
-          {
-            key: _vm.apidata,
-            staticClass: "card",
-            staticStyle: { width: "18rem" }
-          },
+          { staticClass: "card", staticStyle: { width: "18rem" } },
           [
             _c("img", {
               staticClass: "card-img-top",
