@@ -36,7 +36,8 @@ class BooksController extends Controller
     {
         //要有會員才可以進購物車
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        dd($oldCart);
+        // dd($oldCart);
+        return view('cart');
     }
 
     public function increaseByOne($id)
@@ -63,5 +64,10 @@ class BooksController extends Controller
     public function clearCart()
     {
         return redirect('/');
+    }
+
+    public function order()
+    {
+        return view('order');
     }
 }

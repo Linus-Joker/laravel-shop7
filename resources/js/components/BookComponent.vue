@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="card" style="width: 18rem;" v-for="data in apidata">
+        <div class="row justify-content-around">
+            <div class="card text-center mt-3" style="width: 18rem;" v-for="data in apidata">
                 <img class="card-img-top" src="" alt="Card image cap">
 
                 <div class="card-body">
@@ -11,7 +11,7 @@
                     <span>{{ data.price }}</span>
                     <span>元</span>
                     </p>
-                    <a href="#" class="btn btn-primary">Add Cart</a>
+                    <a :href="'/addcart/' + data.id" class="btn btn-primary btn-lg btn-block">Add Cart</a>
                 </div>
             </div>
         </div>
