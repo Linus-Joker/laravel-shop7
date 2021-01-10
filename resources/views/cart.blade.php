@@ -11,8 +11,13 @@
 <body>
     <div id="app">
         {{-- nav start --}}
-        <div id="app">
-            <nav class="container"></nav>
+        <nav class="container">
+            <div class="row justify-content-around">
+                <p>
+                    <a href={{url('/')}}>Home</a>
+                </p>
+            </div>
+        </nav>
         {{-- nav end --}}
 
         <cart-component/>

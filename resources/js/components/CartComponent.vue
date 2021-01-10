@@ -27,7 +27,7 @@
 
         <p>總數量:{{ totalQty }}</p>
         <p>總金額:{{ totalPrice }}元</p>
-        <a href="#" class="btn btn-primary">去結帳</a>
+        <a href="order" class="btn btn-primary">去結帳</a>
     </section>
 
 </template>

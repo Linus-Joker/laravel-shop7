@@ -11,8 +11,11 @@
 <body>
     <div id="app">
         {{-- nav start --}}
-        <div id="app">
-            <nav class="container"></nav>
+        <nav class="container">
+            <p>
+                <a href={{url('/')}}>Home</a>
+            </p>
+        </nav>
         {{-- nav end --}}
 
         <order-component/>

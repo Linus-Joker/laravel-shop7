@@ -20,8 +20,8 @@
                     <p>
                         <a href="{{url('/cart')}}">Cart</a>
                     </p>
-            </div>
-        </nav>
+                </div>
+            </nav>
         {{-- nav end --}}
 
         {{-- top-header start --}}

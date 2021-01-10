@@ -2186,22 +2186,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   data: function data() {
     return {
-      apidata: []
+      apidata: 1,
+      totalPrice: 1
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/products").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("getorder").then(function (res) {
       var self = _this;
       console.log(res);
-      console.log(res.data.data);
-      self.apidata = res.data.data;
+      console.log(res.data);
+      console.log(res.data.product);
+      self.apidata = res.data.product;
+      self.totalPrice = res.data.totalPrice;
     })["catch"](function (err) {
       console.error(err);
     });
@@ -37904,7 +37908,7 @@ var render = function() {
     _vm._v(" "),
     _c("p", [_vm._v("總金額:" + _vm._s(_vm.totalPrice) + "元")]),
     _vm._v(" "),
-    _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
+    _c("a", { staticClass: "btn btn-primary", attrs: { href: "order" } }, [
       _vm._v("去結帳")
     ])
   ])
@@ -38007,87 +38011,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "container mx-auto" }, [
+    _c("h1", {}, [_vm._v("Order Page")]),
+    _vm._v(" "),
+    _c("h3", {}, [_vm._v("Order Info")]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        { staticClass: "text-center" },
+        _vm._l(_vm.apidata, function(data) {
+          return _c("tr", [
+            _c("th", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(data.item["name"]))
+            ]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(data.item["price"]) + "元")]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(data.qty))]),
+            _vm._v(" "),
+            _c("td", { staticClass: "border px-4 py-2" }, [
+              _vm._v(_vm._s(data.price) + " 元")
+            ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("p", [_vm._v("總金額:" + _vm._s(_vm.totalPrice) + "元")]),
+    _vm._v(" "),
+    _c("h3", {}, [_vm._v("User Info")]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "container mx-auto" }, [
-      _c("h1", {}, [_vm._v("Order Page")]),
+    return _c("thead", { staticClass: "text-center" }, [
+      _c("th", { staticClass: "px-4 py-2" }, [_vm._v("產品名稱")]),
       _vm._v(" "),
-      _c("h3", {}, [_vm._v("Order Info")]),
+      _c("th", { staticClass: "px-4 py-2" }, [_vm._v("價格")]),
       _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("th", { staticClass: "px-4 py-2" }, [_vm._v("產品名稱")]),
-          _vm._v(" "),
-          _c("th", { staticClass: "px-4 py-2" }, [_vm._v("價格")]),
-          _vm._v(" "),
-          _c("th", { staticClass: "px-4 py-2" }, [_vm._v("數量")]),
-          _vm._v(" "),
-          _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Total")])
+      _c("th", { staticClass: "px-4 py-2" }, [_vm._v("數量")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "px-4 py-2" }, [_vm._v("Total")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { method: "POST", action: "/orders" } }, [
+      _c("div", { staticClass: "mb-3" }, [
+        _c("label", { staticClass: "mb-2", attrs: { for: "name" } }, [
+          _vm._v("\n                Name:\n            ")
         ]),
         _vm._v(" "),
-        _c("tbody", { staticClass: "text-center" }, [
-          _c("tr", [
-            _c("td", { staticClass: "border px-4 py-2" }, [_vm._v("book1")]),
-            _vm._v(" "),
-            _c("td", { staticClass: "border px-4 py-2" }, [_vm._v("100 NT$")]),
-            _vm._v(" "),
-            _c("td", { staticClass: "border px-4 py-2" }, [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", { staticClass: "border px-4 py-2" }, [_vm._v("100 NT$")])
-          ])
-        ])
+        _c("input", {
+          staticClass: "border rounded py-2 px-3",
+          attrs: { name: "name", id: "name", type: "text", placeholder: "name" }
+        })
       ]),
       _vm._v(" "),
-      _c("h3", {}, [_vm._v("User Info")]),
+      _c("div", { staticClass: "mb-3" }, [
+        _c("label", { staticClass: "mb-2", attrs: { for: "email" } }, [
+          _vm._v("\n                Email:\n            ")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "border rounded py-2 px-3",
+          attrs: {
+            name: "email",
+            id: "email",
+            type: "email",
+            placeholder: "email"
+          }
+        })
+      ]),
       _vm._v(" "),
-      _c("form", { attrs: { method: "POST", action: "/orders" } }, [
-        _c("div", { staticClass: "mb-3" }, [
-          _c("label", { staticClass: "mb-2", attrs: { for: "name" } }, [
-            _vm._v("\n                Name:\n            ")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "border rounded py-2 px-3",
-            attrs: {
-              name: "name",
-              id: "name",
-              type: "text",
-              placeholder: "name"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mb-3" }, [
-          _c("label", { staticClass: "mb-2", attrs: { for: "email" } }, [
-            _vm._v("\n                Email:\n            ")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "border rounded py-2 px-3",
-            attrs: {
-              name: "email",
-              id: "email",
-              type: "email",
-              placeholder: "email"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "d-flex justify-content-between" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary text-white py-2 px-4 rounded",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("\n                Submit Order\n            ")]
-          )
-        ])
+      _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary text-white py-2 px-4 rounded",
+            attrs: { type: "submit" }
+          },
+          [_vm._v("\n                Submit Order\n            ")]
+        )
       ])
     ])
   }

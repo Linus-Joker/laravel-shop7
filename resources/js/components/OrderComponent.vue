@@ -3,21 +3,22 @@
         <h1 class="">Order Page</h1>
         <h3 class="">Order Info</h3>
         <table class="table">
-            <thead>
+            <thead class="text-center">
                 <th class="px-4 py-2">產品名稱</th>
                 <th class="px-4 py-2">價格</th>
                 <th class="px-4 py-2">數量</th>
                 <th class="px-4 py-2">Total</th>
             </thead>
             <tbody class="text-center">
-                <tr>
-                    <td class="border px-4 py-2">book1</td>
-                    <td class="border px-4 py-2">100 NT$</td>
-                    <td class="border px-4 py-2">1</td>
-                    <td class="border px-4 py-2">100 NT$</td>
+                <tr v-for="data in apidata">
+                    <th scope="row">{{ data.item['name'] }}</th>
+                    <td>{{ data.item['price'] }}元</td>
+                    <td>{{ data.qty }}</td>
+                    <td class="border px-4 py-2">{{ data.price }} 元</td>
                 </tr>
             </tbody>
         </table>
+        <p>總金額:{{ totalPrice }}元</p>
 
         <h3 class="">User Info</h3>
 
@@ -57,15 +58,18 @@ export default{
     name:"book",
     data(){
         return {
-            apidata:[]
+            apidata:1,
+            totalPrice:1
         }
     },
     mounted(){
-        axios.get("api/v1/products").then((res) => {
+        axios.get("getorder").then((res) => {
             let self = this
             console.log(res);
-            console.log(res.data.data);
-            self.apidata = res.data.data
+            console.log(res.data);
+            console.log(res.data.product);
+            self.apidata = res.data.product
+            self.totalPrice = res.data.totalPrice
         }).catch((err) => {
             console.error(err);
         });
