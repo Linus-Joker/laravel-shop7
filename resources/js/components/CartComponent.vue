@@ -11,10 +11,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">book1</th>
-                    <td>100元</td>
-                    <td>1</td>
+                <tr v-for="data in apidata">
+                    <th scope="row">{{ data.item['name'] }}</th>
+                    <td>{{ data.item['price'] }}元</td>
+                    <td>{{ data.qty }}</td>
                     <td>
                         <a href="#">+</a>
                         <a href="#">-</a>
@@ -22,21 +22,12 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <th scope="row">book3</th>
-                    <td>100元</td>
-                    <td>1</td>
-                    <td>
-                        <a href="#">+</a>
-                        <a href="#">-</a>
-                        <a href="#">刪除</a>
-                    </td>
-                </tr>
             </tbody>
         </table>
 
-        <p>總數量:</p>
-        <p>總金額:</p>
+        <p>總數量:{{ totalQty }}</p>
+        <p>總金額:{{ totalPrice }}元</p>
+        <a href="#" class="btn btn-primary">去結帳</a>
     </section>
 
 </template>
@@ -47,15 +38,21 @@ export default{
     name:"book",
     data(){
         return {
-            apidata:[]
+            apidata:1,
+            totalQty:1,
+            totalPrice:1
         }
     },
     mounted(){
-        axios.get("api/v1/products").then((res) => {
+        axios.get("getcart").then((res) => {
             let self = this
             console.log(res);
-            console.log(res.data.data);
-            self.apidata = res.data.data
+            console.log(res.data);
+            console.log(res.data.product);
+            self.apidata = res.data.product
+            self.totalQty = res.data.totalQty
+            self.totalPrice = res.data.totalPrice
+
         }).catch((err) => {
             console.error(err);
         });

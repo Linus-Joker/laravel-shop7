@@ -24,11 +24,12 @@ use Illuminate\Support\Facades\Route;
 
 //前台顯示
 Route::get('/', 'BooksController@index');
+Route::get('/addcart/{id}', 'BooksController@addToCart');
 Route::get('/cart', 'BooksController@cart');
+Route::get('/getcart', 'BooksController@getCart');
 Route::get('/increase/{id}', 'BooksController@increaseByOne');
 Route::get('/decrease/{id}', 'BooksController@decreaseByOne');
 Route::get('/remove-item/{id}', 'BooksController@removeItem');
-Route::get('/addcart/{id}', 'BooksController@addToCart');
 Route::get('/clear-cart', 'BooksController@clearCart');
 Route::get('/order', 'BooksController@order');
 

@@ -38,7 +38,8 @@ class Cart extends Model
         }
 
         //storedItem qty increase
-        $storedItem['qty'] = $storedItem['qty'] + $qty;
+        // $storedItem['qty'] = $storedItem['qty'] + $qty;
+        $storedItem['qty']++;
         // dd($storedItem['qty']);
 
         //storedItem price = product->price * storedItem['qty']
@@ -47,9 +48,11 @@ class Cart extends Model
         // id is product number
         $this->items[$id] = $storedItem;
         // dd($this->items[$id]);
-        $this->totalQty = $storedItem['qty'];
+        // $this->totalQty = $storedItem['qty'];
+        $this->totalQty++;
         // dd($this->totalQty);
-        $this->totalPrice = $storedItem['price'];
+        // $this->totalPrice = $storedItem['price'];
+        $this->totalPrice += $item->price;
         // dd($this->totalPrice);
     }
 

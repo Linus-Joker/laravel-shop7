@@ -1977,6 +1977,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -1996,6 +1997,19 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (err) {
       console.error(err);
     });
+  },
+  methods: {
+    addcart: function addcart(id) {
+      var _this2 = this;
+
+      // alert(id)
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("addcart/" + id).then(function (res) {
+        var self = _this2;
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   }
 });
 
@@ -2046,31 +2060,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   data: function data() {
     return {
-      apidata: []
+      apidata: 1,
+      totalQty: 1,
+      totalPrice: 1
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/products").then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("getcart").then(function (res) {
       var self = _this;
       console.log(res);
-      console.log(res.data.data);
-      self.apidata = res.data.data;
+      console.log(res.data);
+      console.log(res.data.product);
+      self.apidata = res.data.product;
+      self.totalQty = res.data.totalQty;
+      self.totalPrice = res.data.totalPrice;
     })["catch"](function (err) {
       console.error(err);
     });
@@ -37824,12 +37834,16 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c(
-                "a",
+                "button",
                 {
                   staticClass: "btn btn-primary btn-lg btn-block",
-                  attrs: { href: "/addcart/" + data.id }
+                  on: {
+                    click: function($event) {
+                      return _vm.addcart(data.id)
+                    }
+                  }
                 },
-                [_vm._v("Add Cart")]
+                [_vm._v("加入購物車")]
               )
             ])
           ]
@@ -37861,67 +37875,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("section", { staticClass: "container mx-auto" }, [
+    _c("h1", [_vm._v("Shopping Cart")]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.apidata, function(data) {
+          return _c("tr", [
+            _c("th", { attrs: { scope: "row" } }, [
+              _vm._v(_vm._s(data.item["name"]))
+            ]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(data.item["price"]) + "元")]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(data.qty))]),
+            _vm._v(" "),
+            _vm._m(1, true)
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("p", [_vm._v("總數量:" + _vm._s(_vm.totalQty))]),
+    _vm._v(" "),
+    _c("p", [_vm._v("總金額:" + _vm._s(_vm.totalPrice) + "元")]),
+    _vm._v(" "),
+    _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
+      _vm._v("去結帳")
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "container mx-auto" }, [
-      _c("h1", [_vm._v("Shopping Cart")]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("產品名稱")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("價格")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("數量")]),
-            _vm._v(" "),
-            _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
-          ])
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("產品名稱")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v("book1")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("100元")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("+")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("-")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("刪除")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v("book3")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("100元")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("+")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("-")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("刪除")])
-            ])
-          ])
-        ])
-      ]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("價格")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("數量")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("+")]),
       _vm._v(" "),
-      _c("p", [_vm._v("總數量:")]),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("-")]),
       _vm._v(" "),
-      _c("p", [_vm._v("總金額:")])
+      _c("a", { attrs: { href: "#" } }, [_vm._v("刪除")])
     ])
   }
 ]

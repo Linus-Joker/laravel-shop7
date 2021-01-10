@@ -11,7 +11,8 @@
                     <span>{{ data.price }}</span>
                     <span>元</span>
                     </p>
-                    <a :href="'/addcart/' + data.id" class="btn btn-primary btn-lg btn-block">Add Cart</a>
+                    <!-- <a :href="'/addcart/' + data.id" class="btn btn-primary btn-lg btn-block">Add Cart</a> -->
+                    <button class="btn btn-primary btn-lg btn-block" @click="addcart(data.id)">加入購物車</button>
                 </div>
             </div>
         </div>
@@ -36,7 +37,18 @@ export default{
         }).catch((err) => {
             console.error(err);
         });
-    }
+    },
+    methods: {
+        addcart:function(id){
+            // alert(id)
+            axios.get("addcart/" + id).then((res) => {
+                let self = this
+                console.log(res);
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
+    },
 }
 
 </script>
