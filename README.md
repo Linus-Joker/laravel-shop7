@@ -1,6 +1,6 @@
-# Laravel Shop Project Practice
+# Laravel ShopCart Project Practice
 
-try SOLID、UnitTest、RESTApi
+try SOLID、UnitTest、RESTApi and Front Frame Vue.js
 
 ## Registe
 
@@ -34,3 +34,7 @@ try SOLID、UnitTest、RESTApi
 ## Other
 
 -   前端套件使用 Vue.js + Bootstrap4
+
+## Remark
+
+這個專案練習參考了 2 位前輩的範例，在此特別感謝 2 位前輩。
