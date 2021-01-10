@@ -18,7 +18,8 @@ try SOLID、UnitTest、RESTApi
 
 -   加入商品至購物車
 -   查看購物車
--   在購物車增減數量
+-   在購物車增減數量 (Buliding)
+-   到訂單頁面確認購買訂單
 
 ## Api
 
@@ -26,10 +27,10 @@ try SOLID、UnitTest、RESTApi
 
 ## Admin
 
--   新增商品
+-   商品 CRUD for api
 
 ## Unit Test
 
-## Other Question
+## Other
 
--   前端套件使用 Bootstrap
+-   前端套件使用 Vue.js + Bootstrap4
