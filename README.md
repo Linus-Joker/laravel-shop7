@@ -1,6 +1,6 @@
 # Laravel ShopCart Project Practice
 
-try SOLID、UnitTest、RESTApi and Front Frame Vue.js
+try SOLID、UnitTest、RESTApi
 
 ## Registe
 
