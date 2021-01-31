@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -62,6 +63,9 @@ class MemberController extends Controller
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
+        // dd($memberData['id']);
+        Session::put('userNumber', $memberData['id']);
+        $userNumber = Session::has('userNumber') ? Session::get('userNumber') : null;
 
         return $this->response(200, '會員登入成功', $memberData);
     }

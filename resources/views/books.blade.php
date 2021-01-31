@@ -20,6 +20,14 @@
                     <p>
                         <a href="{{url('/cart')}}">Cart</a>
                     </p>
+
+                    @if ($userNumber == null)
+                    <a href="{{url('/login')}}">登入</a>
+                        註冊
+                        {{ $userNumber }}
+                    @else
+                        登出
+                    @endif
                 </div>
             </nav>
         {{-- nav end --}}

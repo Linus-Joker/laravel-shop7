@@ -15,12 +15,16 @@ class BooksController extends Controller
      * 懶得再分了，所以先做在這裡
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        // $products = Books::all();
-        // dd($products);
+        // Session::put('userNumber', 22);
+        $userNumber = Session::has('userNumber') ? Session::get('userNumber') : null;
+        // $userNumber = Session::has('userNumber');
+        // dd($userNumber);
 
-        return view('books');
+        return view('books', [
+            'userNumber'    => $userNumber
+        ]);
     }
 
     public function addToCart(Request $request, $id)

@@ -34,14 +34,20 @@ Route::namespace('Api')->group(function () {
 
         //產品系統
         Route::apiResource('products', 'BooksController');
+        Route::post('test/', function (Request $request) {
+            $value = $request->all();
+            return response()->json([
+                'data'  => $value
+            ]);
+        });
     });
 });
 
 //後台使用
 Route::namespace('Api\admin')->group(function () {
     Route::prefix('v1/admin')->group(function () {
-        //會員系統
-
+        //管理員系統
+        Route::post('/login', 'AdminController@login');
         //產品系統
         Route::apiResource('products', 'BooksController');
 

@@ -12,9 +12,14 @@
     <div id="app">
         {{-- nav start --}}
         <nav class="container">
-            <p>
-                <a href={{url('/')}}>Home</a>
-            </p>
+            <div class="row justify-content-around">
+                <p>
+                    <a href={{url('/')}}>Home</a>
+                </p>
+                <p>
+                    登出
+                </p>
+            </div>
         </nav>
         {{-- nav end --}}
 

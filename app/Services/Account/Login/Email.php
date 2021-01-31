@@ -18,9 +18,10 @@ class Email extends BaseLogin
 
         //假設都沒問題那我返回sex,type,status，因為要給前端傳資料??
         $data = [
-            'sex'  => $memberData['sex'],
-            'type'  => $memberData['type'],
-            'status'  => $memberData['status'],
+            'id'        => $memberData['id'],
+            'sex'       => $memberData['sex'],
+            'type'      => $memberData['type'],
+            'status'    => $memberData['status'],
         ];
         //有問題再重構吧!!
         return $data;

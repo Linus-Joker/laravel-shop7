@@ -33,10 +33,13 @@ Route::get('/remove-item/{id}', 'BooksController@removeItem');
 Route::get('/clear-cart', 'BooksController@clearCart');
 Route::get('/order', 'BooksController@order');
 Route::get('/getorder', 'BooksController@getOrder');
-
-Route::get('books', function () {
-    return view('books');
+Route::get('login', function () {
+    return view('login');
 });
+Route::get('registed', function () {
+    return view('registed');
+});
+
 
 
 //後台顯示
