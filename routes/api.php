@@ -48,6 +48,7 @@ Route::namespace('Api\admin')->group(function () {
     Route::prefix('v1/admin')->group(function () {
         //管理員系統
         Route::post('/login', 'AdminController@login');
+        Route::post('/change-password', 'AdminController@changePassword');
         //產品系統
         Route::apiResource('products', 'BooksController');
 
