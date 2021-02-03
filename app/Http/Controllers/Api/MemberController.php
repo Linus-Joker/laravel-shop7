@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use DB;
 
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -24,6 +25,8 @@ class MemberController extends Controller
         $account = new $class();
 
         try {
+            DB::beginTransaction();
+
             //在這裡要先插入註冊會員資料，回傳插入後的id
             $memberId = $account->register($request->input());
 
@@ -33,10 +36,12 @@ class MemberController extends Controller
             // 寫入會員啟用資料表
             $account->activate($memberId, $activateCode);
 
+            DB::commit();
             /*
                 之後傳驗證碼到視圖或者其他媒體，做信箱或手機驗證成功才返回註冊成功
             */
         } catch (\Throwable $e) {
+            DB::rollBack();
             return $this->response(500, $e->getMessage());
         }
 
