@@ -5,14 +5,14 @@ try SOLID、UnitTest、RESTApi
 ## Registe
 
 -   email Registered
--   phone Registered (Buliding)
--   general Registered (Buliding)
+-   General Registered 
+-   3rd Registered (Buliding)
 
 ## Login
 
 -   email Login
--   phone Login (Buliding)
 -   general Login (Buliding)
+-   3rd Login (Buliding)
 
 ## Shop Cart
 
