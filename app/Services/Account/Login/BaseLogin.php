@@ -18,8 +18,8 @@ abstract class BaseLogin
      * 檢查hash密碼
      *
      * @param str $transferPassword, $dbPassword
-     *      @var string $transferPassword 使用者傳過來的會員帳號
-     *      @var string $dbPassword 資料庫hash密碼
+     * @var string $transferPassword 使用者傳過來的會員帳號
+     * @var string $dbPassword 資料庫hash密碼
      * @return array
      */
 

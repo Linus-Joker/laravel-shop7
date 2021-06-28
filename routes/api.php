@@ -20,8 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 /**
-    namespace: controller 命名空間,
-    prefix: 路由前缀
+ *namespace: controller 命名空間,
+ *prefix: 路由前缀
  **/
 //前台使用
 Route::namespace('Api')->group(function () {
