@@ -6,23 +6,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Repositories\MemberRepository;
 use Illuminate\Support\Str;
 
-
-class Email extends BaseRegistration
+class General extends BaseRegistration
 {
-    protected $type = 1;
-
-    /**
-     * 驗證傳送過來的資料，並送到Member()類，
-     * 插入資料並得到返回會員ID
-     * 
-     * @param array $data[
-     *      @var int $sex 性別，1:男, 2:女
-     *      @var string $type 註冊類型，1:email, 2:手機, 3:一般
-     *      @var string $password  密碼
-     *      @var string $reg_email 註冊的 email
-     * ]
-     * @return int @memberId
-     */
+    protected $type = 3;
 
     public function register($data)
     {
@@ -32,7 +18,7 @@ class Email extends BaseRegistration
             'sex' => $data['sex'] ?? null,
             'type' => $this->type,
             'password' => $data['password'],
-            'reg_email' => $data['account']
+            'user_name' => $data['account']
         ];
 
         //應該要到Repository插入註冊資料
@@ -46,7 +32,7 @@ class Email extends BaseRegistration
         $input['type'] = $this->type;
         // $rules['account'] = 'required|email|unique:member,reg_email';
         $rules = [
-            'account'   => 'required|email|unique:member,reg_email',
+            'account'   => 'required|alpha_num|unique:member,user_name',
             'type'      => 'required|integer',
             'sex'       => 'required|in:1,2',
             'password'  => 'required|alpha_num|min:8|max:40',

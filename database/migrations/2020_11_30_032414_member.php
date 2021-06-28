@@ -20,6 +20,7 @@ class Member extends Migration
             $table->id('id')->autoIncrement();
             $table->string('reg_email', 255)->nullable();
             $table->string('reg_phone', 255)->nullable();
+            $table->string('user_name', 255)->nullable();
             $table->string('password', 512);
             $table->integer('sex')->index()->nullable();
             $table->integer('type')->index()->nullable();

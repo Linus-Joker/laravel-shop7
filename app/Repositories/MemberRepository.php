@@ -22,16 +22,19 @@ class MemberRepository
      *      @var string $reg_phone 註冊的手機號碼
      *      @var string $password  密碼
      *      @var int    $sex       性別，1:男, 2:女
-     *      @var string $type      註冊類型，1:email, 2:手機
+     *      @var string $type      註冊類型，1:email, 2:手機, 3:一般
      * ]
      * @return void
      */
+
+    //手機註冊將取消掉，但你這是練習所以還是要做
 
     public function create(array $data)
     {
         $rules = [
             'reg_email' => 'nullable|email',
             'reg_phone' => 'nullable|regex:/^09\d{8}$/',
+            'user_name' => 'nullable|alpha_num',
             'password' => 'required|alpha_num|min:8|max:40',
             'sex' => 'nullable|integer',
             'type' => 'required|integer'
@@ -41,6 +44,7 @@ class MemberRepository
         try {
             $this->member->reg_email = $data['reg_email'] ?? null;
             $this->member->reg_phone = $data['reg_phone'] ?? null;
+            $this->member->user_name = $data['user_name'] ?? null;
             $this->member->password = $data['password'];
             $this->member->sex = $data['sex'] ?? null;
             $this->member->type = $data['type'];
