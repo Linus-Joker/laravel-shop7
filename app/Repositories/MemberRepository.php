@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
 use App\Models\Member;
 
 class MemberRepository
@@ -45,7 +47,9 @@ class MemberRepository
             $this->member->reg_email = $data['reg_email'] ?? null;
             $this->member->reg_phone = $data['reg_phone'] ?? null;
             $this->member->user_name = $data['user_name'] ?? null;
-            $this->member->password = $data['password'];
+            $this->member->password = Hash::make($data['password'], [
+                'rounds' => 12
+            ]);
             $this->member->sex = $data['sex'] ?? null;
             $this->member->type = $data['type'];
             // $this->member->save();
@@ -71,7 +75,7 @@ class MemberRepository
     }
 
     /**
-     * 尋找會員資料
+     * Email尋找會員資料
      *
      * @param str $checkData
      *      @var string $data['account'] 使用者傳過來的會員帳號
@@ -81,6 +85,27 @@ class MemberRepository
     public function checkEmailAccountDB($checkData)
     {
         $memberData = $this->member::where('reg_email', $checkData)
+            ->first();
+
+        if (empty($memberData)) {
+            // return '你輸入的帳號或密碼錯誤，請重新輸入';
+            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
+        }
+
+        return $memberData;
+    }
+
+    /**
+     * 一般user_name尋找會員資料
+     *
+     * @param str $checkData
+     *      @var string $data['account'] 使用者傳過來的會員帳號
+     * @return array
+     */
+
+    public function checkUserNameAccountDB($checkData)
+    {
+        $memberData = $this->member::where('user_name', $checkData)
             ->first();
 
         if (empty($memberData)) {

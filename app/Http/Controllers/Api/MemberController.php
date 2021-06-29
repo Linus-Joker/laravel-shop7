@@ -18,6 +18,7 @@ class MemberController extends Controller
     {
         // 依照傳進來的路徑來呼叫要使用的物件
         $class = 'App\Services\Account\Registration\\' . ucfirst($type);
+
         if (class_exists($class) === false) {
             return $this->response(422, 'class  ' . $class . '  Not exist.');
         }
@@ -52,7 +53,7 @@ class MemberController extends Controller
     {
         // 依照傳進來的類型來呼叫要使用的物件
         $value = request()->input('account');
-        $fieldType = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Phone';
+        $fieldType = filter_var($value, FILTER_VALIDATE_EMAIL) ? 'Email' : 'General';
 
         $class = 'App\Services\Account\Login\\' . $fieldType;
 
