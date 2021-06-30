@@ -2,7 +2,7 @@
 
 try SOLID、UnitTest、RESTApi
 
-## Registe
+## Register
 
 -   email Registered
 -   General Registered 
@@ -11,7 +11,7 @@ try SOLID、UnitTest、RESTApi
 ## Login
 
 -   email Login
--   general Login (Buliding)
+-   general Login
 -   3rd Login (Buliding)
 
 ## Shop Cart

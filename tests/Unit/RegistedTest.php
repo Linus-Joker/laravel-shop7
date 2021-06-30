@@ -11,7 +11,7 @@ use App\Rules\Uppercase;
 class RegistedTest extends TestCase
 {
     protected $email = "Email";
-    protected $phone = "Phone";
+    protected $general = "General";
 
     /**
      * class registed unit test .
@@ -23,11 +23,11 @@ class RegistedTest extends TestCase
         $emailClass = 'App\Services\Account\Registration\\' . $this->email;
         $ucfirstEmailClass = 'App\Services\Account\Registration\\' . ucfirst('email');
 
-        $phoneClass = 'App\Services\Account\Registration\\' . $this->phone;
-        $ucfirstPhoneClass = 'App\Services\Account\Registration\\' . ucfirst('phone');
+        $generalClass = 'App\Services\Account\Registration\\' . $this->general;
+        $ucfirstGeneralClass = 'App\Services\Account\Registration\\' . ucfirst('general');
 
         $this->assertEquals($emailClass, $ucfirstEmailClass);
-        $this->assertEquals($phoneClass, $ucfirstPhoneClass);
+        $this->assertEquals($generalClass, $ucfirstGeneralClass);
     }
 
     public function testEmailAccountRegisteValidate()
@@ -41,7 +41,7 @@ class RegistedTest extends TestCase
         $rules = [
             'type'      => 'required|integer',
             'sex'       => 'required|in:1,2',
-            'password'  => 'required|string|min:8|max:40',
+            'password'  => 'required|alpha_num|min:8|max:40',
             'account'   => 'required|email'
         ];
 
