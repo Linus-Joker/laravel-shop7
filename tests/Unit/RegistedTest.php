@@ -8,6 +8,9 @@ use Tests\TestCase;
 
 use App\Rules\Uppercase;
 
+use App\Services\Account\Registration\Email;
+use App\Exceptions\InvalidParameterException;
+
 class RegistedTest extends TestCase
 {
     protected $email = "Email";
@@ -32,33 +35,27 @@ class RegistedTest extends TestCase
 
     public function testEmailAccountRegisteValidate()
     {
-        $result = $this->emailAccountRegisteValidate();
-        $this->assertTrue($result);
-    }
-
-    protected function emailAccountRegisteValidate()
-    {
-        $rules = [
-            'type'      => 'required|integer',
-            'sex'       => 'required|in:1,2',
-            'password'  => 'required|alpha_num|min:8|max:40',
-            'account'   => 'required|email'
-        ];
-
         $data = [
+            'account'   => 'test01@example.com',
             'type'      => 1,
             'sex'       => 1,
             'password'  => 'password12',
-            'account'   => 'testaccount01@example.com'
         ];
 
-        $validator = validator::make($data, $rules);
+        $dd = [
+            'account'   => 'abc@mail.com',
+            'type'      => 1,
+            'sex'       => 1,
+            'password'  => 'password12',
+        ];
 
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
+        $em = new Email();
 
-        return true;
+        $dataResult = $em->validate($data);
+        $ddResult = $em->validate($dd);
+
+        $this->assertTrue($dataResult);
+        $this->expectException(InvalidParameterException::class);
     }
 
     public function testMemberRegisteValidate()

@@ -61,25 +61,25 @@ class LoginTest extends TestCase
         return true;
     }
 
-    public function testEmailAccountLoginDataBaseCheck()
-    {
-        $data = [
-            'reg_email' => 'test01@mail.com',
-            'password'  => 'password12'
-        ];
+    // public function testEmailAccountLoginDataBaseCheck()
+    // {
+    //     $data = [
+    //         'reg_email' => 'test01@mail.com',
+    //         'password'  => 'password12'
+    //     ];
 
-        $this->assertDatabaseHas('member', $data);
-    }
+    //     $this->assertDatabaseHas('member', $data);
+    // }
 
-    public function testPhoneAccountLoginDataBaseCheck()
-    {
-        $data = [
-            'reg_phone'  => '0987654321',
-            'password'  => 'password22'
-        ];
+    // public function testPhoneAccountLoginDataBaseCheck()
+    // {
+    //     $data = [
+    //         'reg_phone'  => '0987654321',
+    //         'password'  => 'password22'
+    //     ];
 
-        $this->assertDatabaseHas('member', $data);
-    }
+    //     $this->assertDatabaseHas('member', $data);
+    // }
 
 
     //如果要插入資料先用這個，懶得用工廠了
