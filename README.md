@@ -1,4 +1,4 @@
-# Laravel ShopCart Project Practice
+# Laravel7 ShopCart Project Practice
 
 try SOLID、UnitTest、RESTApi
 
@@ -33,7 +33,7 @@ try SOLID、UnitTest、RESTApi
 
 ## Other
 
--   前端套件使用 Vue.js + Bootstrap4
+-   前端套件使用 Vue.js and Bootstrap4
 
 ## Remark
 
