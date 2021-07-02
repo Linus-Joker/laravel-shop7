@@ -17,7 +17,7 @@ class Email extends BaseRegistration
      * 
      * @param array $data[
      *      @var int $sex 性別，1:男, 2:女
-     *      @var string $type 註冊類型，1:email, 2:手機, 3:一般
+     *      @var string $type 註冊類型，1:email, 2:一般, 3:其他
      *      @var string $password  密碼
      *      @var string $reg_email 註冊的 email
      * ]

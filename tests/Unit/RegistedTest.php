@@ -9,7 +9,10 @@ use Tests\TestCase;
 use App\Rules\Uppercase;
 
 use App\Services\Account\Registration\Email;
+use App\Repositories\MemberRepository;
 use App\Exceptions\InvalidParameterException;
+
+use function PHPSTORM_META\type;
 
 class RegistedTest extends TestCase
 {
@@ -21,7 +24,7 @@ class RegistedTest extends TestCase
      *
      * @return void
      */
-    public function testCheckClassTest()
+    public function testCheckClassKind()
     {
         $emailClass = 'App\Services\Account\Registration\\' . $this->email;
         $ucfirstEmailClass = 'App\Services\Account\Registration\\' . ucfirst('email');
@@ -35,6 +38,7 @@ class RegistedTest extends TestCase
 
     public function testEmailAccountRegisteValidate()
     {
+        //測試信箱註冊資料
         $data = [
             'account'   => 'test01@example.com',
             'type'      => 1,
@@ -42,6 +46,7 @@ class RegistedTest extends TestCase
             'password'  => 'password12',
         ];
 
+        //要測試異常的資料
         $dd = [
             'account'   => 'abc@mail.com',
             'type'      => 1,
@@ -52,42 +57,25 @@ class RegistedTest extends TestCase
         $em = new Email();
 
         $dataResult = $em->validate($data);
-        $ddResult = $em->validate($dd);
+        //這邊本來要測試異常狀況，先等等
+        // $ddResult = $em->validate($dd);
 
         $this->assertTrue($dataResult);
-        $this->expectException(InvalidParameterException::class);
+        // $this->expectException(InvalidParameterException::class);
     }
 
-    public function testMemberRegisteValidate()
+    public function testCreate()
     {
-        $result = $this->memberRegistedValidate();
-        $this->assertTrue($result);
-    }
-
-    protected function memberRegistedValidate()
-    {
-        $rules = [
-            'reg_email' => 'nullable|email',
-            'reg_phone' => 'nullable|regex:/^09\d{8}$/',
-            'password' => 'required|string|min:8|max:40',
-            'sex' => 'nullable|integer',
-            'type' => 'required|integer'
-        ];
-
         $data = [
-            'reg_email' => 'testaccount01@example.com',
-            'reg_phone' => '0988123456',
-            'password'  => 'password12',
-            'sex'       => 1,
-            'type'      => 1
+            'reg_email'     => 'test01@example.com',
+            'type'          => 1,
+            'sex'           => 1,
+            'password'      => 'password12',
         ];
 
-        $validator = validator::make($data, $rules);
+        $mr = new MemberRepository();
+        $memberId = $mr->create($data);
 
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
-
-        return true;
+        $this->assertEquals(2, $memberId);
     }
 }

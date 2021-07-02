@@ -68,6 +68,7 @@ class LoginTest extends TestCase
     //         'password'  => 'password12'
     //     ];
 
+    //     //$this->assertDatabaseHas($table, array $data);
     //     $this->assertDatabaseHas('member', $data);
     // }
 
