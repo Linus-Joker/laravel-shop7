@@ -31,16 +31,8 @@ class MemberRepository
 
     public function create(array $data)
     {
-        $rules = [
-            'reg_email' => 'nullable|email|unique:member,reg_email',
-            'reg_phone' => 'nullable|regex:/^09\d{8}$/',
-            'user_name' => 'nullable|alpha_num',
-            'password' => 'required|alpha_num|min:8|max:40',
-            'sex' => 'nullable|integer',
-            'type' => 'required|integer'
-        ];
+        $this->validate($data);
 
-        $this->validate($data, $rules);
         try {
             $this->member->reg_email = $data['reg_email'] ?? null;
             $this->member->reg_phone = $data['reg_phone'] ?? null;
@@ -61,8 +53,17 @@ class MemberRepository
         return $this->member->id;
     }
 
-    public function validate(array $input, array $rules)
+    public function validate(array $input)
     {
+        $rules = [
+            'reg_email' => 'nullable|email|unique:member,reg_email',
+            'reg_phone' => 'nullable|regex:/^09\d{8}$/',
+            'user_name' => 'nullable|alpha_num',
+            'password' => 'required|alpha_num|min:8|max:40',
+            'sex' => 'nullable|integer|min:1|max:3',
+            'type' => 'required|integer|min:1|max:3'
+        ];
+
         $validator = validator::make($input, $rules);
         if ($validator->fails()) {
             // return $validator->errors();
