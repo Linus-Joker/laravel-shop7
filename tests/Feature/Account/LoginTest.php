@@ -12,7 +12,7 @@ use App\Services\Account\Login\Email;
 
 use App\Repositories\MemberRepository;
 
-use App\Exceptions\InvalidParameterException;
+use App\Exceptions\DatabaseQueryException;
 
 use function PHPSTORM_META\type;
 
@@ -27,6 +27,12 @@ class LoginTest extends TestCase
         'password'  => 'password12',
     ];
 
+    //測試信箱登入異常資料
+    protected $emailExceptionData = [
+        'account'   => 'test02@example.com',
+        'password'  => 'password',
+    ];
+
     //測試一般登入資料
     protected $GeneralData = [
         'user_name'   => 'milk01',
@@ -34,14 +40,14 @@ class LoginTest extends TestCase
     ];
 
     /**
-     * class registed unit test .
+     * class login feature test .
      *
      * @return void
      */
-    public function testCheckClassKind()
-    {
-        //...
-    }
+    // public function testCheckClassKind()
+    // {
+    //     //...
+    // }
 
     public function testEmailAccountLoginValidate()
     {
@@ -57,5 +63,13 @@ class LoginTest extends TestCase
         $data = $em->login($this->emailData);
 
         $this->assertEquals(2, $data['id']);
+    }
+
+    public function testEmailAccountLoginException()
+    {
+        $this->expectException(DatabaseQueryException::class);
+
+        $em = new Email();
+        $em->login($this->emailExceptionData);
     }
 }
