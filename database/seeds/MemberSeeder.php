@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Member;
 
@@ -16,7 +17,9 @@ class MemberSeeder extends Seeder
     {
         $data = [
             'reg_email' => 'abc@mail.com',
-            'password'  => '12345678',
+            'password'  => Hash::make('12345678', [
+                'rounds' => 12
+            ]),
             'sex'       => 1,
             'type'      => 1
         ];

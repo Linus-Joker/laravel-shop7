@@ -27,7 +27,7 @@ class Email extends BaseLogin
         return $data;
     }
 
-    protected function validate($checkData)
+    public function validate($checkData)
     {
         $rules = [
             'account' => 'required|email',
