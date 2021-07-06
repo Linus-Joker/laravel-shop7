@@ -16,8 +16,14 @@ use App\Exceptions\InvalidParameterException;
 
 use function PHPSTORM_META\type;
 
+/**
+ * class registed feature test .
+ *
+ * @return void
+ */
 class RegistedTest extends TestCase
 {
+    //註冊方式
     protected $email = "Email";
     protected $general = "General";
 
@@ -30,6 +36,15 @@ class RegistedTest extends TestCase
         'password'  => 'password12',
     ];
 
+    //測試信箱註冊異常資料
+    protected $emailExceptionData = [
+        'account'   => 'abc@mail.com',
+        'reg_phone' => '0987654321',
+        'type'      => 1,
+        'sex'       => 1,
+        'password'  => '12345678',
+    ];
+
     //測試一般註冊資料
     protected $GeneralData = [
         'user_name'   => 'milk01',
@@ -39,21 +54,12 @@ class RegistedTest extends TestCase
         'password'  => 'password34',
     ];
 
-    /**
-     * class registed unit test .
-     *
-     * @return void
-     */
-    public function testCheckClassKind()
+    //開始前先重新遷移資料表
+    public function setUp(): void
     {
-        $emailClass = 'App\Services\Account\Registration\\' . $this->email;
-        $ucfirstEmailClass = 'App\Services\Account\Registration\\' . ucfirst('email');
+        parent::setUp();
 
-        $generalClass = 'App\Services\Account\Registration\\' . $this->general;
-        $ucfirstGeneralClass = 'App\Services\Account\Registration\\' . ucfirst('general');
-
-        $this->assertEquals($emailClass, $ucfirstEmailClass);
-        $this->assertEquals($generalClass, $ucfirstGeneralClass);
+        $this->initDatabase();
     }
 
     public function testEmailAccountRegisteValidate()
@@ -67,9 +73,13 @@ class RegistedTest extends TestCase
 
     public function testEmailAccountRegister()
     {
+        //生成Email class 
         $em = new Email();
+
+        //向註冊方法傳入測試資料，得到插入後的id
         $memberId = $em->register($this->emailData);
 
+        //斷言回傳的id是否有如預期註冊成功
         $this->assertEquals(2, $memberId);
     }
 
@@ -82,7 +92,8 @@ class RegistedTest extends TestCase
 
         $em = new Email();
 
-        $em->validate($this->emailData);
+        //驗證是否傳入異常資料後會回丟出異常
+        $em->validate($this->emailExceptionData);
     }
 
     public function testEmailAccountRegisterException()
@@ -91,6 +102,6 @@ class RegistedTest extends TestCase
 
         $em = new Email();
 
-        $em->register($this->emailData);
+        $em->register($this->emailExceptionData);
     }
 }

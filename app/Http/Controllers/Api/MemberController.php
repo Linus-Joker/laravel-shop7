@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Session;
 use DB;
 
+use App\Services\Account\Registration\RegistrationFactory;
+
 use PhpParser\Node\Stmt\TryCatch;
 
 use App\Models\Member;
@@ -17,13 +19,7 @@ class MemberController extends Controller
     public function register(Request $request, $type)
     {
         // 依照傳進來的路徑來呼叫要使用的物件
-        $class = 'App\Services\Account\Registration\\' . ucfirst($type);
-
-        if (class_exists($class) === false) {
-            return $this->response(422, 'class  ' . $class . '  Not exist.');
-        }
-
-        $account = new $class();
+        $account = RegistrationFactory::create($type);
 
         try {
             DB::beginTransaction();

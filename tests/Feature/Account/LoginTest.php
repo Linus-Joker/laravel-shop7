@@ -18,13 +18,14 @@ use function PHPSTORM_META\type;
 
 class LoginTest extends TestCase
 {
+    //登入方式
     protected $email = "Email";
     protected $general = "General";
 
     //測試信箱登入資料
     protected $emailData = [
-        'account'   => 'test01@example.com',
-        'password'  => 'password12',
+        'account'   => 'abc@mail.com',
+        'password'  => '12345678',
     ];
 
     //測試信箱登入異常資料
@@ -44,10 +45,6 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    // public function testCheckClassKind()
-    // {
-    //     //...
-    // }
 
     public function testEmailAccountLoginValidate()
     {
@@ -60,9 +57,12 @@ class LoginTest extends TestCase
     public function testEmailAccountLogin()
     {
         $em = new Email();
+
+        //向登入方法傳入測試資料，得到確認後的id
         $data = $em->login($this->emailData);
 
-        $this->assertEquals(2, $data['id']);
+        //斷言回傳的id是否有如預期得到登入者資料id
+        $this->assertEquals(1, $data['id']);
     }
 
     public function testEmailAccountLoginException()
