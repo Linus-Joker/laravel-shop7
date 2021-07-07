@@ -21,7 +21,7 @@
             <!-- <a href="#">刪除</a> -->
             <button v-on:click="increase(data.item[`id`])">+</button>
             <button v-on:click="decrease(data.item[`id`])">-</button>
-            <button v-on="ddd">刪除</button>
+            <button v-on:click="ddd">刪除</button>
           </td>
         </tr>
       </tbody>
@@ -47,11 +47,16 @@ export default {
   methods: {
     increase: function (id) {
       // alert("現在的物品編號:" + id);
-
       axios
         .get("increase/" + id)
         .then((res) => {
-          console.log("新增成功");
+          // console.log(res);
+          if (res.data == 1) {
+            console.log("新增成功");
+            location.reload();
+          } else {
+            console.loh("新增失敗.");
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -61,11 +66,19 @@ export default {
       axios
         .get("decrease/" + id)
         .then((res) => {
-          console.log("減少成功");
+          if (res.data == 1) {
+            console.log("減少成功");
+            location.reload();
+          } else {
+            console.loh("減少失敗.");
+          }
         })
         .catch((err) => {
           console.error(err);
         });
+    },
+    ddd: function () {
+      location.reload();
     },
   },
   mounted() {

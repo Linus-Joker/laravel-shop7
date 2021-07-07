@@ -2075,17 +2075,31 @@ __webpack_require__.r(__webpack_exports__);
     increase: function increase(id) {
       // alert("現在的物品編號:" + id);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("increase/" + id).then(function (res) {
-        console.log("新增成功");
+        // console.log(res);
+        if (res.data == 1) {
+          console.log("新增成功");
+          location.reload();
+        } else {
+          console.loh("新增失敗.");
+        }
       })["catch"](function (err) {
         console.error(err);
       });
     },
     decrease: function decrease(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("decrease/" + id).then(function (res) {
-        console.log("減少成功");
+        if (res.data == 1) {
+          console.log("減少成功");
+          location.reload();
+        } else {
+          console.loh("減少失敗.");
+        }
       })["catch"](function (err) {
         console.error(err);
       });
+    },
+    ddd: function ddd() {
+      location.reload();
     }
   },
   mounted: function mounted() {
@@ -38053,7 +38067,7 @@ var render = function() {
                 [_vm._v("-")]
               ),
               _vm._v(" "),
-              _c("button", _vm._g({}, _vm.ddd), [_vm._v("刪除")])
+              _c("button", { on: { click: _vm.ddd } }, [_vm._v("刪除")])
             ])
           ])
         }),

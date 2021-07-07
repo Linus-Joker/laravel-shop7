@@ -68,6 +68,8 @@ class BooksController extends Controller
         $cart = new Cart(Session::get('cart'));
         $cart->increaseByOne($id);
         session()->put('cart', $cart);
+
+        return response()->json(1);
     }
 
     public function decreaseByOne($id)
@@ -76,6 +78,8 @@ class BooksController extends Controller
         $cart = new Cart(Session::get('cart'));
         $cart->decreaseByOne($id);
         session()->put('cart', $cart);
+
+        return response()->json(1);
     }
 
     public function removeItem()

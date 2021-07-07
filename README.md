@@ -1,6 +1,6 @@
 # Laravel7 ShopCart Project Practice
 
-try SOLID、UnitTest、RESTApi
+try SOLID、Test、RESTApi
 
 ## Register
 
@@ -18,7 +18,7 @@ try SOLID、UnitTest、RESTApi
 
 -   加入商品至購物車
 -   查看購物車
--   在購物車增減數量 (Buliding)
+-   在購物車增減數量 
 -   到訂單頁面確認購買訂單
 
 ## Api
@@ -29,7 +29,7 @@ try SOLID、UnitTest、RESTApi
 
 -   商品 CRUD for api
 
-## Unit Test
+## Test
 
 ## Other
 
