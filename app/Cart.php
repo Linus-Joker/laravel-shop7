@@ -71,11 +71,23 @@ class Cart extends Model
     public function decreaseByOne($id)
     {
         $this->items[$id]['qty']--;
-        $this->items[$id]['price'] -= $this->item[$id]['item']['price'];
+        $this->items[$id]['price'] -= $this->items[$id]['item']['price'];
         $this->totalQty--;
         $this->totalPrice -= $this->items[$id]['item']['price'];
         if ($this->items[$id]['qty'] < 1) {
             unset($this->items[$id]);
         }
+    }
+
+    public function removeItem($id)
+    {
+        // Get item from items based on $id
+        // Update totalqty
+        $this->totalQty -= $this->items[$id]['qty'];
+
+        // update total price
+        $this->totalPrice -= $this->items[$id]['qty'] * $this->items[$id]['price'];
+        // unset item
+        unset($this->items[$id]);
     }
 }
