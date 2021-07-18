@@ -20,8 +20,8 @@ class RegistrationFactoryTest extends TestCase
     public function testRegistrationFactoryCreateTest()
     {
         //要測試的類別
-        $Emailclass = 'App\Services\Account\Registration\\' . "Email";
-        $Generalclass = 'App\Services\Account\Registration\\' . "General";
+        $EmailClass = 'App\Services\Account\Registration\\' . "Email";
+        $GeneralClass = 'App\Services\Account\Registration\\' . "General";
 
         //向註冊工廠傳入參數後返回相關類別
         $rf = new RegistrationFactory();
@@ -29,7 +29,7 @@ class RegistrationFactoryTest extends TestCase
         $generalClassResult =  $rf->create($this->generalType);
 
         //斷言回傳的類別和設定的是否相同
-        $this->assertEquals(new $Emailclass, $emailClassResult);
-        $this->assertEquals(new $Generalclass, $generalClassResult);
+        $this->assertEquals(new $EmailClass, $emailClassResult);
+        $this->assertEquals(new $GeneralClass, $generalClassResult);
     }
 }
