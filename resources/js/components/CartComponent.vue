@@ -55,7 +55,7 @@ export default {
             console.log("新增成功");
             location.reload();
           } else {
-            console.loh("新增失敗.");
+            console.log("新增失敗.");
           }
         })
         .catch((err) => {
@@ -70,7 +70,7 @@ export default {
             console.log("減少成功");
             location.reload();
           } else {
-            console.loh("減少失敗.");
+            console.log("減少失敗.");
           }
         })
         .catch((err) => {
@@ -85,7 +85,7 @@ export default {
             console.log("刪除成功");
             location.reload();
           } else {
-            console.loh("刪除失敗.");
+            console.log("刪除失敗.");
           }
         })
         .catch((err) => {
