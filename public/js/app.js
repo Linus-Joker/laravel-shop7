@@ -2098,8 +2098,17 @@ __webpack_require__.r(__webpack_exports__);
         console.error(err);
       });
     },
-    ddd: function ddd() {
-      location.reload();
+    removeItem: function removeItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("remove-item/" + id).then(function (res) {
+        if (res.data == 1) {
+          console.log("刪除成功");
+          location.reload();
+        } else {
+          console.loh("刪除失敗.");
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
     }
   },
   mounted: function mounted() {
@@ -38067,7 +38076,17 @@ var render = function() {
                 [_vm._v("-")]
               ),
               _vm._v(" "),
-              _c("button", { on: { click: _vm.ddd } }, [_vm._v("刪除")])
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.removeItem(data.item["id"])
+                    }
+                  }
+                },
+                [_vm._v("刪除")]
+              )
             ])
           ])
         }),
