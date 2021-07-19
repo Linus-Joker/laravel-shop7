@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
+// use Session;
+use Illuminate\Support\Facades\Session;
 
 use App\Books;
 use App\Cart;
@@ -68,8 +69,8 @@ class BooksController extends Controller
         $cart = new Cart(Session::get('cart'));
         $cart->increaseByOne($id);
         session()->put('cart', $cart);
-        return $cart->items;
-        // return response()->json(1);
+        // return $cart->items;
+        return response()->json(1);
     }
 
     public function decreaseByOne($id)
@@ -78,8 +79,8 @@ class BooksController extends Controller
         $cart = new Cart(Session::get('cart'));
         $cart->decreaseByOne($id);
         session()->put('cart', $cart);
-        return $cart->items;
-        // return response()->json(1);
+        // return $cart->items;
+        return response()->json(1);
     }
 
     public function removeItem($id)
@@ -87,7 +88,8 @@ class BooksController extends Controller
         $cart = new Cart(Session::get('cart'));
         $cart->removeItem($id);
         session()->put('cart', $cart);
-        return $cart->items;
+        // return $cart->items;
+        return response()->json(1);
     }
 
     public function clearCart()

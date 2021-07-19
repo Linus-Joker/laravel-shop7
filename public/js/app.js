@@ -1978,6 +1978,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2077,8 +2088,9 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("increase/" + id).then(function (res) {
         // console.log(res);
         if (res.data == 1) {
-          console.log("新增成功");
-          location.reload();
+          console.log("新增成功"); // location.reload();
+
+          window.location.reload();
         } else {
           console.log("新增失敗.");
         }
@@ -37966,6 +37978,7 @@ var render = function() {
         return _c(
           "div",
           {
+            key: data.id,
             staticClass: "card text-center mt-3",
             staticStyle: { width: "18rem" }
           },
@@ -37985,7 +37998,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text pro_price" }, [
-                _vm._v("價格:\n                "),
+                _vm._v("\n          價格:\n          "),
                 _c("span", [_vm._v(_vm._s(data.price))]),
                 _vm._v(" "),
                 _c("span", [_vm._v("元")])
@@ -38001,7 +38014,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("加入購物車")]
+                [_vm._v("\n          加入購物車\n        ")]
               )
             ])
           ]

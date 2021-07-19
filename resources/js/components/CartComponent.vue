@@ -53,7 +53,8 @@ export default {
           // console.log(res);
           if (res.data == 1) {
             console.log("新增成功");
-            location.reload();
+            // location.reload();
+            window.location.reload();
           } else {
             console.log("新增失敗.");
           }
