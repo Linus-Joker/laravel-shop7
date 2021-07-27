@@ -12,8 +12,7 @@ use App\Cart;
 class BooksController extends Controller
 {
     /**
-     * getCart、getOrder 都是API，
-     * 懶得再分了，所以先做在這裡
+     * getCart是API，懶的分了，所以先做在這裡。
      */
 
     public function index(Request $request)
@@ -97,27 +96,5 @@ class BooksController extends Controller
         if (session()->has('cart')) {
             session()->forget('cart');
         }
-    }
-
-    public function order()
-    {
-        //要有會員才可以進購物車
-        //經購物車進到訂單頁面
-        return view('order');
-    }
-
-    public function getOrder()
-    {
-        //要有會員才可以進購物車
-        //經購物車進到訂單頁面
-        //進頁面後才發起API向後端要資料
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-
-        return response()->json([
-            'product' => $cart->items,
-            'totalPrice' => $cart->totalPrice,
-            'totalQty' => $cart->totalQty
-        ]);
     }
 }

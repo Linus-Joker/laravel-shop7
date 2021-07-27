@@ -2305,6 +2305,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2318,15 +2322,22 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("getorder").then(function (res) {
-      var self = _this;
-      console.log(res);
-      console.log(res.data);
-      console.log(res.data.product);
-      self.apidata = res.data.product;
-      self.totalPrice = res.data.totalPrice;
+      var self = _this; // console.log(res);
+      // console.log(res.data);
+      // console.log(res.data.product);
+      // self.apidata = res.data.product;
+      // self.totalPrice = res.data.totalPrice;
     })["catch"](function (err) {
       console.error(err);
     });
+  },
+  methods: {
+    checkForm: function checkForm(e) {
+      e.preventDefault();
+      var name = "milk";
+      var email = "123@mail.com";
+      console.log(name);
+    }
   }
 });
 
@@ -38340,7 +38351,7 @@ var render = function() {
         "tbody",
         { staticClass: "text-center" },
         _vm._l(_vm.apidata, function(data) {
-          return _c("tr", [
+          return _c("tr", { key: data.id }, [
             _c("th", { attrs: { scope: "row" } }, [
               _vm._v(_vm._s(data.item["name"]))
             ]),
@@ -38362,7 +38373,11 @@ var render = function() {
     _vm._v(" "),
     _c("h3", {}, [_vm._v("User Info")]),
     _vm._v(" "),
-    _vm._m(1)
+    _c(
+      "form",
+      { attrs: { method: "POST", action: "" }, on: { submit: _vm.checkForm } },
+      [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)]
+    )
   ])
 }
 var staticRenderFns = [
@@ -38384,44 +38399,52 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { attrs: { method: "POST", action: "/orders" } }, [
-      _c("div", { staticClass: "mb-3" }, [
-        _c("label", { staticClass: "mb-2", attrs: { for: "name" } }, [
-          _vm._v("\n                Name:\n            ")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "border rounded py-2 px-3",
-          attrs: { name: "name", id: "name", type: "text", placeholder: "name" }
-        })
+    return _c("div", { staticClass: "mb-3" }, [
+      _c("label", { staticClass: "mb-2", attrs: { for: "name" } }, [
+        _vm._v(" Name: ")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "mb-3" }, [
-        _c("label", { staticClass: "mb-2", attrs: { for: "email" } }, [
-          _vm._v("\n                Email:\n            ")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "border rounded py-2 px-3",
-          attrs: {
-            name: "email",
-            id: "email",
-            type: "email",
-            placeholder: "email"
-          }
-        })
+      _c("input", {
+        staticClass: "border rounded py-2 px-3",
+        attrs: { name: "name", id: "name", type: "text", placeholder: "name" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mb-3" }, [
+      _c("label", { staticClass: "mb-2", attrs: { for: "email" } }, [
+        _vm._v(" Email: ")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "d-flex justify-content-between" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary text-white py-2 px-4 rounded",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("\n                Submit Order\n            ")]
-        )
-      ])
+      _c("input", {
+        staticClass: "border rounded py-2 px-3",
+        attrs: {
+          name: "email",
+          id: "email",
+          type: "email",
+          placeholder: "email"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-between" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary text-white py-2 px-4 rounded",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("\n        Submit Order\n      ")]
+      ),
+      _vm._v(" "),
+      _c("button", { attrs: { disabled: "disabled" } }, [_vm._v("123")])
     ])
   }
 ]

@@ -31,11 +31,17 @@ Route::get('/increase/{id}', 'BooksController@increaseByOne');
 Route::get('/decrease/{id}', 'BooksController@decreaseByOne');
 Route::get('/remove-item/{id}', 'BooksController@removeItem');
 Route::get('/clear-cart', 'BooksController@clearCart');
-Route::get('/order', 'BooksController@order');
-Route::get('/getorder', 'BooksController@getOrder');
+
+// Route::get('/order', 'OrdersController@order');
+Route::post('/orders', 'OrdersController@store');
+Route::get('/order', 'OrdersController@getOrder');
+Route::post('/callback', 'OrdersController@callback');
+Route::get('/success', 'OrdersController@redirectFromECpay');
+
 Route::get('login', function () {
     return view('login');
 });
+
 Route::get('registed', function () {
     return view('registed');
 });
