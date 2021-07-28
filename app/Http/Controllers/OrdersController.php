@@ -46,7 +46,7 @@ class OrdersController extends Controller
         // ]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
         /**
          * 1.驗證傳過來的資料
@@ -56,11 +56,11 @@ class OrdersController extends Controller
          * 5.開始串接ECPay
          */
 
+        $class = 'App\Services\Orders\Payment\CreditCardPayment';
 
-        request()->validate([
-            'name' => 'required',
-            'email' => 'required',
-        ]);
+        $c = new $class();
+        $c->validate($request->input());
+        $uuid_temp = $c->getUuid();
 
         $cart = session()->get('cart');
 
@@ -69,8 +69,6 @@ class OrdersController extends Controller
         //     'totalPrice' => $cart->totalPrice,
         //     'totalQty' => $cart->totalQty
         // ]);
-
-        $uuid_temp = str_replace("-", "", substr(Str::uuid()->toString(), 0, 18));
 
         $order = Orders::create([
             'name' => request('name'),
