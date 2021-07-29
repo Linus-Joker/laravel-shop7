@@ -50,8 +50,8 @@ class OrdersController extends Controller
     {
         /**
          * 1.驗證傳過來的資料
-         * 2.取得購物車Session
-         * 3.製造uuid
+         * 2.製造uuid
+         * 3.取得購物車Session
          * 4.插入資料到order tables
          * 5.開始串接ECPay
          */
@@ -59,9 +59,14 @@ class OrdersController extends Controller
         $class = 'App\Services\Orders\Payment\CreditCardPayment';
 
         $c = new $class();
+
+        //驗證傳過來的資料
         $c->validate($request->input());
+
+        //取得uuid
         $uuid_temp = $c->getUuid();
 
+        //取得購物車Session
         $cart = session()->get('cart');
 
         // return response()->json([
@@ -70,6 +75,7 @@ class OrdersController extends Controller
         //     'totalQty' => $cart->totalQty
         // ]);
 
+        //建立訂單資料到資料表
         $order = Orders::create([
             'name' => request('name'),
             'email' => request('email'),

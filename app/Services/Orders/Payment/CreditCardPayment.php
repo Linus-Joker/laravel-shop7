@@ -21,4 +21,7 @@ class CreditCardPayment extends BasePayment
 
         return true;
     }
+
+    public function createOrder(array $data)
+    { }
 }

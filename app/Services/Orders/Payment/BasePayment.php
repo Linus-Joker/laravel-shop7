@@ -4,6 +4,8 @@ namespace App\Services\Orders\Payment;
 
 use Illuminate\Support\Str;
 
+
+
 abstract class BasePayment
 {
     public function getUuid(): string
