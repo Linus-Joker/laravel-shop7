@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use DB;
 
 use App\Cart;
 use App\Orders;
@@ -60,11 +61,20 @@ class OrdersController extends Controller
 
         $c = new $class();
 
-        //驗證傳過來的資料
-        $c->validate($request->input());
+        try {
+            //驗證傳過來的資料
+            $c->validate($request->input());
 
-        //取得uuid
-        $uuid_temp = $c->getUuid();
+            //取得uuid
+            $uuid_temp = $c->getUuid();
+        } catch (\Throwable $e) {
+            if ($e instanceof \App\Exceptions\InvalidParameterException) {
+                return $this->response(422, $e->getMessage());
+            }
+
+            return $this->response(500, $e->getMessage());
+        }
+
 
         //取得購物車Session
         $cart = session()->get('cart');
@@ -75,13 +85,36 @@ class OrdersController extends Controller
         //     'totalQty' => $cart->totalQty
         // ]);
 
-        //建立訂單資料到資料表
-        $order = Orders::create([
+        $orderData = [
             'name' => request('name'),
             'email' => request('email'),
             'cart' => serialize($cart),
             'uuid' => $uuid_temp
-        ]);
+        ];
+
+        //建立訂單資料到資料表
+        // $order = Orders::create([
+        //     'name' => request('name'),
+        //     'email' => request('email'),
+        //     'cart' => serialize($cart),
+        //     'uuid' => $uuid_temp
+        // ]);
+        try {
+            DB::beginTransaction();
+
+            //建立訂單資料到資料表
+            $c->createOrder($orderData);
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            if ($e instanceof \App\Exceptions\InvalidParameterException) {
+                return $this->response(422, $e->getMessage());
+            }
+
+            return $this->response(500, $e->getMessage());
+        }
 
         try {
             $obj = new \ECPay_AllInOne();

@@ -21,8 +21,8 @@ class PaymentTest extends TestCase
     ];
 
     protected $orderData = [
-        'name'  => 'milk',
-        'email' => '123@mail.com',
+        'name'  => 'linus',
+        'email' => 'linus@mail.com',
         'cart'  => '1',
         'uuid'  =>  '123abc456efg789hij'
     ];

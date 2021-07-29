@@ -23,5 +23,9 @@ class CreditCardPayment extends BasePayment
     }
 
     public function createOrder(array $data)
-    { }
+    {
+        $this->order->create($data);
+
+        return true;
+    }
 }
