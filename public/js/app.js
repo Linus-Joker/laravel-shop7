@@ -1989,6 +1989,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2001,9 +2005,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/v1/products").then(function (res) {
-      var self = _this;
-      console.log(res);
-      console.log(res.data.data);
+      var self = _this; // console.log(res);
+      // console.log(res.data.data);
+
       self.apidata = res.data.data;
     })["catch"](function (err) {
       console.error(err);
@@ -37996,7 +38000,7 @@ var render = function() {
           [
             _c("img", {
               staticClass: "card-img-top",
-              attrs: { src: "", alt: "Card image cap" }
+              attrs: { src: "images/PRODUCT-1.png", alt: "Card image cap" }
             }),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [

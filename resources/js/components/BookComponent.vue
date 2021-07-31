@@ -7,7 +7,11 @@
         v-for="data in apidata"
         :key="data.id"
       >
-        <img class="card-img-top" src="" alt="Card image cap" />
+        <img
+          class="card-img-top"
+          src="images/PRODUCT-1.png"
+          alt="Card image cap"
+        />
 
         <div class="card-body">
           <h5 class="card-title">{{ data.name }}</h5>
@@ -44,8 +48,8 @@ export default {
       .get("api/v1/products")
       .then((res) => {
         let self = this;
-        console.log(res);
-        console.log(res.data.data);
+        // console.log(res);
+        // console.log(res.data.data);
         self.apidata = res.data.data;
       })
       .catch((err) => {

@@ -16,8 +16,8 @@ class MemberSeeder extends Seeder
     public function run()
     {
         $data = [
-            'reg_email' => 'abc@mail.com',
-            'password'  => Hash::make('12345678', [
+            'reg_email' => 'test01@example.com',
+            'password'  => Hash::make('password123', [
                 'rounds' => 12
             ]),
             'sex'       => 1,
