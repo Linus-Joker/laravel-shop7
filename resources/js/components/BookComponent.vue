@@ -9,7 +9,7 @@
       >
         <img
           class="card-img-top"
-          src="images/PRODUCT-1.png"
+          :src="'images/' + data.product_image.image_name"
           alt="Card image cap"
         />
 
@@ -48,8 +48,8 @@ export default {
       .get("api/v1/products")
       .then((res) => {
         let self = this;
-        // console.log(res);
-        // console.log(res.data.data);
+        console.log(res);
+        console.log(res.data.data);
         self.apidata = res.data.data;
       })
       .catch((err) => {

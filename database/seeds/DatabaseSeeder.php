@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             ProductsSeeder::class,
             ProductsSortSeeder::class,
+            ProductImagesSeeder::class
         ]);
     }
 }

@@ -10,10 +10,17 @@ class Books extends Model
     protected $fillable = [
         'name', 'description', 'price', 'products_sort_id'
     ];
-    protected $with = ['sort'];
 
-    public function sort()
+    // protected $with = ['sort'];
+    // public function sort()
+    // {
+    //     return $this->hasOne('App\ProductSort', 'id', 'products_sort_id');
+    // }
+
+    protected $with = ['productImage'];
+    public function productImage()
     {
-        return $this->hasOne('App\ProductSort', 'id', 'products_sort_id');
+        // return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
+        return $this->hasOne('App\ProductImage', 'id', 'id');
     }
 }

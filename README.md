@@ -24,10 +24,9 @@ try SOLID、Test、RESTApi in shopCart
 
 ## Api
 use Postman
-註冊測試:
--   POST /api/v1/member/registed/{type} (type:email or general)
-登入測試
--   POST /api/v1/member/login (測試帳號:abc@mail.com;密碼:12345678)
+
+-   註冊測試: POST /api/v1/member/registed/{type} (type:email or general)
+-   登入測試:POST /api/v1/member/login (測試帳號:test01@example.com;密碼:password123)
 
 ## Admin
 

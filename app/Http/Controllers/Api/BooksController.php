@@ -6,12 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Books;
+use App\ProductImage;
 
 class BooksController extends Controller
 {
     public function index()
     {
         $products = Books::all();
+
+        // foreach ($products as $key => $value) {
+        //     echo $value->name . "\n";
+        //     echo $value->productImage->image_name . "\n";
+        // };
+
         return $this->response(200, 'data read success.', $products);
     }
 
