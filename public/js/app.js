@@ -2214,14 +2214,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
   data: function data() {
     return {
       apidata: [],
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   },
   mounted: function mounted() {},
@@ -2235,6 +2252,21 @@ __webpack_require__.r(__webpack_exports__);
         password: password
       }).then(function (res) {
         console.log(res);
+
+        if (res.status === 200) {
+          var getUrlString = location.href; //   console.log(getUrlString);
+
+          var splitStrArray = getUrlString.split("/");
+          var newStr = " ";
+
+          for (var i = 0; i < splitStrArray.length - 1; i++) {
+            //console.log(n[i])
+            newStr = newStr + splitStrArray[i] + "/";
+          } //   console.log(newStr.trim());
+
+
+          window.location.replace(newStr.trim());
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -38316,7 +38348,7 @@ var render = function() {
                 staticClass: "btn btn-primary btn-lg btn-block",
                 attrs: { type: "submit" }
               },
-              [_vm._v("Submit")]
+              [_vm._v("\n          Submit\n        ")]
             )
           ]
         )
