@@ -29,6 +29,8 @@ Route::namespace('Api')->group(function () {
         //會員系統
         Route::post('member/registed/{type}', 'MemberController@register');
         Route::post('member/login', 'MemberController@login');
+        Route::get('member/logout', 'MemberController@logout');
+        Route::get('member/session-check', 'MemberController@sessionCheck');
         Route::post('member/hash-test', 'MemberController@hashTest');
         Route::post('member/hash-check', 'MemberController@hashCheckTest');
 

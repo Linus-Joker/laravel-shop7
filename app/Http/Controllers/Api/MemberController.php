@@ -81,6 +81,13 @@ class MemberController extends Controller
         ]);
     }
 
+    public function logout(Request $request)
+    {
+        $request->session()->forget('userNumber');
+
+        return redirect('/');
+    }
+
     public function hashTest(Request $request)
     {
         $hashPassword = Hash::make($request->input('password'), [
@@ -109,5 +116,11 @@ class MemberController extends Controller
         }
 
         return 'password error.';
+    }
+
+    public function sessionCheck()
+    {
+        $userNumber = Session::has('userNumber') ? Session::get('userNumber') : null;
+        return $userNumber;
     }
 }

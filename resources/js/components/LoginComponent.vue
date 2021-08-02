@@ -64,7 +64,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          if (res.status === 200) {
+          if (res.data.status === 200) {
             var getUrlString = location.href;
             //   console.log(getUrlString);
             var splitStrArray = getUrlString.split("/");
@@ -75,6 +75,9 @@ export default {
             }
             //   console.log(newStr.trim());
             window.location.replace(newStr.trim());
+          } else {
+            alert(res.data.status + "," + res.data.message);
+            location.reload();
           }
         })
         .catch((err) => {

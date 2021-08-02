@@ -2253,7 +2253,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         console.log(res);
 
-        if (res.status === 200) {
+        if (res.data.status === 200) {
           var getUrlString = location.href; //   console.log(getUrlString);
 
           var splitStrArray = getUrlString.split("/");
@@ -2266,6 +2266,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
           window.location.replace(newStr.trim());
+        } else {
+          alert(res.data.status + "," + res.data.message); // location.reload();
         }
       })["catch"](function (err) {
         console.log(err);

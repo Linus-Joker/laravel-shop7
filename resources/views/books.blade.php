@@ -26,7 +26,7 @@
                         註冊
                         {{ $userNumber }}
                     @else
-                        登出
+                    <a href="{{url('api/v1/member/logout')}}">登出</a>
                     @endif
                 </div>
             </nav>
@@ -35,10 +35,10 @@
         {{-- top-header start --}}
         <div class="container text-center mt-3">
             <p class="text-justify">
-                <h1 class="display-3">Pricing</h1>
-                <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
+                <h1 class="display-3">Shopcart Practice.</h1>
+                {{-- <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
                     example.
-                    It's built with default Bootstrap components and utilities with little customization.</p>
+                    It's built with default Bootstrap components and utilities with little customization.</p> --}}
             </p>
         </div>
         {{-- top-header end --}}
