@@ -2076,6 +2076,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2267,7 +2285,8 @@ __webpack_require__.r(__webpack_exports__);
 
           window.location.replace(newStr.trim());
         } else {
-          alert(res.data.status + "," + res.data.message); // location.reload();
+          alert(res.data.status + "," + res.data.message);
+          location.reload();
         }
       })["catch"](function (err) {
         console.log(err);
@@ -38120,37 +38139,43 @@ var render = function() {
               _c(
                 "button",
                 {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
                       return _vm.increase(data.item["id"])
                     }
                   }
                 },
-                [_vm._v("+")]
+                [_vm._v("\n            +\n          ")]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 {
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
                       return _vm.decrease(data.item["id"])
                     }
                   }
                 },
-                [_vm._v("-")]
+                [_vm._v("\n            -\n          ")]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 {
+                  staticClass: "btn btn-danger",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
                       return _vm.removeItem(data.item["id"])
                     }
                   }
                 },
-                [_vm._v("刪除")]
+                [_vm._v("\n            刪除\n          ")]
               )
             ])
           ])

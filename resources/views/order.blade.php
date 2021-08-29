@@ -11,14 +11,12 @@
 <body>
     <div id="app">
         {{-- nav start --}}
-        <nav class="container">
+        <nav class="container navbar navbar-expand-lg navbar-light bg-light">
             <div class="row justify-content-around">
                 <p>
-                    <a href={{url('/')}}>Home</a>
+                    <a class="navbar-brand mb-0 h1" href={{url('/')}}>Home</a>
                 </p>
-                <p>
-                    登出
-                </p>
+
             </div>
         </nav>
         {{-- nav end --}}

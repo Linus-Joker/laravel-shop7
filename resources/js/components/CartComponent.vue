@@ -19,9 +19,27 @@
             <!-- <a href="/add-to-cart/">+</a> -->
             <!-- <a href="#">-</a> -->
             <!-- <a href="#">刪除</a> -->
-            <button v-on:click="increase(data.item[`id`])">+</button>
-            <button v-on:click="decrease(data.item[`id`])">-</button>
-            <button v-on:click="removeItem(data.item[`id`])">刪除</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click="increase(data.item[`id`])"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              class="btn btn-info"
+              v-on:click="decrease(data.item[`id`])"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              v-on:click="removeItem(data.item[`id`])"
+            >
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>

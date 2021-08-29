@@ -12,21 +12,21 @@
     <div id="app">
         {{-- nav start --}}
         <div id="app">
-            <nav class="container">
+            <nav class="container navbar navbar-expand-lg navbar-light bg-light">
                 <div class="row justify-content-around">
                     <p>
-                        <a href={{url('/')}}>Home</a>
+                        <a class="navbar-brand mb-0 h1" href={{url('/')}}>Home</a>
                     </p>
                     <p>
-                        <a href="{{url('/cart')}}">Cart</a>
+                        <a class="navbar-brand" href="{{url('/cart')}}">Cart</a>
                     </p>
 
                     @if ($userNumber == null)
-                    <a href="{{url('/login')}}">登入</a>
-                        註冊
+                    <a class="navbar-brand" href="{{url('/login')}}">登入</a>
+                        
                         {{ $userNumber }}
                     @else
-                    <a href="{{url('api/v1/member/logout')}}">登出</a>
+                    <a class="navbar-brand" href="{{url('api/v1/member/logout')}}">登出</a>
                     @endif
                 </div>
             </nav>
