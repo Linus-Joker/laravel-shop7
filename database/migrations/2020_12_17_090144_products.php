@@ -15,13 +15,13 @@ class Products extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
             $table->id('id')->autoIncrement();
-            $table->string('name', 255)->nullable();
-            $table->string('description', 255)->nullable();
-            $table->integer('price')->index()->nullable();
-            $table->integer('products_sort_id')->index()->nullable();
+            $table->string('name', 255);
+            $table->string('description', 255);
+            $table->integer('price');
+            $table->integer('products_sort_id');
             $table->timestamps();
         });
     }

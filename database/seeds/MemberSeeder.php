@@ -15,15 +15,16 @@ class MemberSeeder extends Seeder
 
     public function run()
     {
-        $data = [
-            'reg_email' => 'test01@example.com',
-            'password'  => Hash::make('password123', [
-                'rounds' => 12
-            ]),
-            'sex'       => 1,
-            'type'      => 1
-        ];
-
-        Member::create($data);
+        for ($i = 1; $i < 4; $i++) {
+            Member::create([
+                'reg_email' => 'user' . $i . '@example.com',
+                'user_name' => 'user' . $i,
+                'password'  => Hash::make('password123', [
+                    'rounds' => 12
+                ]),
+                'sex'       => 1,
+                'type'      => 1
+            ]);
+        }
     }
 }

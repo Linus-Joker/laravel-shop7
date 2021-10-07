@@ -18,11 +18,11 @@ class Admin extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_unicode_ci';
             $table->id('id')->autoIncrement();
-            $table->string('admin_codename', 255)->nullable();
+            $table->string('admin_codename', 255);
             $table->string('password', 512);
-            $table->integer('sex')->index()->nullable();
-            $table->integer('status')->index()->nullable();
-            $table->integer('permission')->index()->nullable();
+            $table->integer('sex');
+            $table->integer('status');
+            $table->integer('permission');
             $table->timestamps();
         });
     }

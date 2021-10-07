@@ -15,17 +15,17 @@ class Member extends Migration
     {
         Schema::create('member', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
             $table->id('id')->autoIncrement();
             $table->string('reg_email', 255)->nullable();
             $table->string('reg_phone', 255)->nullable();
-            $table->string('user_name', 255)->nullable();
+            $table->string('user_name', 255);
             $table->string('password', 512);
-            $table->integer('sex')->index()->nullable();
-            $table->integer('type')->index()->nullable();
+            $table->integer('sex')->nullable();
+            $table->integer('type')->nullable();
             $table->timestamps();
-            $table->integer('status')->index()->nullable();
+            $table->integer('status')->nullable();
         });
     }
 

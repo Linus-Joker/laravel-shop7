@@ -15,11 +15,11 @@ class CreateProductsSortTable extends Migration
     {
         Schema::create('products_sort', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
             $table->id('id')->autoIncrement();
-            $table->string('name', 255)->nullable();
-            $table->string('products_sort_details', 255)->nullable();
+            $table->string('name', 255);
+            $table->string('products_sort_details', 255);
             $table->timestamps();
         });
     }
