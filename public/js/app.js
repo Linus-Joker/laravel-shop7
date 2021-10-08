@@ -2440,6 +2440,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2448,13 +2455,29 @@ __webpack_require__.r(__webpack_exports__);
   // data這裡先不管
   data: function data() {
     return {
-      id: this.product_id
+      id: this.product_id,
+      api_product_data: [],
+      api_message_data: []
     };
   },
   //因為我要用參數去請求api，所以這裡要抓到外部傳過來的參數
   mounted: function mounted() {
     var id = this.product_id;
-    console.log(id);
+    var self = this;
+    var apiUrl = "http://localhost:8000/laravel-shop7/public/";
+    console.log(id); //單個商品的請求
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(apiUrl + "api/v1/item/" + id).then(function (res) {
+      // console.log(res);
+      // console.log(res.data.data);
+      // console.log(res.data.data.product_image["image_name"]);
+      self.api_product_data = res.data.data;
+    }); //留言功能請求
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(apiUrl + "api/v1/item/message/" + id).then(function (res) {
+      console.log(res);
+      self.api_message_data = res.data.data;
+    });
   }
 });
 
@@ -38121,15 +38144,15 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h5", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(data.name))
+                _vm._v("產品名稱:" + _vm._s(data.name))
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text pro_des" }, [
-                _vm._v(_vm._s(data.description))
+                _vm._v("產品簡述:" + _vm._s(data.description))
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text pro_price" }, [
-                _vm._v("\n          價格:\n          "),
+                _vm._v("\n          產品價格:\n          "),
                 _c("span", [_vm._v(_vm._s(data.price))]),
                 _vm._v(" "),
                 _c("span", [_vm._v("元")])
@@ -38595,56 +38618,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v("\n    商品留言:\n    "),
-      _vm._m(1),
-      _vm._v(" "),
-      _c("p", [_vm._v("1234567")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("管理員回復:" + _vm._s(_vm.id))]),
-      _vm._v(" "),
-      _c("p", [_vm._v("987654321")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("-----------------------------------")])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
-        _c("img", {
-          staticClass: "card-img-top",
-          attrs: { alt: "Card image cap" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("h5", { staticClass: "card-title" }, [_vm._v("Card title")]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
+          _c("img", {
+            staticClass: "card-img-top",
+            attrs: { alt: "Card image cap" }
+          }),
           _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "\n          Some quick example text to build on the card title and make up the\n          bulk of the card's content.\n        "
-            )
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v("產品名稱:" + _vm._s(_vm.api_product_data["name"]))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card-text" }, [
+              _vm._v(
+                "\n          產品簡述:" +
+                  _vm._s(_vm.api_product_data["description"]) +
+                  "\n        "
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card-text pro_price" }, [
+              _vm._v("\n          產品價格:\n          "),
+              _c("span", [_vm._v(_vm._s(_vm.api_product_data["price"]))]),
+              _vm._v(" "),
+              _c("span", [_vm._v("元")])
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-primary btn-lg btn-block" }, [
+              _vm._v("加入購物車")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("p", [_vm._v("商品留言:")]),
+      _vm._v(" "),
+      _vm._l(_vm.api_message_data, function(message) {
+        return _c("div", { key: message.id }, [
+          _c("p", [
+            _vm._v("\n      留言 "),
+            _c("span", [_vm._v("用戶 " + _vm._s(message.user_id) + " Name:")])
           ]),
           _vm._v(" "),
-          _c("a", { staticClass: "btn btn-primary" }, [_vm._v("Go somewhere")])
+          _c("p", [_vm._v(_vm._s(message.message_content))]),
+          _vm._v(" "),
+          _c("p", [_vm._v("管理員回復:" + _vm._s(_vm.id))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(message.res_content))]),
+          _vm._v(" "),
+          _c("p", [_vm._v("-----------------------------------")])
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_vm._v("留言1 "), _c("span", [_vm._v("用戶Name")])])
-  }
-]
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

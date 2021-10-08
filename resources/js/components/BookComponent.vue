@@ -14,10 +14,10 @@
         />
 
         <div class="card-body">
-          <h5 class="card-title">{{ data.name }}</h5>
-          <p class="card-text pro_des">{{ data.description }}</p>
+          <h5 class="card-title">產品名稱:{{ data.name }}</h5>
+          <p class="card-text pro_des">產品簡述:{{ data.description }}</p>
           <p class="card-text pro_price">
-            價格:
+            產品價格:
             <span>{{ data.price }}</span>
             <span>元</span>
           </p>

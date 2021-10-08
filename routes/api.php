@@ -38,7 +38,8 @@ Route::namespace('Api')->group(function () {
         Route::apiResource('products', 'BooksController');
 
         //產品內頁
-        Route::get('item', 'ProductPageController@index');
+        Route::get('item/message/{id}', 'ProductPageController@index');
+        Route::get('item/{id}', 'ProductPageController@show');
 
         Route::post('test/', function (Request $request) {
             $value = $request->all();

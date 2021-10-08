@@ -67,4 +67,4 @@ Route::get('adminProducts', function () {
 });
 
 //測試
-Route::get('/{path}', 'BooksController@index')->where('path', '*');
+// Route::get('/{path}', 'BooksController@index')->where('path', '*');
