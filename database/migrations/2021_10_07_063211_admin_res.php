@@ -17,7 +17,7 @@ class AdminRes extends Migration
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
-            $table->id('admin_id')->autoIncrement();
+            $table->id('admin_res_id')->autoIncrement();
             $table->integer('message_id');
             $table->text('res_content');
             $table->timestamps();

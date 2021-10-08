@@ -22,6 +22,14 @@ class BooksController extends Controller
         return $this->response(200, 'data read success.', $products);
     }
 
+    public function show(Request $request, $product_id)
+    {
+        //search product table return product_id data.
+        $product = Books::find($product_id);
+        // dd($product);
+        // echo $product['name'];
+    }
+
     public function store(Request $request)
     {
         return $this->response(200, 'data create success.');

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
  **/
 
 //前台顯示
+//購物車
 Route::get('/', 'BooksController@index');
 Route::get('/addcart/{id}', 'BooksController@addToCart');
 Route::get('/cart', 'BooksController@cart');
@@ -32,11 +33,15 @@ Route::get('/decrease/{id}', 'BooksController@decreaseByOne');
 Route::get('/remove-item/{id}', 'BooksController@removeItem');
 Route::get('/clear-cart', 'BooksController@clearCart');
 
+//訂單
 // Route::get('/order', 'OrdersController@order');
 Route::post('/orders', 'OrdersController@store');
 Route::get('/order', 'OrdersController@getOrder');
 Route::post('/callback', 'OrdersController@callback');
 Route::get('/success', 'OrdersController@redirectFromECpay');
+
+//產品內頁
+Route::get('item/{id}', 'BooksController@ProductPage');
 
 Route::get('login', function () {
     return view('login');

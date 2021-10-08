@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use Session;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 use App\Books;
 use App\Cart;
@@ -96,5 +96,23 @@ class BooksController extends Controller
         if (session()->has('cart')) {
             session()->forget('cart');
         }
+    }
+
+    //這是進入view page
+    public function ProductPage($product_id)
+    {
+        $userNumber = Session::has('userNumber') ? Session::get('userNumber') : null;
+        // $userNumber = Session::has('userNumber');
+        // dd($userNumber);
+        // $message = DB::table('message')
+        //     ->join('admin_res', 'admin_res.message_id', '=', 'message.message_id')
+        //     ->where('product_id', '=', 1)
+        //     ->get();
+
+        return view('ProductPage', [
+            'userNumber'    => $userNumber,
+            // 'message'       => $message
+            'product_id'    => $product_id
+        ]);
     }
 }
