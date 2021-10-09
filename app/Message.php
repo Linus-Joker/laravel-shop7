@@ -18,7 +18,7 @@ class Message extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'flight_id';
+    protected $primaryKey = 'message_id';
 
     /**
      * 可以被批量賦值的属性。
