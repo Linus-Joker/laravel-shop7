@@ -66,6 +66,7 @@ export default {
       curPageUrl.split("//")[1].split("/")[2] +
       "/";
 
+    console.log(rootPath);
     //單個商品的請求
     axios.get(rootPath + "api/v1/item/" + id).then((res) => {
       // console.log(res);

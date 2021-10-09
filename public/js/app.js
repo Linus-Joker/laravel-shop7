@@ -2465,7 +2465,8 @@ __webpack_require__.r(__webpack_exports__);
     var id = this.product_id;
     var self = this;
     var curPageUrl = window.document.location.href;
-    var rootPath = curPageUrl.split("//")[0] + "//" + curPageUrl.split("//")[1].split("/")[0] + "/" + curPageUrl.split("//")[1].split("/")[1] + "/" + curPageUrl.split("//")[1].split("/")[2] + "/"; //單個商品的請求
+    var rootPath = curPageUrl.split("//")[0] + "//" + curPageUrl.split("//")[1].split("/")[0] + "/" + curPageUrl.split("//")[1].split("/")[1] + "/" + curPageUrl.split("//")[1].split("/")[2] + "/";
+    console.log(rootPath); //單個商品的請求
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "api/v1/item/" + id).then(function (res) {
       // console.log(res);
