@@ -2464,18 +2464,18 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var id = this.product_id;
     var self = this;
-    var apiUrl = "http://localhost:8000/laravel-shop7/public/";
-    console.log(id); //單個商品的請求
+    var curPageUrl = window.document.location.href;
+    var rootPath = curPageUrl.split("//")[0] + "//" + curPageUrl.split("//")[1].split("/")[0] + "/" + curPageUrl.split("//")[1].split("/")[1] + "/" + curPageUrl.split("//")[1].split("/")[2] + "/"; //單個商品的請求
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(apiUrl + "api/v1/item/" + id).then(function (res) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "api/v1/item/" + id).then(function (res) {
       // console.log(res);
       // console.log(res.data.data);
       // console.log(res.data.data.product_image["image_name"]);
       self.api_product_data = res.data.data;
     }); //留言功能請求
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(apiUrl + "api/v1/item/message/" + id).then(function (res) {
-      console.log(res);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "api/v1/item/message/" + id).then(function (res) {
+      // console.log(res);
       self.api_message_data = res.data.data;
     });
   }

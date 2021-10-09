@@ -55,11 +55,19 @@ export default {
   mounted() {
     let id = this.product_id;
     let self = this;
-    let apiUrl = "http://localhost:8000/laravel-shop7/public/";
-    console.log(id);
+    let curPageUrl = window.document.location.href;
+    var rootPath =
+      curPageUrl.split("//")[0] +
+      "//" +
+      curPageUrl.split("//")[1].split("/")[0] +
+      "/" +
+      curPageUrl.split("//")[1].split("/")[1] +
+      "/" +
+      curPageUrl.split("//")[1].split("/")[2] +
+      "/";
 
     //單個商品的請求
-    axios.get(apiUrl + "api/v1/item/" + id).then((res) => {
+    axios.get(rootPath + "api/v1/item/" + id).then((res) => {
       // console.log(res);
       // console.log(res.data.data);
       // console.log(res.data.data.product_image["image_name"]);
@@ -67,8 +75,8 @@ export default {
     });
 
     //留言功能請求
-    axios.get(apiUrl + "api/v1/item/message/" + id).then((res) => {
-      console.log(res);
+    axios.get(rootPath + "api/v1/item/message/" + id).then((res) => {
+      // console.log(res);
       self.api_message_data = res.data.data;
     });
   },
