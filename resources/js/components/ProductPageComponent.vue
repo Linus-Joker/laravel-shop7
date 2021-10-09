@@ -56,14 +56,20 @@ export default {
     let id = this.product_id;
     let self = this;
     let curPageUrl = window.document.location.href;
-    var rootPath =
+    // var rootPath =
+    //   curPageUrl.split("//")[0] +
+    //   "//" +
+    //   curPageUrl.split("//")[1].split("/")[0] +
+    //   "/" +
+    //   curPageUrl.split("//")[1].split("/")[1] +
+    //   "/" +
+    //   curPageUrl.split("//")[1].split("/")[2] +
+    //   "/";
+
+    let rootPath =
       curPageUrl.split("//")[0] +
       "//" +
       curPageUrl.split("//")[1].split("/")[0] +
-      "/" +
-      curPageUrl.split("//")[1].split("/")[1] +
-      "/" +
-      curPageUrl.split("//")[1].split("/")[2] +
       "/";
 
     console.log(rootPath);
