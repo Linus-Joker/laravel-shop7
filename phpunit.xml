@@ -11,7 +11,7 @@
         </testsuite>
         <testsuite name="Feature">
             <!-- <directory suffix="Test.php">./tests/Feature</directory> -->
-            <file> tests/Feature/Account/RegistedTest.php </file> 
+            <file> tests/Feature/Account/RegistrationTest.php </file> 
             <file> tests/Feature/Account/LoginTest.php </file> 
         </testsuite>
     </testsuites>

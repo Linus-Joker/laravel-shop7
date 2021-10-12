@@ -11,7 +11,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function initDatabase()
     {
-        //call artsain migrate and seed
+        //call artisan migrate and seed
         Artisan::call('migrate:fresh --seed --env=testing');
     }
 

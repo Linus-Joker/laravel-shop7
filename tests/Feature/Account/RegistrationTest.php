@@ -17,11 +17,11 @@ use App\Exceptions\InvalidParameterException;
 use function PHPSTORM_META\type;
 
 /**
- * class registed feature test .
+ * class register feature test .
  *
  * @return void
  */
-class RegistedTest extends TestCase
+class RegistrationTest extends TestCase
 {
     //註冊方式
     protected $email = "Email";
