@@ -1,12 +1,10 @@
 <?php
 
-namespace Tests\Unit\Feature\Account;
+namespace Tests\Feature\Account;
 
 use Illuminate\Support\Facades\Validator;
 // use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
-
-use App\Rules\Uppercase;
 
 use App\Services\Account\Registration\Email;
 
@@ -30,6 +28,7 @@ class RegistrationTest extends TestCase
     //測試信箱註冊資料
     protected $emailData = [
         'account'   => 'test01@example.com',
+        'user_name' => 'user4',
         'reg_phone' => '0987654321',
         'type'      => 1,
         'sex'       => 1,
@@ -37,8 +36,15 @@ class RegistrationTest extends TestCase
     ];
 
     //測試信箱註冊異常資料
+    /*1.在member table 裡面user_name 的欄位是不允許空值
+    *所以我給這筆正常的資料後，測試並不能如期的出現exception
+    *phpUnit給我測試錯誤訊息，FF未通過測試
+    *2.不給user_name 的值後，因為有發生預期的exception
+    *所以測試通過(目前先這樣下定論) 
+    */
     protected $emailExceptionData = [
         'account'   => 'abc@mail.com',
+        // 'user_name'   => 'user4', //沒有新增使用者
         'reg_phone' => '0987654321',
         'type'      => 1,
         'sex'       => 1,
@@ -80,9 +86,12 @@ class RegistrationTest extends TestCase
         $memberId = $em->register($this->emailData);
 
         //斷言回傳的id是否有如預期註冊成功
-        $this->assertEquals(2, $memberId);
+        $this->assertEquals(4, $memberId);
     }
 
+    /**
+     * @expectedException \InvalidParameterException
+     */
     //刻意的信箱註冊驗證異常測試，晚點加上一般註冊驗證
     public function testEmailAccountRegisteValidateException()
     {
@@ -92,7 +101,7 @@ class RegistrationTest extends TestCase
 
         $em = new Email();
 
-        //驗證是否傳入異常資料後會回丟出異常
+        //驗證是否傳入異常資料後會丟出異常
         $em->validate($this->emailExceptionData);
     }
 

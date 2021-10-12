@@ -30,6 +30,7 @@ class Email extends BaseRegistration
 
         $insertData = [
             'sex' => $data['sex'] ?? null,
+            'user_name' => $data['user_name'],
             'type' => $this->type,
             'password' => $data['password'],
             'reg_email' => $data['account']
@@ -47,6 +48,7 @@ class Email extends BaseRegistration
         // $rules['account'] = 'required|email|unique:member,reg_email';
         $rules = [
             'account'   => 'required|email|unique:member,reg_email',
+            'user_name' => 'required',
             'type'      => 'required|integer',
             'sex'       => 'required|in:1,2',
             'password'  => 'required|alpha_num|min:8|max:40',
