@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Account;
+namespace Tests\Unit\Api\Account;
 
 use Illuminate\Support\Facades\Validator;
 // use PHPUnit\Framework\TestCase;

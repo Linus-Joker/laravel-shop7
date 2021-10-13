@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Account;
+namespace Tests\Unit\Api\Account;
 
 use Illuminate\Support\Facades\Validator;
 // use PHPUnit\Framework\TestCase;
@@ -24,8 +24,8 @@ class LoginTest extends TestCase
 
     //測試信箱登入資料
     protected $emailData = [
-        'account'   => 'abc@mail.com',
-        'password'  => '12345678',
+        'account'   => 'user1@example.com',
+        'password'  => 'password123',
     ];
 
     //測試信箱登入異常資料
