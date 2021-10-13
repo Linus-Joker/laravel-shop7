@@ -8,9 +8,14 @@ use App\Http\Controllers\Controller;
 
 use App\Books;
 use App\ProductImage;
+use App\Repositories\ProductsRepository;
 
 class ProductPageController extends Controller
 {
+    /**
+     * @param int $product_id 產品ID
+     * @return json $message 
+     */
     public function index($product_id)
     {
         $message = DB::table('message')
@@ -23,14 +28,25 @@ class ProductPageController extends Controller
         ]);
     }
 
+    /**
+     * @param int $product_id 產品ID
+     * @return json $product 
+     */
     public function show(Request $request, $product_id)
     {
         //search product table return product_id data.
-        $product = Books::find($product_id);
+        //這裡應該寫service，但是只有一個我懶得寫了
+        $class = 'App\Repositories\ProductsRepository';
+        $product = new $class();
+
+        $productData = $product->findOneProduct($product_id);
         // dd($product);
         // echo $product['name'];
         return response()->json([
-            'data'   => $product,
+            'data'   => $productData,
         ]);
     }
+
+    private function response(int $code, $message, array $data = [])
+    { }
 }
