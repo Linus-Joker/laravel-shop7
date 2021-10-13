@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Books extends Model
 {
+    //book 為product 資料表因為一開始的想法只有書本產品
     protected $table = 'products';
     protected $fillable = [
         'name', 'description', 'price', 'products_sort_id'
