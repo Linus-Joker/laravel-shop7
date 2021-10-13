@@ -30,9 +30,9 @@ use Postman
 ###### need param:account、password、sex
  #### account:email or alphabet + number
  #### password:8~40 alphabet + number
- #### sex:1、2or3? (no problem!!)
+ #### sex:1、2、3
 ---------------------------------------
--   登入測試:POST /api/v1/member/login (測試帳號:test01@example.com;密碼:password123)
+-   登入測試:POST /api/v1/member/login (測試帳號:user1@example.com;密碼:password123)
 
 ## Admin
 
