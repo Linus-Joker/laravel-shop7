@@ -68,6 +68,7 @@ class MemberRegistrationServiceTest extends TestCase
     //     $this->initDatabase();
     // }
 
+    //測試前後遷移資料表
     use RefreshDatabase;
 
     public function testEmailAccountRegisterValidate()

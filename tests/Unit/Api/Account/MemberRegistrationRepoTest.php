@@ -18,8 +18,10 @@ use App\Exceptions\InvalidParameterException;
  */
 class MemberRegistrationRepoTest extends TestCase
 {
+    //測試前後遷移資料表
     use RefreshDatabase;
 
+    //測試信箱註冊資料
     private $emailData = [
         'reg_email' => 'user1@example.com',
         'user_name' => 'user1',
@@ -27,9 +29,20 @@ class MemberRegistrationRepoTest extends TestCase
         'type'      => 1,
     ];
 
+    //測試一般註冊資料
+    private $generalData = [
+        'user_name' => 'user2',
+        'reg_phone' => '0912345678',
+        'password'  => 'password22',
+        'type'      => 1,
+    ];
+
     public function testMemberRepoEmailValidate()
     {
+        //create member repo class
         $mr = new MemberRepository();
+
+        //pass email data validate
         $dataResult = $mr->validate($this->emailData);
 
         $this->assertTrue($dataResult);
@@ -42,13 +55,27 @@ class MemberRegistrationRepoTest extends TestCase
         $this->assertDatabaseHas('member', ['reg_email' => 'user1@example.com']);
     }
 
+    public function testMemberRepoGeneralValidate()
+    {
+        $mr = new MemberRepository();
+        $dataResult = $mr->validate($this->generalData);
+
+        $this->assertTrue($dataResult);
+    }
+
+    public function testMemberRepoGeneralCreate()
+    {
+        $mr = new MemberRepository();
+        $mr->create($this->generalData);
+        $this->assertDatabaseHas('member', ['user_name' => 'user2']);
+    }
 
     public function testCheckEmailAccountDB()
     {
         $data = [
-            'reg_email' => 'user2@example.com',
-            'user_name' => 'user2',
-            'password'  => 'password22',
+            'reg_email' => 'user3@example.com',
+            'user_name' => 'user3',
+            'password'  => 'password33',
             'type'      => 1,
         ];
 
@@ -57,7 +84,7 @@ class MemberRegistrationRepoTest extends TestCase
 
         $memberData = $mr->checkEmailAccountDB($data['reg_email']);
 
-        $this->assertEquals(2, $memberData['id']);
-        $this->assertEquals('user2', $memberData['user_name']);
+        $this->assertEquals(3, $memberData['id']);
+        $this->assertEquals('user3', $memberData['user_name']);
     }
 }
