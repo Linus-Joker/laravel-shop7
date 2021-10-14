@@ -2,9 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-
 use App\Books;
 
 class ProductsRepository
@@ -20,7 +17,7 @@ class ProductsRepository
      * @param int $product_id 產品ID
      * @return array productData 
      */
-    public function findOneProduct($product_id)
+    public function SearchProduct($product_id)
     {
         //1.先驗證
         //2.去資料表找
