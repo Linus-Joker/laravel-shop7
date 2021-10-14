@@ -58,7 +58,7 @@ class MemberRepository
         $rules = [
             'reg_email' => 'nullable|email|unique:member,reg_email',
             'reg_phone' => 'nullable|regex:/^09\d{8}$/',
-            'user_name' => 'nullable|alpha_num',
+            'user_name' => 'required|alpha_num',
             'password' => 'required|alpha_num|min:8|max:40',
             'sex' => 'nullable|integer|min:1|max:3',
             'type' => 'required|integer|min:1|max:3'

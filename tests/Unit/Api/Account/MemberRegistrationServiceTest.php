@@ -3,23 +3,21 @@
 namespace Tests\Unit\Api\Account;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 // use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
 
 use App\Services\Account\Registration\Email;
-
-use App\Repositories\MemberRepository;
+use App\Services\Account\Registration\General;
 
 use App\Exceptions\InvalidParameterException;
 
-use function PHPSTORM_META\type;
-
 /**
- * class register feature test .
+ * class register service unit test .
  *
  * @return void
  */
-class RegistrationTest extends TestCase
+class MemberRegistrationServiceTest extends TestCase
 {
     //註冊方式
     protected $email = "Email";
@@ -27,8 +25,8 @@ class RegistrationTest extends TestCase
 
     //測試信箱註冊資料
     protected $emailData = [
-        'account'   => 'test01@example.com',
-        'user_name' => 'user4',
+        'account'   => 'user1@example.com',
+        'user_name' => 'user1',
         'reg_phone' => '0987654321',
         'type'      => 1,
         'sex'       => 1,
@@ -53,22 +51,26 @@ class RegistrationTest extends TestCase
 
     //測試一般註冊資料
     protected $GeneralData = [
-        'user_name'   => 'milk01',
+        'account'   => 'milk01',
         'reg_phone' => '0912345678',
         'type'      => 1,
         'sex'       => 1,
         'password'  => 'password34',
     ];
 
-    //開始前先重新遷移資料表
-    public function setUp(): void
-    {
-        parent::setUp();
+    private $checkEmail = 'user1@example.com';
 
-        $this->initDatabase();
-    }
+    // 開始前先重新遷移資料表(每個函式前都會執行)
+    // public function setUp(): void
+    // {
+    //     parent::setUp();
 
-    public function testEmailAccountRegisteValidate()
+    //     $this->initDatabase();
+    // }
+
+    use RefreshDatabase;
+
+    public function testEmailAccountRegisterValidate()
     {
         $em = new Email();
 
@@ -86,7 +88,7 @@ class RegistrationTest extends TestCase
         $memberId = $em->register($this->emailData);
 
         //斷言回傳的id是否有如預期註冊成功
-        $this->assertEquals(4, $memberId);
+        $this->assertEquals(1, $memberId);
     }
 
     /**
@@ -105,6 +107,10 @@ class RegistrationTest extends TestCase
         $em->validate($this->emailExceptionData);
     }
 
+    /**
+     * @expectedException \InvalidParameterException
+     */
+    //刻意的信箱註冊異常測試
     public function testEmailAccountRegisterException()
     {
         $this->expectException(InvalidParameterException::class);
@@ -112,5 +118,28 @@ class RegistrationTest extends TestCase
         $em = new Email();
 
         $em->register($this->emailExceptionData);
+    }
+
+    public function testGeneralAccountRegisterValidate()
+    {
+        //生成general class 
+        $general = new General();
+
+        //向註冊驗證風法傳入測試資料，成功傳回True
+        $dataResult = $general->validate($this->GeneralData);
+
+        $this->assertTrue($dataResult);
+    }
+
+    public function testGeneralAccountRegister()
+    {
+        //生成general class 
+        $general = new General();
+
+        //向註冊方法傳入測試資料，得到插入後的id
+        $memberId = $general->register($this->GeneralData);
+
+        //斷言回傳的id是否有如預期註冊成功
+        $this->assertEquals(2, $memberId);
     }
 }
