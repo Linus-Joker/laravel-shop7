@@ -41,6 +41,9 @@ Route::namespace('Api')->group(function () {
         Route::get('item/message/{id}', 'ProductPageController@index');
         Route::get('item/{id}', 'ProductPageController@show');
 
+        //留言
+        Route::post('/message', 'MessageController@insert');
+
         Route::post('test/', function (Request $request) {
             $value = $request->all();
             return response()->json([

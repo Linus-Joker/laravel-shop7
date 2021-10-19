@@ -21,13 +21,14 @@ class Message extends Model
     protected $primaryKey = 'message_id';
 
     /**
-     * 可以被批量賦值的属性。
+     * 可以被批量賦值的屬性。
      *
      * @var array
      */
     protected $fillable = [
         'message_id',
         'product_id',
+        'user_id',
         'message_content',
     ];
 }
