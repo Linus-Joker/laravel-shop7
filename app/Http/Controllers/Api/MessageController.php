@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use DB;
+
 use App\Message;
 
 //使用者和管理員針對留言的CRUD API
@@ -23,29 +25,45 @@ class MessageController extends Controller
         //之後會有認證，先放著
         //將留言內容做字數上限制驗證??
         //controller 調度 Service 再到 Repository 先省略...
-        //直接將數據insert data table
 
         //產品ID應該在前端的json 資料封包裡面
+        //假設有user_id 應該是要從session抓
 
-        //假設user_id 應該是要從session抓
-        //所以會有user_id 的try catch
+        $class = 'App\Services\MessageService';
+        $message = new $class;
+        try {
+            $validateData = [
+                'product_id'        =>  $request->input('product_id'),
+                'user_id'           =>  2,
+                'message_content'   =>  $request->input('content'),
+            ];
 
-        return $request->input('content');
+            $message->validate($validateData);
 
-        // $user_id = 2;
-        // $message = Message::create([
-        //     'product_id'        =>  $product_id,
-        //     'user_id'           =>  $user_id,
-        //     'message_content'   =>  $request->input('content'),
-        // ]);
+            DB::beginTransaction();
 
-        // return response()->json([
-        //     'data'  =>  $message,
-        // ]);
+            $message = Message::create($validateData);
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return $this->response(500, $e->getMessage());
+        }
+
+        return $this->response(200, '留言新增成功');
     }
 
     public function update(Request $request)
     { }
     public function delete(Request $request)
     { }
+
+    private function response(int $code, $message, array $data = [])
+    {
+        return response()->json([
+            'status' => $code,
+            'message' => $message,
+            'data' => $data
+        ]);
+    }
 }
