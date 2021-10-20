@@ -21,6 +21,7 @@ try SOLID、Test、REST_api on shopCart Project
 -   在購物車增減數量 
 -   到訂單頁面確認購買訂單
 -   送出訂單結帳，串接EcPay Api (目前僅有信用卡結帳功能)
+-   查看產品內頁，並新增留言功能 (Building)
 
 ## Api
 use Postman
