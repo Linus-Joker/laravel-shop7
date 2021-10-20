@@ -26,7 +26,7 @@ class MemberRepository
      *      @var int    $sex       性別，1:男, 2:女
      *      @var string $type      註冊類型，1:email, 2:一般, 3:其他
      * ]
-     * @return void
+     * @return int $id 會員ID
      */
 
     public function create(array $data)

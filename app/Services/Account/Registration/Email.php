@@ -21,7 +21,7 @@ class Email extends BaseRegistration
      *      @var string $password  密碼
      *      @var string $reg_email 註冊的 email
      * ]
-     * @return int @memberId
+     * @return int $memberId 會員ID
      */
 
     public function register($data)

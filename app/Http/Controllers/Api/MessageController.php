@@ -32,17 +32,14 @@ class MessageController extends Controller
         $class = 'App\Services\MessageService';
         $message = new $class;
         try {
-            $validateData = [
+            $Data = [
                 'product_id'        =>  $request->input('product_id'),
                 'user_id'           =>  2,
                 'message_content'   =>  $request->input('content'),
             ];
-
-            $message->validate($validateData);
-
             DB::beginTransaction();
 
-            $message = Message::create($validateData);
+            $message->insert($Data);
 
             DB::commit();
         } catch (\Throwable $e) {
