@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         Admin::create([
-            'admin_codename'    => 'admin001',
+            'admin_name'    => 'admin001',
             'password'          => '19961231',
             'sex'               => 1,
             'status'            => 1,
@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
         ]);
 
         Admin::create([
-            'admin_codename'    => 'admin002',
+            'admin_name'    => 'admin002',
             'password'          => '19940101',
             'sex'               => 2,
             'status'            => 1,

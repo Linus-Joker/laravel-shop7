@@ -31,7 +31,7 @@ use Postman
 ###### need param:account、password、sex
  #### account:email or alphabet + number
  #### password:8~40 alphabet + number
- #### sex:1、2、3
+ #### sex:1、2or3
 ---------------------------------------
 -   登入測試:POST /api/v1/member/login (測試帳號:user1@example.com;密碼:password123)
 
@@ -43,7 +43,7 @@ use Postman
 
 ## Other
 
--   前端套件使用 Vue.js and Bootstrap4
+-   前端使用 Vue.js and Bootstrap4
 
 ## Remark
 

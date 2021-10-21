@@ -44,12 +44,18 @@ Route::namespace('Api')->group(function () {
         //留言
         Route::post('/message', 'MessageController@insert');
 
+        //管理員回復訊息留言
+        Route::post('/admin-message', 'AdminResMessageController@insert');
+
         Route::post('test/', function (Request $request) {
             $value = $request->all();
             return response()->json([
                 'data'  => $value
             ]);
         });
+
+        //csrf測試
+        Route::get('csrf', 'MessageController@csrf');
     });
 });
 

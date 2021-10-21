@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use DB;
-
 use App\Message;
 
 //使用者和管理員針對留言的CRUD API
@@ -16,8 +15,8 @@ class MessageController extends Controller
     public function read(Request $request)
     { }
 
-    //新增留言
     /**
+     * 新增使用者留言
      *  @return json $message
      */
     public function insert(Request $request)
@@ -32,14 +31,14 @@ class MessageController extends Controller
         $class = 'App\Services\MessageService';
         $message = new $class;
         try {
-            $Data = [
+            $data = [
                 'product_id'        =>  $request->input('product_id'),
                 'user_id'           =>  2,
                 'message_content'   =>  $request->input('content'),
             ];
             DB::beginTransaction();
 
-            $message->insert($Data);
+            $message->insert($data);
 
             DB::commit();
         } catch (\Throwable $e) {
@@ -47,7 +46,7 @@ class MessageController extends Controller
             return $this->response(500, $e->getMessage());
         }
 
-        return $this->response(200, '留言新增成功');
+        return $this->response(201, '留言新增成功');
     }
 
     public function update(Request $request)
@@ -61,6 +60,15 @@ class MessageController extends Controller
             'status' => $code,
             'message' => $message,
             'data' => $data
+        ]);
+    }
+
+    public function csrf()
+    {
+        $messageData = Message::find(13);
+
+        return response()->json([
+            'content'   => $messageData['message_content'],
         ]);
     }
 }
