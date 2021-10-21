@@ -46,6 +46,7 @@ Route::namespace('Api')->group(function () {
 
         //管理員回復訊息留言
         Route::post('/admin-message', 'AdminResMessageController@insert');
+        Route::delete('/adm-del-message', 'AdminResMessageController@delete');
 
         Route::post('test/', function (Request $request) {
             $value = $request->all();

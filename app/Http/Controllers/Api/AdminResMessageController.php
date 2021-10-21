@@ -43,6 +43,39 @@ class AdminResMessageController extends Controller
         return $this->response(201, '管理員回覆留言新增成功');
     }
 
+    public function update(Request $request)
+    { }
+
+    public function delete(Request $request)
+    {
+        $admin = "admin";
+
+        if ($admin != "admin") {
+            return $this->response(500, 'you are not admin.');
+        }
+
+        $message_id = $request->input('message_id');
+
+        try {
+            DB::beginTransaction();
+
+            DB::table('admin_res')
+                ->where('message_id', '=', $message_id)
+                ->delete();
+
+            DB::table('message')
+                ->where('message_id', '=', $message_id)
+                ->delete();
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return $this->response(500, $e->getMessage());
+        }
+
+        return $this->response(204, '留言訊息刪除成功!!');
+    }
+
     private function response(int $code, $message, array $data = [])
     {
         return response()->json([
