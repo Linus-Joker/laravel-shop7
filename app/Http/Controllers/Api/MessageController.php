@@ -34,7 +34,7 @@ class MessageController extends Controller
             $data = [
                 'product_id'        =>  $request->input('product_id'),
                 'user_id'           =>  2,
-                'message_content'   =>  $request->input('content'),
+                'message_content'   =>  $request->input('message_content'),
             ];
             DB::beginTransaction();
 

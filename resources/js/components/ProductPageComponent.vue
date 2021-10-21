@@ -26,10 +26,25 @@
       <p>
         留言 <span>用戶 {{ message.user_id }} Name:</span>
       </p>
+      <p>留言編號(晚點刪掉): {{ message.message_id }}</p>
       <p>{{ message.message_content }}</p>
       <p>管理員回復:{{ id }}</p>
       <p>{{ message.res_content }}</p>
       <p>-----------------------------------</p>
+    </div>
+
+    <div>
+      <div>
+        <label for="">使用者留言:</label>
+        <textarea type="text" v-model="user_message"></textarea>
+        <button class="btn btn-success" @click="sendMessage()">送出</button>
+      </div>
+
+      <div v-if="false">
+        <label for="">管理員回覆:</label>
+        <textarea type="text" value="456" />
+        <button type="button" class="btn btn-danger">送出</button>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +63,7 @@ export default {
       id: this.product_id,
       api_product_data: [],
       api_message_data: [],
+      user_message: "Hello 請輸入留言!!",
     };
   },
 
@@ -86,6 +102,39 @@ export default {
       // console.log(res);
       self.api_message_data = res.data.data;
     });
+
+    axios
+      .get(rootPath + "laravel-shop7/public/api/v1/item/" + id)
+      .then((res) => {
+        // console.log(res);
+        // console.log(res.data.data);
+        // console.log(res.data.data.product_image["image_name"]);
+        self.api_product_data = res.data.data;
+      });
+
+    //留言功能請求
+    axios
+      .get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id)
+      .then((res) => {
+        // console.log(res);
+        self.api_message_data = res.data.data;
+      });
+  },
+  methods: {
+    sendMessage: function () {
+      let self = this;
+      let message_content = self.user_message;
+      let product_id = self.id;
+      console.log(message_content);
+      console.log(product_id);
+
+      axios
+        .post("http://localhost:8000/laravel-shop7/public/api/v1/message", {
+          message_content: message_content,
+          product_id: product_id,
+        })
+        .then((res) => console.log(res));
+    },
   },
 };
 </script>

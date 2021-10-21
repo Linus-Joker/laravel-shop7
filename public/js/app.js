@@ -2447,6 +2447,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2457,7 +2472,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       id: this.product_id,
       api_product_data: [],
-      api_message_data: []
+      api_message_data: [],
+      user_message: "Hello 請輸入留言!!"
     };
   },
   //因為我要用參數去請求api，所以這裡要抓到外部傳過來的參數
@@ -2488,6 +2504,32 @@ __webpack_require__.r(__webpack_exports__);
       // console.log(res);
       self.api_message_data = res.data.data;
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "laravel-shop7/public/api/v1/item/" + id).then(function (res) {
+      // console.log(res);
+      // console.log(res.data.data);
+      // console.log(res.data.data.product_image["image_name"]);
+      self.api_product_data = res.data.data;
+    }); //留言功能請求
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id).then(function (res) {
+      // console.log(res);
+      self.api_message_data = res.data.data;
+    });
+  },
+  methods: {
+    sendMessage: function sendMessage() {
+      var self = this;
+      var message_content = self.user_message;
+      var product_id = self.id;
+      console.log(message_content);
+      console.log(product_id);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/laravel-shop7/public/api/v1/message", {
+        message_content: message_content,
+        product_id: product_id
+      }).then(function (res) {
+        return console.log(res);
+      });
+    }
   }
 });
 
@@ -38675,6 +38717,10 @@ var render = function() {
             _c("span", [_vm._v("用戶 " + _vm._s(message.user_id) + " Name:")])
           ]),
           _vm._v(" "),
+          _c("p", [
+            _vm._v("留言編號(晚點刪掉): " + _vm._s(message.message_id))
+          ]),
+          _vm._v(" "),
           _c("p", [_vm._v(_vm._s(message.message_content))]),
           _vm._v(" "),
           _c("p", [_vm._v("管理員回復:" + _vm._s(_vm.id))]),
@@ -38683,7 +38729,51 @@ var render = function() {
           _vm._v(" "),
           _c("p", [_vm._v("-----------------------------------")])
         ])
-      })
+      }),
+      _vm._v(" "),
+      _c("div", [
+        _c("div", [
+          _c("label", { attrs: { for: "" } }, [_vm._v("使用者留言:")]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user_message,
+                expression: "user_message"
+              }
+            ],
+            attrs: { type: "text" },
+            domProps: { value: _vm.user_message },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.user_message = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              on: {
+                click: function($event) {
+                  return _vm.sendMessage()
+                }
+              }
+            },
+            [_vm._v("送出")]
+          )
+        ]),
+        _vm._v(" "),
+        false
+          ? undefined
+          : _vm._e()
+      ])
     ],
     2
   )

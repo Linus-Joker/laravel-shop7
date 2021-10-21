@@ -39,7 +39,7 @@ class ProductPageController extends Controller
         $class = 'App\Repositories\ProductsRepository';
         $product = new $class();
 
-        $productData = $product->findOneProduct($product_id);
+        $productData = $product->SearchProduct($product_id);
         // dd($product);
         // echo $product['name'];
         return response()->json([
