@@ -45,7 +45,7 @@ export default {
   },
   mounted() {
     axios
-      .get("api/v1/products")
+      .get("/api/v1/products")
       .then((res) => {
         let self = this;
         console.log(res);

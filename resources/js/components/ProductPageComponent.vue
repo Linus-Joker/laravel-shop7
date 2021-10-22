@@ -71,24 +71,7 @@ export default {
   mounted() {
     let id = this.product_id;
     let self = this;
-    let curPageUrl = window.document.location.href;
-    // var rootPath =
-    //   curPageUrl.split("//")[0] +
-    //   "//" +
-    //   curPageUrl.split("//")[1].split("/")[0] +
-    //   "/" +
-    //   curPageUrl.split("//")[1].split("/")[1] +
-    //   "/" +
-    //   curPageUrl.split("//")[1].split("/")[2] +
-    //   "/";
 
-    let rootPath =
-      curPageUrl.split("//")[0] +
-      "//" +
-      curPageUrl.split("//")[1].split("/")[0] +
-      "/";
-
-    console.log(rootPath);
     //單個商品的請求;
     axios.get("/api/v1/item/" + id).then((res) => {
       // console.log(res);
@@ -102,21 +85,6 @@ export default {
       // console.log(res);
       self.api_message_data = res.data.data;
     });
-
-    // axios.get("/api/v1/item/" + id).then((res) => {
-    //   // console.log(res);
-    //   // console.log(res.data.data);
-    //   // console.log(res.data.data.product_image["image_name"]);
-    //   self.api_product_data = res.data.data;
-    // });
-
-    //留言功能請求
-    // axios
-    //   .get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id)
-    //   .then((res) => {
-    //     // console.log(res);
-    //     self.api_message_data = res.data.data;
-    //   });
   },
   methods: {
     sendMessage: function () {
