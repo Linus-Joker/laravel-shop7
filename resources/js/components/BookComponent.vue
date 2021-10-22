@@ -48,8 +48,8 @@ export default {
       .get("/api/v1/products")
       .then((res) => {
         let self = this;
-        console.log(res);
-        console.log(res.data.data);
+        // console.log(res);
+        // console.log(res.data.data);
         self.apidata = res.data.data;
       })
       .catch((err) => {

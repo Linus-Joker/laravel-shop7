@@ -11,25 +11,24 @@
 <body>
     <div id="app">
         {{-- nav start --}}
-        <div id="app">
-            <nav class="container navbar navbar-expand-lg navbar-light bg-light">
-                <div class="row justify-content-around">
-                    <p>
-                        <a class="navbar-brand mb-0 h1" href={{url('/')}}>Home</a>
-                    </p>
-                    <p>
-                        <a class="navbar-brand" href="{{url('/cart')}}">Cart</a>
-                    </p>
+        <nav class="container navbar navbar-expand-lg navbar-light bg-light">
+            <div class="row justify-content-around">
+                <p>
+                    <a class="navbar-brand mb-0 h1" href={{url('/')}}>Home</a>
+                </p>
+                <p>
+                    <a class="navbar-brand" href="{{url('/cart')}}">Cart</a>
+                </p>
 
-                    @if ($userNumber == null)
-                    <a class="navbar-brand" href="{{url('/login')}}">登入</a>
-                        
-                        {{ $userNumber }}
-                    @else
-                    <a class="navbar-brand" href="{{url('api/v1/member/logout')}}">登出</a>
-                    @endif
-                </div>
-            </nav>
+                @if ($userNumber == null)
+                <a class="navbar-brand" href="{{url('/login')}}">登入</a>
+                    
+                    {{ $userNumber }}
+                @else
+                <a class="navbar-brand" href="{{url('api/v1/member/logout')}}">登出</a>
+                @endif
+            </div>
+        </nav>
         {{-- nav end --}}
 
         {{-- top-header start --}}

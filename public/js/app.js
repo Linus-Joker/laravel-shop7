@@ -2005,9 +2005,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/v1/products").then(function (res) {
-      var self = _this;
-      console.log(res);
-      console.log(res.data.data);
+      var self = _this; // console.log(res);
+      // console.log(res.data.data);
+
       self.apidata = res.data.data;
     })["catch"](function (err) {
       console.error(err);
@@ -2096,7 +2096,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "book",
+  name: "cart",
   data: function data() {
     return {
       apidata: 1,

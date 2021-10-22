@@ -54,7 +54,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "book",
+  name: "cart",
   data() {
     return {
       apidata: 1,

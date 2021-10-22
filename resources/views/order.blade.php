@@ -35,7 +35,7 @@
               <tbody class="text-center">
                 @foreach ($products as $p)
                 <tr>
-                  <th scope="row">{{$p['item']['title']}}</th>
+                  <th scope="row">{{$p['item']['name']}}</th>
                   <td>{{$p['item']['price']}}元</td>
                   <td>{{$p['qty']}}</td>
                   <td class="border px-4 py-2"> {{$p['qty'] * $p['item']['price']}}元</td>
@@ -47,7 +47,7 @@
         
             <h3 class="">User Info</h3>
         
-            <form method="POST" action="{{url('/orders')}}" class="">
+            <form method="POST" action="{{url('/orders')}}" >
                 @csrf
               <div class="mb-3">
                 <label class="mb-2" for="name"> Name: </label>
@@ -57,6 +57,7 @@
                   id="name"
                   type="text"
                   placeholder="name"
+                  required
                 />
               </div>
               <div class="mb-3">
@@ -67,6 +68,7 @@
                   id="email"
                   type="email"
                   placeholder="email"
+                  required
                 />
               </div>
               <div class="d-flex justify-content-between">
