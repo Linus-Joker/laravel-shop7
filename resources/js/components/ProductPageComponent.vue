@@ -89,36 +89,34 @@ export default {
       "/";
 
     console.log(rootPath);
-    //單個商品的請求
-    axios.get(rootPath + "api/v1/item/" + id).then((res) => {
+    單個商品的請求;
+    axios.get("/api/v1/item/" + id).then((res) => {
       // console.log(res);
       // console.log(res.data.data);
       // console.log(res.data.data.product_image["image_name"]);
       self.api_product_data = res.data.data;
     });
 
-    //留言功能請求
-    axios.get(rootPath + "api/v1/item/message/" + id).then((res) => {
+    留言功能請求;
+    axios.get("/api/v1/item/message/" + id).then((res) => {
       // console.log(res);
       self.api_message_data = res.data.data;
     });
 
-    axios
-      .get(rootPath + "laravel-shop7/public/api/v1/item/" + id)
-      .then((res) => {
-        // console.log(res);
-        // console.log(res.data.data);
-        // console.log(res.data.data.product_image["image_name"]);
-        self.api_product_data = res.data.data;
-      });
+    // axios.get("/api/v1/item/" + id).then((res) => {
+    //   // console.log(res);
+    //   // console.log(res.data.data);
+    //   // console.log(res.data.data.product_image["image_name"]);
+    //   self.api_product_data = res.data.data;
+    // });
 
     //留言功能請求
-    axios
-      .get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id)
-      .then((res) => {
-        // console.log(res);
-        self.api_message_data = res.data.data;
-      });
+    // axios
+    //   .get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id)
+    //   .then((res) => {
+    //     // console.log(res);
+    //     self.api_message_data = res.data.data;
+    //   });
   },
   methods: {
     sendMessage: function () {
@@ -129,7 +127,7 @@ export default {
       console.log(product_id);
 
       axios
-        .post("http://localhost:8000/laravel-shop7/public/api/v1/message", {
+        .post("/api/v1/message", {
           message_content: message_content,
           product_id: product_id,
         })

@@ -2491,30 +2491,31 @@ __webpack_require__.r(__webpack_exports__);
     //   "/";
 
     var rootPath = curPageUrl.split("//")[0] + "//" + curPageUrl.split("//")[1].split("/")[0] + "/";
-    console.log(rootPath); //單個商品的請求
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "api/v1/item/" + id).then(function (res) {
+    console.log(rootPath);
+    單個商品的請求;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/v1/item/" + id).then(function (res) {
       // console.log(res);
       // console.log(res.data.data);
       // console.log(res.data.data.product_image["image_name"]);
       self.api_product_data = res.data.data;
-    }); //留言功能請求
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "api/v1/item/message/" + id).then(function (res) {
+    });
+    留言功能請求;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/v1/item/message/" + id).then(function (res) {
       // console.log(res);
       self.api_message_data = res.data.data;
-    });
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "laravel-shop7/public/api/v1/item/" + id).then(function (res) {
-      // console.log(res);
-      // console.log(res.data.data);
-      // console.log(res.data.data.product_image["image_name"]);
-      self.api_product_data = res.data.data;
-    }); //留言功能請求
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id).then(function (res) {
-      // console.log(res);
-      self.api_message_data = res.data.data;
-    });
+    }); // axios.get("/api/v1/item/" + id).then((res) => {
+    //   // console.log(res);
+    //   // console.log(res.data.data);
+    //   // console.log(res.data.data.product_image["image_name"]);
+    //   self.api_product_data = res.data.data;
+    // });
+    //留言功能請求
+    // axios
+    //   .get(rootPath + "laravel-shop7/public/api/v1/item/message/" + id)
+    //   .then((res) => {
+    //     // console.log(res);
+    //     self.api_message_data = res.data.data;
+    //   });
   },
   methods: {
     sendMessage: function sendMessage() {
@@ -2523,7 +2524,7 @@ __webpack_require__.r(__webpack_exports__);
       var product_id = self.id;
       console.log(message_content);
       console.log(product_id);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/laravel-shop7/public/api/v1/message", {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/v1/message", {
         message_content: message_content,
         product_id: product_id
       }).then(function (res) {
