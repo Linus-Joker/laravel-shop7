@@ -89,7 +89,7 @@ export default {
       "/";
 
     console.log(rootPath);
-    單個商品的請求;
+    //單個商品的請求;
     axios.get("/api/v1/item/" + id).then((res) => {
       // console.log(res);
       // console.log(res.data.data);
@@ -97,7 +97,7 @@ export default {
       self.api_product_data = res.data.data;
     });
 
-    留言功能請求;
+    //留言功能請求;
     axios.get("/api/v1/item/message/" + id).then((res) => {
       // console.log(res);
       self.api_message_data = res.data.data;
