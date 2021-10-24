@@ -3,7 +3,11 @@
     <div class="row">
       <!-- 卡片開始 -->
       <div class="card" style="width: 18rem">
-        <img class="card-img-top" alt="Card image cap" />
+        <img
+          class="card-img-top"
+          :src="'/images/' + api_product_data.product_image[`image_name`]"
+          alt="Card image cap"
+        />
 
         <div class="card-body">
           <h5 class="card-title">產品名稱:{{ api_product_data["name"] }}</h5>
@@ -23,13 +27,23 @@
 
     <p>商品留言:</p>
     <div v-for="message in api_message_data" :key="message.id">
-      <p>
-        留言 <span>用戶 {{ message.user_id }} Name:</span>
-      </p>
-      <p>留言編號(晚點刪掉): {{ message.message_id }}</p>
-      <p>{{ message.message_content }}</p>
-      <p>管理員回復:{{ id }}</p>
-      <p>{{ message.res_content }}</p>
+      <div class="p-3 mb-2 bg-secondary text-white">
+        <p>
+          留言#
+          <span>用戶 {{ message.user_id }} Name: {{ message.user_name }}</span>
+        </p>
+        <p>{{ message.message_content }}</p>
+      </div>
+
+      <!-- 如果管理員還沒回覆留言，留言暫時不顯示 -->
+      <div
+        class="p-3 mb-2 bg-light text-dark"
+        v-if="message.res_content == null"
+      ></div>
+      <div class="p-3 mb-2 bg-light text-dark" v-else>
+        <p>管理員{{ message.admin_id }}回復:</p>
+        <p>{{ message.res_content }}</p>
+      </div>
       <p>-----------------------------------</p>
     </div>
 

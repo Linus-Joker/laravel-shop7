@@ -19,9 +19,22 @@ class ProductPageController extends Controller
     public function index($product_id)
     {
         $message = DB::table('message')
-            ->join('admin_res', 'admin_res.message_id', '=', 'message.message_id')
+            ->leftJoin('admin_res', 'admin_res.message_id', '=', 'message.message_id')
+            ->join('member', 'message.user_id', '=', 'member.id')
             ->where('product_id', '=', $product_id)
+            ->select(
+                'message.message_id',
+                'message.user_id',
+                'message.message_content',
+                'admin_res.admin_id',
+                'admin_res.res_content',
+                'member.user_name'
+            )
             ->get();
+
+        // $message  = DB::table('message')
+        //     ->where('product_id', '=', $product_id)
+        //     ->get();
 
         return response()->json([
             'data'  => $message,

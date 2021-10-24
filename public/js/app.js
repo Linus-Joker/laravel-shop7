@@ -2462,6 +2462,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -38655,7 +38669,11 @@ var render = function() {
         _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
           _c("img", {
             staticClass: "card-img-top",
-            attrs: { alt: "Card image cap" }
+            attrs: {
+              src:
+                "/images/" + _vm.api_product_data.product_image["image_name"],
+              alt: "Card image cap"
+            }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -38689,20 +38707,31 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.api_message_data, function(message) {
         return _c("div", { key: message.id }, [
-          _c("p", [
-            _vm._v("\n      留言 "),
-            _c("span", [_vm._v("用戶 " + _vm._s(message.user_id) + " Name:")])
+          _c("div", { staticClass: "p-3 mb-2 bg-secondary text-white" }, [
+            _c("p", [
+              _vm._v("\n        留言#\n        "),
+              _c("span", [
+                _vm._v(
+                  "用戶 " +
+                    _vm._s(message.user_id) +
+                    " Name: " +
+                    _vm._s(message.user_name)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(message.message_content))])
           ]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v("留言編號(晚點刪掉): " + _vm._s(message.message_id))
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(message.message_content))]),
-          _vm._v(" "),
-          _c("p", [_vm._v("管理員回復:" + _vm._s(_vm.id))]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(message.res_content))]),
+          message.res_content == null
+            ? _c("div", { staticClass: "p-3 mb-2 bg-light text-dark" })
+            : _c("div", { staticClass: "p-3 mb-2 bg-light text-dark" }, [
+                _c("p", [
+                  _vm._v("管理員" + _vm._s(message.admin_id) + "回復:")
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(message.res_content))])
+              ]),
           _vm._v(" "),
           _c("p", [_vm._v("-----------------------------------")])
         ])
