@@ -7,14 +7,18 @@
         v-for="data in apidata"
         :key="data.id"
       >
-        <img
-          class="card-img-top"
-          :src="'images/' + data.product_image.image_name"
-          alt="Card image cap"
-        />
+        <a :href="'item/' + data.id">
+          <img
+            class="card-img-top"
+            :src="'images/' + data.product_image.image_name"
+            alt="Card image cap"
+          />
+        </a>
 
         <div class="card-body">
-          <h5 class="card-title">產品名稱:{{ data.name }}</h5>
+          <h5 class="card-title">
+            <a :href="'item/' + data.id">產品名稱:{{ data.name }}</a>
+          </h5>
           <p class="card-text pro_des">產品簡述:{{ data.description }}</p>
           <p class="card-text pro_price">
             產品價格:
@@ -49,7 +53,7 @@ export default {
       .then((res) => {
         let self = this;
         // console.log(res);
-        // console.log(res.data.data);
+        console.log(res.data.data);
         self.apidata = res.data.data;
       })
       .catch((err) => {
@@ -58,9 +62,8 @@ export default {
   },
   methods: {
     addcart: function (id) {
-      // alert(id)
       axios
-        .get("addcart/" + id)
+        .get("/addcart/" + id)
         .then((res) => {
           let self = this;
           console.log(res);

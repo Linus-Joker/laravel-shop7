@@ -32,35 +32,9 @@
         </div>    
         {{-- nav end --}}
 
-        {{-- <div class="container">
-            <div class="row">
-                <!-- 卡片開始 -->
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-                <!-- 卡片結束 -->
-
-                
-            </div>
-
-            <div>
-                商品留言:
-                <p>留言1 <span>用戶Name</span></p>
-                <p>1234567</p>
-                <p>管理員回復:</p>
-                <p>987654321</p>
-                <p>-----------------------------------</p>
-            </div>
-        </div> --}}
         <p>產品ID:{{ $product_id }}</p>
         {{-- 要從 blade 傳遞外部參數進vue component --}}
         <productpage-component :product_id="{{ $product_id }}"></productpage-component>
-
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>

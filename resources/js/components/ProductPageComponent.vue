@@ -19,7 +19,9 @@
             <span>{{ api_product_data["price"] }}</span>
             <span>元</span>
           </p>
-          <button class="btn btn-primary btn-lg btn-block">加入購物車</button>
+          <button class="btn btn-primary btn-lg btn-block" @click="addcart()">
+            加入購物車
+          </button>
         </div>
       </div>
       <!-- 卡片結束 -->
@@ -114,6 +116,18 @@ export default {
           product_id: product_id,
         })
         .then((res) => console.log(res));
+    },
+    addcart: function () {
+      let id = this.product_id;
+      axios
+        .get("/addcart/" + id)
+        .then((res) => {
+          let self = this;
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

@@ -1993,6 +1993,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2006,8 +2010,8 @@ __webpack_require__.r(__webpack_exports__);
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/v1/products").then(function (res) {
       var self = _this; // console.log(res);
-      // console.log(res.data.data);
 
+      console.log(res.data.data);
       self.apidata = res.data.data;
     })["catch"](function (err) {
       console.error(err);
@@ -2017,8 +2021,7 @@ __webpack_require__.r(__webpack_exports__);
     addcart: function addcart(id) {
       var _this2 = this;
 
-      // alert(id)
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("addcart/" + id).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/addcart/" + id).then(function (res) {
         var self = _this2;
         console.log(res);
       })["catch"](function (err) {
@@ -2476,6 +2479,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "book",
@@ -2519,6 +2524,17 @@ __webpack_require__.r(__webpack_exports__);
         product_id: product_id
       }).then(function (res) {
         return console.log(res);
+      });
+    },
+    addcart: function addcart() {
+      var _this = this;
+
+      var id = this.product_id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/addcart/" + id).then(function (res) {
+        var self = _this;
+        console.log(res);
+      })["catch"](function (err) {
+        console.log(err);
       });
     }
   }
@@ -38177,17 +38193,21 @@ var render = function() {
             staticStyle: { width: "18rem" }
           },
           [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src: "images/" + data.product_image.image_name,
-                alt: "Card image cap"
-              }
-            }),
+            _c("a", { attrs: { href: "item/" + data.id } }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: "images/" + data.product_image.image_name,
+                  alt: "Card image cap"
+                }
+              })
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("h5", { staticClass: "card-title" }, [
-                _vm._v("產品名稱:" + _vm._s(data.name))
+                _c("a", { attrs: { href: "item/" + data.id } }, [
+                  _vm._v("產品名稱:" + _vm._s(data.name))
+                ])
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "card-text pro_des" }, [
@@ -38696,9 +38716,18 @@ var render = function() {
               _c("span", [_vm._v("元")])
             ]),
             _vm._v(" "),
-            _c("button", { staticClass: "btn btn-primary btn-lg btn-block" }, [
-              _vm._v("加入購物車")
-            ])
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary btn-lg btn-block",
+                on: {
+                  click: function($event) {
+                    return _vm.addcart()
+                  }
+                }
+              },
+              [_vm._v("\n          加入購物車\n        ")]
+            )
           ])
         ])
       ]),
