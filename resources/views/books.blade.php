@@ -20,12 +20,10 @@
                     <a class="navbar-brand" href="{{url('/cart')}}">Cart</a>
                 </p>
 
-                @if ($userNumber == null)
+                @if (is_null($userNumber))
                 <a class="navbar-brand" href="{{url('/login')}}">登入</a>
-                    
-                    {{ $userNumber }}
                 @else
-                <a class="navbar-brand" href="{{url('api/v1/member/logout')}}">登出</a>
+                <a class="navbar-brand" href="{{url('/api/v1/member/logout')}}">登出</a>
                 @endif
             </div>
         </nav>

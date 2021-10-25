@@ -25,7 +25,7 @@ class MessageController extends Controller
         //產品ID應該在前端的json 資料封包裡面
         //假設有user_id 應該是要從session抓
         $user_id = Session::has('userNumber') ? Session::get('userNumber') : null;
-        if ($user_id === null) {
+        if (is_null($user_id)) {
             return $this->response(440, "session Not exists.");
         }
 
