@@ -13,7 +13,7 @@ class Email extends BaseLogin
         //這裡應該要寫成介面?
         $memberData = $this->member->checkEmailAccountDB($data['account']);
 
-        //hash password ckech寫在共通的地方
+        //hash password check寫在共通的地方
         $this->checkPassword($data['password'], $memberData['password']);
 
         //假設都沒問題那我返回sex,type,status，因為要給前端傳資料??

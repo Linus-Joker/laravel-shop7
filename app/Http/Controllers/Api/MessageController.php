@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 use DB;
 use App\Message;
@@ -21,23 +22,30 @@ class MessageController extends Controller
      */
     public function insert(Request $request)
     {
-        //之後會有認證，先放著
-        //將留言內容做字數上限制驗證??
-        //controller 調度 Service 再到 Repository 先省略...
-
         //產品ID應該在前端的json 資料封包裡面
         //假設有user_id 應該是要從session抓
+        $user_id = Session::has('userNumber') ? Session::get('userNumber') : null;
+        if ($user_id === null) {
+            return $this->response(440, "session Not exists.");
+        }
 
+        //呼叫要使用的物件
         $class = 'App\Services\MessageService';
+        if (class_exists($class) === false) {
+            return $this->response(422, 'class  ' . $class . '  Not exist.');
+        }
         $message = new $class;
+
         try {
+            //整理好需要的資料
             $data = [
                 'product_id'        =>  $request->input('product_id'),
-                'user_id'           =>  2,
+                'user_id'           =>  $user_id,
                 'message_content'   =>  $request->input('message_content'),
             ];
             DB::beginTransaction();
 
+            //插入資料
             $message->insert($data);
 
             DB::commit();

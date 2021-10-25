@@ -67,7 +67,6 @@ class MemberController extends Controller
         }
         // dd($memberData['id']);
         Session::put('userNumber', $memberData['id']);
-        $userNumber = Session::has('userNumber') ? Session::get('userNumber') : null;
 
         return $this->response(200, '會員登入成功', $memberData);
     }
