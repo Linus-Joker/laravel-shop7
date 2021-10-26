@@ -30,9 +30,8 @@ Route::namespace('Api')->group(function () {
         Route::post('member/registed/{type}', 'MemberController@register');
         Route::post('member/login', 'MemberController@login');
         Route::get('member/logout', 'MemberController@logout');
+        Route::post('member/change', 'MemberController@changePassword');
         Route::get('member/session-check', 'MemberController@sessionCheck');
-        Route::post('member/hash-test', 'MemberController@hashTest');
-        Route::post('member/hash-check', 'MemberController@hashCheckTest');
 
         //產品系統
         Route::apiResource('products', 'BooksController');

@@ -37,9 +37,7 @@ class MemberRepository
             $this->member->reg_email = $data['reg_email'] ?? null;
             $this->member->reg_phone = $data['reg_phone'] ?? null;
             $this->member->user_name = $data['user_name'] ?? null;
-            $this->member->password = Hash::make($data['password'], [
-                'rounds' => 12
-            ]);
+            $this->member->password = $this->hashPassword($data['password']);
             $this->member->sex = $data['sex'] ?? null;
             $this->member->type = $data['type'];
             // $this->member->save();
@@ -113,5 +111,44 @@ class MemberRepository
         }
 
         return $memberData;
+    }
+
+    public function checkUserIdAccountDB(int $user_id)
+    {
+        $memberData = $this->member::find($user_id);
+
+        if (empty($memberData)) {
+            // return '你輸入的帳號或密碼錯誤，請重新輸入';
+            throw new \App\Exceptions\DatabaseQueryException('找不到使用者，請重新登入');
+        }
+
+        return $memberData;
+    }
+
+    public function changePassword($newPassword, $user_id)
+    {
+        try {
+            $hashNewPassword = $this->hashPassword($newPassword);
+
+            $user = $this->member::find($user_id);
+
+            $user->password = $hashNewPassword;
+
+            if ($user->save() !== true) {
+                throw new \App\Exceptions\DatabaseQueryException('更新使用者密碼失敗');
+            }
+        } catch (\Throwable $th) {
+            throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
+        }
+        return true;
+    }
+
+    public function hashPassword($password)
+    {
+        $hashPassword = Hash::make($password, [
+            'rounds' => 12
+        ]);
+
+        return $hashPassword;
     }
 }

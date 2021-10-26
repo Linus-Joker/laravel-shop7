@@ -71,6 +71,74 @@ class MemberController extends Controller
         return $this->response(200, '會員登入成功', $memberData);
     }
 
+
+
+    public function logout(Request $request)
+    {
+        $request->session()->forget('userNumber');
+
+        return redirect('/');
+    }
+
+    public function changePassword(Request $request)
+    {
+        //1.catch user session user_id
+        //2.check and validate post data
+        //3.new password and check password comparison identical
+        //4.user_id and member db data check
+        //5.get user hash password
+        //6.user hash password and post password hash comparison
+        //7.post new password and update password
+        //8.return result
+
+        $user_id = Session::has('userNumber') ? Session::get('userNumber') : null;
+
+        if (is_null($user_id)) {
+            return $this->response(440, 'user not exists, please login again.');
+        }
+
+        $class = 'App\Services\Account\MemberService';
+
+        if (class_exists($class) === false) {
+            return $this->response(422, 'class  ' . $class . '  Not exist.');
+        }
+
+        $account = new $class;
+
+        try {
+            $data = [
+                'oldPassword'   => $request->input('oldPassword'),
+                'newPassword'   => $request->input('newPassword'),
+                'checkPassword' => $request->input('checkPassword'),
+            ];
+
+            $account->validate($data);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        if ($data["newPassword"] !== $data["checkPassword"]) {
+            return $this->response(422, 'password different');
+        }
+
+        try {
+            $memberData = $account->checkUserId($user_id);
+
+            $userHashPassword = $memberData["password"];
+
+            $account->checkPassword($data["oldPassword"], $userHashPassword);
+
+            $account->changePassword($data["newPassword"], $user_id);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        return $this->response(201, 'password change success.');
+    }
+
+    public function forgetPassword()
+    { }
+
     private function response(int $code, $message, array $data = [])
     {
         return response()->json([
@@ -80,42 +148,6 @@ class MemberController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
-    {
-        $request->session()->forget('userNumber');
-
-        return redirect('/');
-    }
-
-    public function hashTest(Request $request)
-    {
-        $hashPassword = Hash::make($request->input('password'), [
-            'rounds' => 10
-        ]);
-
-        $member = new Member;
-
-        $member::where('id', 1)->update(
-            [
-                'password' => $hashPassword
-            ]
-        );
-
-        return $hashPassword;
-    }
-
-    public function hashCheckTest(Request $request)
-    {
-        $member = new Member;
-
-        $dbPassword = $member::find(1)->password;
-
-        if (Hash::check($request->input('password'), $dbPassword)) {
-            return true;
-        }
-
-        return 'password error.';
-    }
 
     public function sessionCheck()
     {
