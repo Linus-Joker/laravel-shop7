@@ -136,8 +136,14 @@ class MemberController extends Controller
         return $this->response(201, 'password change success.');
     }
 
-    public function forgetPassword()
-    { }
+    public function forgetPassword(Request $request)
+    {
+        //1.get user_email data and validate
+        //2.隨機產生 8位數 字段密碼
+        //3.將字段密碼 hash 完存進 資料表
+        //4.將未hash 字段密碼 寄送到信箱
+        // user_name and user_email 是否要匹配
+    }
 
     private function response(int $code, $message, array $data = [])
     {
@@ -146,6 +152,12 @@ class MemberController extends Controller
             'message' => $message,
             'data' => $data
         ]);
+    }
+
+    public function getMember()
+    {
+        $user = DB::table('member')->get();
+        return $user;
     }
 
 

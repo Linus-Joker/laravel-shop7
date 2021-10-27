@@ -32,6 +32,7 @@ Route::namespace('Api')->group(function () {
         Route::get('member/logout', 'MemberController@logout');
         Route::post('member/change', 'MemberController@changePassword');
         Route::get('member/session-check', 'MemberController@sessionCheck');
+        Route::get('member/get-member', 'MemberController@getMember');
 
         //產品系統
         Route::apiResource('products', 'BooksController');

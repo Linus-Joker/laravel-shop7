@@ -28,7 +28,8 @@ use Postman
 
 -   註冊測試: POST /api/v1/member/registed/{type} 
 (type:email or general)
-###### need param:account、password、sex
+###### need param:account、user_name、password、sex
+ #### user_name:alphabet or number
  #### account:email or alphabet + number
  #### password:8~40 alphabet + number
  #### sex:1、2or3

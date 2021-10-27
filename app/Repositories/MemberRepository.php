@@ -137,7 +137,7 @@ class MemberRepository
             if ($user->save() !== true) {
                 throw new \App\Exceptions\DatabaseQueryException('更新使用者密碼失敗');
             }
-        } catch (\Throwable $th) {
+        } catch (\Throwable $e) {
             throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
         }
         return true;
