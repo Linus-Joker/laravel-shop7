@@ -16,7 +16,7 @@ class MessageSeeder extends Seeder
 
         foreach ($productIdArray as $key => $value) {
             Message::create([
-                'message_id'        => $key + 1,
+                // 'message_id'        => $key + 1,
                 'product_id'        => $value,
                 'user_id'           => $value,
                 'message_content'   => 'hello message'
