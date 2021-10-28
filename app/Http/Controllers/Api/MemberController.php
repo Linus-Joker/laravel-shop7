@@ -71,8 +71,6 @@ class MemberController extends Controller
         return $this->response(200, '會員登入成功', $memberData);
     }
 
-
-
     public function logout(Request $request)
     {
         $request->session()->forget('userNumber');
@@ -82,21 +80,14 @@ class MemberController extends Controller
 
     public function changePassword(Request $request)
     {
-        //1.catch user session user_id
-        //2.check and validate post data
-        //3.new password and check password comparison identical
-        //4.user_id and member db data check
-        //5.get user hash password
-        //6.user hash password and post password hash comparison
-        //7.post new password and update password
-        //8.return result
-
+        //catch user session user_id
         $user_id = Session::has('userNumber') ? Session::get('userNumber') : null;
 
         if (is_null($user_id)) {
             return $this->response(440, 'user not exists, please login again.');
         }
 
+        //呼叫會員物件
         $class = 'App\Services\Account\MemberService';
 
         if (class_exists($class) === false) {
@@ -106,28 +97,39 @@ class MemberController extends Controller
         $account = new $class;
 
         try {
+            //整理傳來的資料
             $data = [
                 'oldPassword'   => $request->input('oldPassword'),
                 'newPassword'   => $request->input('newPassword'),
                 'checkPassword' => $request->input('checkPassword'),
             ];
 
-            $account->validate($data);
+            $rules = [
+                "oldPassword" => 'required|alpha_num|min:8|max:40',
+                "newPassword" => 'required|alpha_num|min:8|max:40',
+                "checkPassword" => 'required|alpha_num|min:8|max:40',
+            ];
+
+            //檢查並驗證資料格式
+            $account->validate($data, $rules);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
 
+        //比對新密碼和確認密碼是否一致
         if ($data["newPassword"] !== $data["checkPassword"]) {
             return $this->response(422, 'password different');
         }
 
         try {
+            //用 session user_id 找會員資料
             $memberData = $account->checkUserId($user_id);
 
+            //檢查舊密碼和會員密碼是否一致，Hash後
             $userHashPassword = $memberData["password"];
-
             $account->checkPassword($data["oldPassword"], $userHashPassword);
 
+            //更新密碼
             $account->changePassword($data["newPassword"], $user_id);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
@@ -138,11 +140,47 @@ class MemberController extends Controller
 
     public function forgetPassword(Request $request)
     {
-        //1.get user_email data and validate
-        //2.隨機產生 8位數 字段密碼
         //3.將字段密碼 hash 完存進 資料表
         //4.將未hash 字段密碼 寄送到信箱
-        // user_name and user_email 是否要匹配
+        //呼叫會員物件
+        $class = 'App\Services\Account\MemberService';
+
+        if (class_exists($class) === false) {
+            return $this->response(422, 'class  ' . $class . '  Not exist.');
+        }
+
+        $account = new $class;
+
+        try {
+            //整理傳來的資料
+            $data = [
+                'user_email'   => $request->input('user_email'),
+            ];
+
+            $rules = [
+                "user_email" => 'required|email',
+            ];
+
+            //檢查並驗證資料格式
+            $account->validate($data, $rules);
+
+            //檢查使用者
+            $memberData = $account->checkEmailAccountDB($request->input('user_email'));
+
+            //得到暫時密碼
+            $temporaryPassword = $account->getTemporaryPassword();
+
+            //取得Hash後的暫時密碼
+            // $hashTemporaryPassword = $account->hashPassword($temporaryPassword);
+
+            $account->changePassword($temporaryPassword, $memberData['id']);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        //最後一部寄送為HASH的暫時密碼到使用者註冊的信箱()
+
+        return $this->response(201, 'password send success.');
     }
 
     private function response(int $code, $message, array $data = [])

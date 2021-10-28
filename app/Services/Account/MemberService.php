@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Repositories\MemberRepository;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class MemberService
 {
@@ -17,14 +18,8 @@ class MemberService
         $this->member = new MemberRepository();
     }
 
-    public function validate($data)
+    public function validate(array $data, array $rules)
     {
-        $rules = [
-            "oldPassword" => 'required|alpha_num|min:8|max:40',
-            "newPassword" => 'required|alpha_num|min:8|max:40',
-            "checkPassword" => 'required|alpha_num|min:8|max:40',
-        ];
-
         $validator = validator::make($data, $rules);
         if ($validator->fails()) {
             throw new \App\Exceptions\InvalidParameterException($validator->errors()->first());
@@ -41,10 +36,23 @@ class MemberService
         return $memberData;
     }
 
-    public function hashPassword($oldPassword)
+    public function checkEmailAccountDB($user_email)
     {
-        $oldHashPassword = $this->member->hashPassword($oldPassword);
-        return $oldHashPassword;
+        $memberData = $this->member->checkEmailAccountDB($user_email);
+
+        return $memberData;
+    }
+
+    public function hashPassword($password)
+    {
+        // $HashPassword = $this->member->hashPassword($password);
+        // return $HashPassword;
+
+        $hashPassword = Hash::make($password, [
+            'rounds' => 12
+        ]);
+
+        return $hashPassword;
     }
 
     public function checkPassword($oldHashPassword, $userHashPassword)
@@ -61,5 +69,12 @@ class MemberService
         $changeResult = $this->member->changePassword($newPassword, $user_id);
 
         return $changeResult;
+    }
+
+    public function getTemporaryPassword()
+    {
+        $aaa = 'abcd1234';
+        // return Str::random(8);
+        return $aaa;
     }
 }

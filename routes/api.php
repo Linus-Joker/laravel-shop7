@@ -31,6 +31,7 @@ Route::namespace('Api')->group(function () {
         Route::post('member/login', 'MemberController@login');
         Route::get('member/logout', 'MemberController@logout');
         Route::post('member/change', 'MemberController@changePassword');
+        Route::post('member/forget', 'MemberController@forgetPassword');
         Route::get('member/session-check', 'MemberController@sessionCheck');
         Route::get('member/get-member', 'MemberController@getMember');
 

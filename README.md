@@ -34,7 +34,10 @@ use Postman
  #### password:8~40 alphabet + number
  #### sex:1、2or3
 ---------------------------------------
--   登入測試:POST /api/v1/member/login (測試帳號:user1@example.com;密碼:password123)
+-   登入測試: POST /api/v1/member/login (測試帳號:user1@example.com;密碼:password123)
+---------------------------------------
+- 使用者更新密碼: POST /api/v1/member/change
+- 使用者忘記密碼: POST /api/v1/member/forget (測試帳號:user3@example.com)
 
 ## Admin
 

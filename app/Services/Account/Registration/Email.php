@@ -50,7 +50,7 @@ class Email extends BaseRegistration
             'account'   => 'required|email|unique:member,reg_email',
             'user_name' => 'required',
             'type'      => 'required|integer',
-            'sex'       => 'required|in:1,2',
+            'sex'       => 'required|in:1,2,3',
             'password'  => 'required|alpha_num|min:8|max:40',
         ];
 

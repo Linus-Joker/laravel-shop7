@@ -86,7 +86,7 @@ class MemberRepository
 
         if (empty($memberData)) {
             // return '你輸入的帳號或密碼錯誤，請重新輸入';
-            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
+            throw new \App\Exceptions\DatabaseQueryException('找不到使用者，請重新輸入');
         }
 
         return $memberData;
@@ -107,7 +107,7 @@ class MemberRepository
 
         if (empty($memberData)) {
             // return '你輸入的帳號或密碼錯誤，請重新輸入';
-            throw new \App\Exceptions\DatabaseQueryException('你輸入的帳號或密碼錯誤，請重新輸入');
+            throw new \App\Exceptions\DatabaseQueryException('找不到使用者，請重新輸入');
         }
 
         return $memberData;
