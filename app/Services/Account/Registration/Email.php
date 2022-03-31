@@ -48,9 +48,9 @@ class Email extends BaseRegistration
         // $rules['account'] = 'required|email|unique:member,reg_email';
         $rules = [
             'account'   => 'required|email|unique:member,reg_email',
-            'user_name' => 'required',
-            'type'      => 'required|integer',
-            'sex'       => 'required|in:1,2,3',
+            'user_name' => 'required|alpha_num',
+            'type'      => 'required|integer|min:1|max:3',
+            'sex'       => 'nullable|integer|min:1|max:3',
             'password'  => 'required|alpha_num|min:8|max:40',
         ];
 

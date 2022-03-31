@@ -17,4 +17,15 @@ class MemberController extends Controller
 
         return view('login');
     }
+
+    public function register()
+    {
+        $user_id = Session::has('userNumber') ? Session::get('userNumber') : null;
+
+        if ($user_id) {
+            return redirect('/');
+        }
+
+        return view('register');
+    }
 }

@@ -24,6 +24,7 @@ Vue.component('book-component', require('./components/BookComponent.vue').defaul
 Vue.component('cart-component', require('./components/CartComponent.vue').default);
 Vue.component('order-component', require('./components/OrderComponent.vue').default);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
+Vue.component('register-component', require('./components/RegisterComponent.vue').default);
 Vue.component('productpage-component', require('./components/ProductPageComponent.vue').default);
 
 /**

@@ -43,11 +43,9 @@ Route::get('/success', 'OrdersController@redirectFromECpay');
 //產品內頁
 Route::get('item/{id}', 'BooksController@ProductPage');
 
+//會員系統
 Route::get('/login', 'MemberController@login');
-
-Route::get('registed', function () {
-    return view('registed');
-});
+Route::get('register', 'MemberController@register');
 
 
 
