@@ -64,16 +64,46 @@ export default {
   },
   mounted() {},
   methods: {
+    //註冊
     register: function () {
+      //註冊需要的資料
       let self = this;
       let account = self.email;
       let user_name = self.user_name;
       let password = self.password;
 
+      //只做EMAIL的註冊
       axios
         .post("api/v1/member/registed/email", {
           account: account,
           user_name: user_name,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res);
+          //如果有註冊成功，拿到200狀態
+          if (res.data.status === 200) {
+            //執行登入
+            self.login();
+          } else {
+            alert(res.data.status + "," + res.data.message);
+            location.reload();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    //登入
+    login: function () {
+      let self = this;
+      let account = self.email;
+      let password = self.password;
+
+      axios
+        .post("api/v1/member/login", {
+          account: account,
           password: password,
         })
         .then((res) => {

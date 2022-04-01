@@ -2618,14 +2618,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   methods: {
+    //註冊
     register: function register() {
+      //註冊需要的資料
       var self = this;
       var account = self.email;
       var user_name = self.user_name;
-      var password = self.password;
+      var password = self.password; //只做EMAIL的註冊
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/v1/member/registed/email", {
         account: account,
         user_name: user_name,
+        password: password
+      }).then(function (res) {
+        console.log(res); //如果有註冊成功，拿到200狀態
+
+        if (res.data.status === 200) {
+          //執行登入
+          self.login();
+        } else {
+          alert(res.data.status + "," + res.data.message);
+          location.reload();
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    //登入
+    login: function login() {
+      var self = this;
+      var account = self.email;
+      var password = self.password;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/v1/member/login", {
+        account: account,
         password: password
       }).then(function (res) {
         console.log(res);
