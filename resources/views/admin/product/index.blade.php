@@ -16,10 +16,9 @@
         </ol>
     </nav>
     {{-- 主標題 --}}
-    <h4 class="text-primary">table</h4>
+    <h4 class="text-primary">book table</h4>
     <button id="create" class="btn btn-primary">新增</button>
-    <button id="update" class="btn btn-warning">修改</button>
-    <button id="delete" class="btn btn-danger">刪除</button>
+
     <table class="table">
         <thead>
             <tr>
@@ -27,10 +26,24 @@
                 <th scope="col">product_name</th>
                 <th scope="col">description</th>
                 <th scope="col">price</th>
+                <th scope="col">更新</th>
+                <th scope="col">刪除</th> 
             </tr>
         </thead>
-        <tbody>
 
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>book1</td>
+                <td>123</td>
+                <td>100</td>
+                <td>
+                    <button id="update" class="btn btn-warning">修改</button>
+                </td>
+                <td>   
+                    <button id="delete" class="btn btn-danger">刪除</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -39,7 +52,9 @@
 @section('js')
 <script>
     $(function(){
-        $("#create").click(function (e) {
+
+        //新增應該會是另外的介面，這裡給更新和刪除
+        $("#update").click(function (e) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -47,7 +62,9 @@
             });
             $.ajax({
                 url:'api/v1/admin/products',
-                type:'post',
+                
+                //應該給put，但是我忘記怎麼給
+                type:'put',
                 data:{
                     name:'book5'
                 },
