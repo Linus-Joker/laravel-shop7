@@ -76,19 +76,20 @@
             </tr>
         </thead>
 
-
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>book1</td>
-                    <td>123</td>
-                    <td>100</td>
-                    <td>
-                        <button id="update" class="btn btn-warning">修改</button>
-                        <button id="delete" class="btn btn-danger">刪除</button>
-                    </td>
-                </tr>
-            </tbody>
+            @foreach ($products as $p)
+                <tbody>
+                    <tr>
+                        <td>#</td>
+                        <td>{{ $p->name }}</td>
+                        <td>{{ $p->description }}</td>
+                        <td>{{ $p->price }}</td>
+                        <td>
+                            <button id="update" class="btn btn-warning" value="{{ $p->id }}">修改</button>
+                            <button id="delete" class="btn btn-danger" value="{{ $p->id }}">刪除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            @endforeach
 
     </table>
 </div>
@@ -125,7 +126,10 @@
             type:'POST',
             data:data,
             success:function(data){
-                console.log(data);
+                //後端傳回來的就是JSON格式，所以不用轉
+                if(data.status == 201){
+                    $('#bookTable').load(location.href + " #bookTable");
+                }
             }
         });
     });

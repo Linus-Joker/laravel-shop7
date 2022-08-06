@@ -58,9 +58,7 @@ Route::get('register', 'MemberController@register');
  **/
 
 Route::get('webadmin', 'Admin\HomeController@index');
-Route::get('adminProducts', function () {
-    return view('admin.product.index');
-});
+Route::get('adminProducts', 'Admin\HomeController@adminProducts');
 
 //測試
 // Route::get('/{path}', 'BooksController@index')->where('path', '*');
