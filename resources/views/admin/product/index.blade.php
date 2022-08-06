@@ -84,8 +84,8 @@
                         <td>{{ $p->description }}</td>
                         <td>{{ $p->price }}</td>
                         <td>
-                            <button id="update" class="btn btn-warning" value="{{ $p->id }}">修改</button>
-                            <button id="delete" class="btn btn-danger" value="{{ $p->id }}">刪除</button>
+                            <button id="update" class="btn btn-warning editBtn" value="{{ $p->id }}">修改</button>
+                            <button id="delete" class="btn btn-danger deleteBtn" value="{{ $p->id }}">刪除</button>
                         </td>
                     </tr>
                 </tbody>
@@ -128,10 +128,45 @@
             success:function(data){
                 //後端傳回來的就是JSON格式，所以不用轉
                 if(data.status == 201){
+                    $('#errorMessage').addClass('d-none');
+                    $('#addModal').modal('hide');
+                    $('#addProduct')[0].reset();
+
                     $('#bookTable').load(location.href + " #bookTable");
+                    alert(data.message);
+
+                }else if(data.sratus == 500){
+                    alert(data.message);
                 }
             }
         });
+    });
+
+    $(document).on('click', '.deleteBtn', function(e){
+        e.preventDefault();
+
+        if(confirm('Are you sure delete list??')){
+            let id= $(this).val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url:"api/v1/admin/products/" + id,
+                type:"DELETE",
+                data:id,
+                success: function(data){
+                    if(data.status == 204){
+                        $('#bookTable').load(location.href + " #bookTable");
+                        alert(data.message);
+                    }
+                }
+            });
+        }
+
     });
 
 
@@ -158,5 +193,7 @@
             });
         });
     });
+
+
 </script>
 @endsection
