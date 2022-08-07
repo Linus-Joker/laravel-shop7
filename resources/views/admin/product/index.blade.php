@@ -16,7 +16,7 @@
         </ol>
     </nav>
 
-    {{-- 新增 Model --}}
+    {{-- Add Model --}}
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -55,6 +55,47 @@
             </div>
         </div>
     </div>
+
+        {{-- Edit Model --}}
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">edit Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <form id="editProduct">
+                        <div class="modal-body">
+                            <div id="errorMessage" class="alert alert-warning d-none"></div>
+                            
+                            <input type="hidden" name="product_id" id="product_id" >
+                            <div class="mb-3">
+                                <label for="">product_name</label>
+                                <input type="text" name="product_name" id="product_name" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="">description</label>
+                                <input type="text" name="description" id="description" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="">price</label>
+                                <input type="text" name="price" id="price" class="form-control" />
+                            </div>
+                            {{-- 還有一個產品種類沒放 --}}
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">update</button>
+                        </div>
+                    </form>
+    
+                </div>
+            </div>
+        </div>
 
 
     {{-- 主標題 --}}
@@ -97,6 +138,7 @@
 
 @section('js')
 <script>
+    //新增ajax
     $(document).on('submit', '#addProduct', function (e) {
         e.preventDefault();
 
@@ -142,6 +184,76 @@
         });
     });
 
+    //編輯取得資料ajax
+    $(document).on('click', '.editBtn', function (e) {
+        e.preventDefault();
+        let $bookId = $(this).val();
+
+        $.ajax({
+            url:"api/v1/admin/products/" + $bookId,
+            type:"GET",
+            success: function(data){
+                if(data.status == 200){
+                    $('#product_id').val(data.data.id);
+                    $('#product_name').val(data.data.name);
+                    $('#description').val(data.data.description);
+                    $('#price').val(data.data.price);
+
+                    $('#editModal').modal('show');
+                }
+            }
+        });
+    });
+
+    //更新ajax
+    $(document).on('submit', '#editProduct', function (e) {
+        e.preventDefault();
+
+        //param
+        let id= document.querySelector('#product_id').value;
+        let name = document.querySelector('#product_name').value;
+        let description = document.querySelector('#description').value;
+        let price = document.querySelector('#price').value;
+        let products_sort_id = 1;
+
+        //formData一直傳不了，改成將資料打包好轉json，傳到後端        
+        let data = {
+            "name":name,
+            "description":description,
+            "price":price,
+            "products_sort_id":products_sort_id
+        };
+
+        JSON.stringify(data);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url:'api/v1/admin/products/' + id,
+            type:'PUT',
+            data:data,
+            success:function(data){
+                //後端傳回來的就是JSON格式，所以不用轉
+                if(data.status == 200){
+                    $('#errorMessage').addClass('d-none');
+                    $('#editModal').modal('hide');
+                    $('#editProduct')[0].reset();
+
+                    $('#bookTable').load(location.href + " #bookTable");
+                    alert(data.message);
+
+                }else if(data.sratus == 500){
+                    alert(data.message);
+                }
+            }
+        });
+    });
+
+    //刪除ajax
     $(document).on('click', '.deleteBtn', function(e){
         e.preventDefault();
 
@@ -168,32 +280,5 @@
         }
 
     });
-
-
-    $(function(){
-        $("#update").click(function (e) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url:'api/v1/admin/products',
-                
-                //應該給put，但是我忘記怎麼給
-                type:'put',
-                data:{
-                    name:'book5'
-                },
-                success:function(data){
-                    // var obj = jQuery.parseJSON(data);
-                    console.log(data);
-                    // alert(data.status);
-                }
-            });
-        });
-    });
-
-
 </script>
 @endsection
