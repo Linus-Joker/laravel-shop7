@@ -14,6 +14,13 @@ class ProductServices
         $this->products = new ProductRepository();
     }
 
+    public function show($id)
+    {
+        $bookData = $this->products->show($id);
+
+        return $bookData;
+    }
+
     public function create($data)
     {
         $this->products->create($data);

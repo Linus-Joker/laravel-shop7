@@ -21,6 +21,17 @@ class BooksController extends Controller
         return $this->response(200, 'data read success.', $products);
     }
 
+    public function show($id)
+    {
+        try {
+            $bookData = $this->productService->show($id);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        return $this->response(200, 'data find success.', $bookData);
+    }
+
     public function store(Request $request)
     {
         try {

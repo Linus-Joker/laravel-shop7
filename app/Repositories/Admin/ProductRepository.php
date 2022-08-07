@@ -14,6 +14,16 @@ class ProductRepository
         $this->book = new Books();
     }
 
+    public function show($id)
+    {
+        $bookData = $this->book::find($id);
+        if (empty($bookData)) {
+            throw new \App\Exceptions\DatabaseQueryException('找不到該id產品!!');
+        }
+
+        return $bookData;
+    }
+
     /**
      * 商品資料
      *
