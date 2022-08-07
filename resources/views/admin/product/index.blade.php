@@ -29,19 +29,19 @@
 
                 <form id="addProduct">
                     <div class="modal-body">
-                        <div id="errorMessage" class="alert alert-warning d-none"></div>
-
+                        <div id="errorMessage" class="alert alert-danger d-none" role="alert"></div>
+                        
                         <div class="mb-3">
                             <label for="">product_name</label>
-                            <input type="text" name="product_name" class="form-control product_name" />
+                            <input type="text" name="product_name" class="form-control product_name" required="required"/>
                         </div>
                         <div class="mb-3">
                             <label for="">description</label>
-                            <input type="text" name="description" class="form-control description" />
+                            <input type="text" name="description" class="form-control description" required="required"/>
                         </div>
                         <div class="mb-3">
                             <label for="">price</label>
-                            <input type="text" name="price" class="form-control price" />
+                            <input type="text" name="price" class="form-control price" required="required"/>
                         </div>
                         {{-- 還有一個產品種類沒放 --}}
                     </div>
@@ -69,20 +69,20 @@
     
                     <form id="editProduct">
                         <div class="modal-body">
-                            <div id="errorMessage" class="alert alert-warning d-none"></div>
+                            <div id="errorMessageUpdate" class="alert alert-danger d-none"></div>
                             
                             <input type="hidden" name="product_id" id="product_id" >
                             <div class="mb-3">
                                 <label for="">product_name</label>
-                                <input type="text" name="product_name" id="product_name" class="form-control" />
+                                <input type="text" name="product_name" id="product_name" class="form-control" required="required"/>
                             </div>
                             <div class="mb-3">
                                 <label for="">description</label>
-                                <input type="text" name="description" id="description" class="form-control" />
+                                <input type="text" name="description" id="description" class="form-control" required="required"/>
                             </div>
                             <div class="mb-3">
                                 <label for="">price</label>
-                                <input type="text" name="price" id="price" class="form-control" />
+                                <input type="text" name="price" id="price" class="form-control" required="required"/>
                             </div>
                             {{-- 還有一個產品種類沒放 --}}
                         </div>
@@ -125,7 +125,7 @@
                         <td>{{ $p->description }}</td>
                         <td>{{ $p->price }}</td>
                         <td>
-                            <button id="update" class="btn btn-warning editBtn" value="{{ $p->id }}">修改</button>
+                            <button id="update" class="btn btn-info editBtn" value="{{ $p->id }}">修改</button>
                             <button id="delete" class="btn btn-danger deleteBtn" value="{{ $p->id }}">刪除</button>
                         </td>
                     </tr>
@@ -176,9 +176,10 @@
 
                     $('#bookTable').load(location.href + " #bookTable");
                     alert(data.message);
-
-                }else if(data.sratus == 500){
-                    alert(data.message);
+                }else if(data.status == 500){
+                    $('#errorMessage').removeClass('d-none');
+                    $('#errorMessage').text(data.message);
+                    // alert(data.message);
                 }
             }
         });
@@ -246,8 +247,10 @@
                     $('#bookTable').load(location.href + " #bookTable");
                     alert(data.message);
 
-                }else if(data.sratus == 500){
-                    alert(data.message);
+                }else if(data.status == 500){
+                    $('#errorMessageUpdate').removeClass('d-none');
+                    $('#errorMessageUpdate').text(data.message);
+                    // alert(data.message);
                 }
             }
         });
