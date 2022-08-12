@@ -43,6 +43,11 @@
                             <label for="">price</label>
                             <input type="text" name="price" class="form-control price" required="required"/>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="">pic_file</label>
+                            <input type="file" name="pic_file" class="form-control pic_file" required="required"/>
+                        </div>
                         {{-- 還有一個產品種類沒放 --}}
                     </div>
 
@@ -83,6 +88,11 @@
                             <div class="mb-3">
                                 <label for="">price</label>
                                 <input type="text" name="price" id="price" class="form-control" required="required"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="">pic_file</label>
+                                <input type="file" name="pic_file" id="pic_file" class="form-control pic_file" />
                             </div>
                             {{-- 還有一個產品種類沒放 --}}
                         </div>
@@ -147,15 +157,24 @@
         let description = document.querySelector('.description').value;
         let price = document.querySelector('.price').value;
         let products_sort_id = 1;
+        let pic_file = $('.pic_file').prop('files')[0];
 
-        //formData一直傳不了，改成將資料打包好轉json，傳到後端        
-        let data = {
-            "name":name,
-            "description":description,
-            "price":price,
-            "products_sort_id":products_sort_id
-        };
-        JSON.stringify(data);
+        //formData，整理的資料內容
+        let formData = new FormData();
+        formData.append('name',name);
+        formData.append('description',description);
+        formData.append('price',price);
+        formData.append('products_sort_id',products_sort_id);
+        formData.append('pic_file',pic_file)
+
+        //js整理的資料內容       
+        // let data = {
+        //     "name":name,
+        //     "description":description,
+        //     "price":price,
+        //     "products_sort_id":products_sort_id
+        // };
+        // JSON.stringify(data);
 
         $.ajaxSetup({
             headers: {
@@ -166,7 +185,9 @@
         $.ajax({
             url:'api/v1/admin/products',
             type:'POST',
-            data:data,
+            data:formData,
+            processData: false,
+            contentType: false,
             success:function(data){
                 //後端傳回來的就是JSON格式，所以不用轉
                 if(data.status == 201){
@@ -176,6 +197,7 @@
 
                     $('#bookTable').load(location.href + " #bookTable");
                     alert(data.message);
+                    console.log(data);
                 }else if(data.status == 500){
                     $('#errorMessage').removeClass('d-none');
                     $('#errorMessage').text(data.message);
@@ -216,16 +238,27 @@
         let description = document.querySelector('#description').value;
         let price = document.querySelector('#price').value;
         let products_sort_id = 1;
+        let pic_file = $('#pic_file').prop('files')[0];
+
+        //formData，整理的資料內容
+        let formData = new FormData();
+        formData.append('name',name);
+        formData.append('description',description);
+        formData.append('price',price);
+        formData.append('products_sort_id',products_sort_id);
+        formData.append('pic_file',pic_file);
+        formData.append('_method', 'PUT');
+
+        // console.log(pic_file);
 
         //formData一直傳不了，改成將資料打包好轉json，傳到後端        
-        let data = {
-            "name":name,
-            "description":description,
-            "price":price,
-            "products_sort_id":products_sort_id
-        };
-
-        JSON.stringify(data);
+        // let data = {
+        //     "name":name,
+        //     "description":description,
+        //     "price":price,
+        //     "products_sort_id":products_sort_id
+        // };
+        // JSON.stringify(data);
 
         $.ajaxSetup({
             headers: {
@@ -235,8 +268,10 @@
 
         $.ajax({
             url:'api/v1/admin/products/' + id,
-            type:'PUT',
-            data:data,
+            type:'POST',
+            data:formData,
+            processData: false,
+            contentType: false,
             success:function(data){
                 //後端傳回來的就是JSON格式，所以不用轉
                 if(data.status == 200){
@@ -277,7 +312,12 @@
                     if(data.status == 204){
                         $('#bookTable').load(location.href + " #bookTable");
                         alert(data.message);
+                    }else if(data.status == 500){
+                        alert(data.message);
                     }
+                },
+                error:function(err){
+                    alert(err);
                 }
             });
         }
