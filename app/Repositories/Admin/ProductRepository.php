@@ -4,6 +4,7 @@ namespace App\Repositories\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Books;
+use App\ProductImage;
 
 class ProductRepository
 {
@@ -12,6 +13,7 @@ class ProductRepository
     public function __construct()
     {
         $this->book = new Books();
+        $this->productImage = new ProductImage();
     }
 
     public function show($id)
@@ -59,6 +61,28 @@ class ProductRepository
             throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
         }
 
+        // dd($this->book->id);
+        return $this->book->id;
+    }
+
+    /**
+     * $param array $imageData
+     * $param int $product_id
+     * @return bool 
+     */
+    public function createPic(array $imageData, int $product_id)
+    {
+        try {
+            $this->productImage->image_name = $imageData['file_name'];
+            $this->productImage->image_path = $imageData['image_path'];
+            $this->productImage->products_id = $product_id;
+            if ($this->productImage->save() !== true) {
+                throw new \App\Exceptions\DatabaseQueryException('新增 product image 失敗');
+            }
+        } catch (\Throwable $e) {
+            throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
+        }
+
         return true;
     }
 
@@ -90,6 +114,24 @@ class ProductRepository
         return true;
     }
 
+    public function updatePic($imageData, $product_id)
+    {
+        $productImageData = $this->productImage::where('products_id', '=', $product_id)
+            ->get();
+        if (empty($productImageData)) {
+            // return '你輸入的帳號或密碼錯誤，請重新輸入';
+            throw new \App\Exceptions\DatabaseQueryException('產品ID錯誤!!');
+        }
+
+        $this->productImage::where('products_id', '=', $product_id)
+            ->update([
+                'image_name' => $imageData['file_name'],
+                'image_path' => $imageData['image_path']
+            ]);
+
+        return true;
+    }
+
     public function delete($id)
     {
         $bookData = $this->book::find($id);
@@ -97,8 +139,14 @@ class ProductRepository
             // return '你輸入的帳號或密碼錯誤，請重新輸入';
             throw new \App\Exceptions\DatabaseQueryException('ID錯誤!!');
         }
+        try {
+            $bookData->delete();
 
-        $bookData->delete();
+            $this->productImage::where('products_id', '=', $id)->delete();
+        } catch (\Throwable $e) {
+            throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
+        }
+
         return true;
     }
 
