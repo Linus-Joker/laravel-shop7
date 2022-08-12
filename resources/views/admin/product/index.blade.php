@@ -90,6 +90,11 @@
                                 <input type="text" name="price" id="price" class="form-control" required="required"/>
                             </div>
 
+                            <div class="form-group">
+                                <label for="exampleInputPreviewPic">previewPic</label>
+                                <img src="" alt="NoPic" class="form-control previewPic">
+                            </div>
+
                             <div class="mb-3">
                                 <label for="">pic_file</label>
                                 <input type="file" name="pic_file" id="pic_file" class="form-control pic_file" />
