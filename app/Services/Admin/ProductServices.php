@@ -44,13 +44,11 @@ class ProductServices
         $validateData = [
             'product_id'    => $product_id,
             'file_name'     => $imageData['file_name'],
-            'image_path'    => $imageData['image_path']
         ];
 
         $rules = [
             'product_id'    => 'required',
             'file_name'     => 'required',
-            'image_path'    => 'required'
         ];
 
         $this->validate($validateData, $rules);
