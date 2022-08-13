@@ -227,6 +227,11 @@
                     $('#description').val(data.data.description);
                     $('#price').val(data.data.price);
 
+                    let image_name = data.data.product_image.image_name;
+                    let image_path = data.data.product_image.image_path;
+                    let image_src = location.origin + '/' + image_path + '/' + image_name;
+
+                    $('.previewPic').attr('src', image_src);
                     $('#editModal').modal('show');
                 }
             }
