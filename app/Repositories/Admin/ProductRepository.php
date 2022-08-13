@@ -11,6 +11,9 @@ class ProductRepository
     private $book;
     private $productImage;
 
+    //圖片儲存路徑屬性
+    protected $image_path = 'images';
+
     public function __construct()
     {
         $this->book = new Books();
@@ -74,9 +77,9 @@ class ProductRepository
     public function createPic(array $imageData, int $product_id)
     {
         try {
-            $this->productImage->image_name = $imageData['file_name'];
-            $this->productImage->image_path = $imageData['image_path'];
-            $this->productImage->products_id = $product_id;
+            $this->productImage->image_name =   $imageData['file_name'];
+            $this->productImage->image_path =   $this->image_path;
+            $this->productImage->products_id =  $product_id;
             if ($this->productImage->save() !== true) {
                 throw new \App\Exceptions\DatabaseQueryException('新增 product image 失敗');
             }
