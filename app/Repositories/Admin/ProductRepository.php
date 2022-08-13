@@ -9,6 +9,7 @@ use App\ProductImage;
 class ProductRepository
 {
     private $book;
+    private $productImage;
 
     public function __construct()
     {

@@ -22,6 +22,6 @@ class Books extends Model
     public function productImage()
     {
         // return $this->hasOne('App\Phone', 'foreign_key', 'local_key');
-        return $this->hasOne('App\ProductImage', 'id', 'id');
+        return $this->hasOne('App\ProductImage', 'products_id', 'id');
     }
 }
