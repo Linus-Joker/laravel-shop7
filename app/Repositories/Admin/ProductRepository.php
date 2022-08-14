@@ -121,17 +121,32 @@ class ProductRepository
     public function updatePic($imageData, $product_id)
     {
         $productImageData = $this->productImage::where('products_id', '=', $product_id)
-            ->get();
+            ->first();
+
+        // dd($productImageData);
         if (empty($productImageData)) {
             // return '你輸入的帳號或密碼錯誤，請重新輸入';
             throw new \App\Exceptions\DatabaseQueryException('產品ID錯誤!!');
         }
 
-        $this->productImage::where('products_id', '=', $product_id)
-            ->update([
+        try {
+            $productImageData->update([
                 'image_name' => $imageData['file_name'],
-                'image_path' => $imageData['image_path']
+                'image_path' => $this->image_path
             ]);
+
+            if ($productImageData->update() !== true) {
+                throw new \App\Exceptions\DatabaseQueryException('更新 image 資料失敗');
+            }
+        } catch (\Exception $e) {
+            throw new \App\Exceptions\DatabaseQueryException($e->getMessage());
+        }
+
+        // $this->productImage::where('products_id', '=', $product_id)
+        //     ->update([
+        //         'image_name' => $imageData['file_name'],
+        //         'image_path' => $imageData['image_path']
+        //     ]);
 
         return true;
     }
