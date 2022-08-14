@@ -66,10 +66,17 @@ class BooksController extends Controller
     {
         if ($request->file('pic_file')) {
             //如果有更新圖片，就先上傳圖片
-            //這邊應該要寫個try catch之後再補
-            $imageData = $this->productService->uploadImage($request->file('pic_file'));
-            // dd($imageData['file_name']);
-            $this->productService->updatePic($imageData, $id);
+            try {
+                DB::beginTransaction();
+                $imageData = $this->productService->uploadImage($request->file('pic_file'));
+
+                $this->productService->updatePic($imageData, $id);
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+
+                return $this->response(500, $e->getMessage());
+            }
         }
 
         try {
