@@ -16,6 +16,13 @@ class ProductServices
         $this->products = new ProductRepository();
     }
 
+    /**
+     * 取得單一產品資料
+     * 
+     * @param int $id
+     * @return @bookData
+     * 
+     */
     public function show($id)
     {
         $bookData = $this->products->show($id);
@@ -24,6 +31,7 @@ class ProductServices
     }
 
     /**
+     * 新增一筆產品資料
      * @param $require->input $data
      * @return int $product_id
      */
@@ -35,7 +43,11 @@ class ProductServices
     }
 
     /**
-     * @param array $imageData
+     * 新增一筆圖片文件
+     * @param array $imageData[
+     *      @var string $image_path 圖片路徑
+     *      @var string @image_name 圖片名稱  
+     * ]
      * @param int $product_id 
      * @return void
      */
@@ -57,7 +69,12 @@ class ProductServices
     }
 
     /**
-     * @param $require->input $data
+     * @param $require->input $data[
+     *      @var string $name 商品名稱
+     *      @var string $description 商品描述
+     *      @var int    $price 商品價格
+     *      @var int    $products_sort_id 產品分類ID
+     * ]
      * @param int $id
      * @return bool
      */
@@ -68,6 +85,15 @@ class ProductServices
         return true;
     }
 
+    /**
+     * 更新一筆圖片文件(這個感覺要另外寫class)
+     * @param array $imageData[
+     *      @var string $image_path 圖片路徑
+     *      @var string @image_name 圖片名稱  
+     * ]
+     * @param int $product_id 產品ID
+     * @return void 
+     */
     public function updatePic($imageData, $product_id)
     {
         $validateData = [
@@ -87,6 +113,12 @@ class ProductServices
         $this->products->updatePic($imageData, $product_id);
     }
 
+    /**
+     * 刪除一筆資料
+     * 
+     * @param int $id product id
+     * @return boolean
+     */
     public function delete($id)
     {
         $this->products->delete($id);
@@ -95,6 +127,7 @@ class ProductServices
     }
 
     /**
+     * 上傳圖片文件
      * @param image $data $request-file('pci_file'); 
      * @return void
      */
@@ -103,7 +136,7 @@ class ProductServices
         //副檔名，在原DOC中是$request->photo->extension();
         //不是$request-file('')->extension(); 
         $extension = $data->extension();
-        $file_name = time() . rand(0, 327677) . "." . $extension;
+        $file_name = time() . rand(0, 1048577) . "." . $extension;
 
         //放置圖片位置
         $image_path = public_path('images');

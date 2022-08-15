@@ -22,6 +22,12 @@ class BooksController extends Controller
         return $this->response(200, 'data read success.', $products);
     }
 
+    /**
+     * 取得單一資料
+     * 
+     * @param int $id 
+     * @return void
+     */
     public function show($id)
     {
         try {
@@ -33,20 +39,26 @@ class BooksController extends Controller
         return $this->response(200, 'data find success.', $bookData);
     }
 
+    /**
+     * 新增資料
+     * @param Request $request
+     * @return void 
+     */
     public function store(Request $request)
     {
+        //檢查有無圖片資料
         if (is_null($request->file('pic_file'))) {
             //這邊我不確定缺少資源的http code，先用404代替。
             return $this->response(404, 'need picture.');
         }
 
-        //圖片文件沒問題，就先上傳圖片
+        //圖片資料沒問題，先上傳圖片並取得圖片名稱和路徑
         $imageData = $this->productService->uploadImage($request->file('pic_file'));
 
         try {
             DB::beginTransaction();
 
-            //先插入一般資料後取得table product_id
+            //先插入一般資料後取得產品id
             $product_id = $this->productService->create($request->input());
 
             //在儲存圖片文件到文件位置和圖片資料表中
@@ -62,14 +74,22 @@ class BooksController extends Controller
         return $this->response(201, 'data create success.');
     }
 
+    /**
+     * 更新資料
+     * @param Request $request
+     * @param int $id
+     * @return void 
+     */
     public function update(Request $request, $id)
     {
+        //如果有更新圖片，就先上傳圖片
         if ($request->file('pic_file')) {
-            //如果有更新圖片，就先上傳圖片
             try {
                 DB::beginTransaction();
+                //取得圖片名稱和路徑資料
                 $imageData = $this->productService->uploadImage($request->file('pic_file'));
 
+                //儲存圖片文件到文件位置和圖片資料表中
                 $this->productService->updatePic($imageData, $id);
                 DB::commit();
             } catch (\Throwable $e) {
@@ -80,6 +100,7 @@ class BooksController extends Controller
         }
 
         try {
+            //更新資料
             $this->productService->update($request->input(), $id);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
@@ -87,6 +108,11 @@ class BooksController extends Controller
         return $this->response(200, 'data update success.');
     }
 
+    /**
+     * 刪除資料
+     * @param int @id
+     * @return void
+     */
     public function destroy($id)
     {
         try {

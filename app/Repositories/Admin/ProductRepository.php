@@ -20,6 +20,13 @@ class ProductRepository
         $this->productImage = new ProductImage();
     }
 
+    /**
+     * 取得單一產品資料
+     * 
+     * @param int $id table product id
+     * @return @bookData
+     * 
+     */
     public function show($id)
     {
         $bookData = $this->book::find($id);
@@ -31,16 +38,16 @@ class ProductRepository
     }
 
     /**
-     * 商品資料
+     * 插入商品資料
      *
      * @param array $data[
      *      @var string $name 商品名稱
      *      @var string $description 商品描述
      *      @var int    $price 商品價格
+     *      @var int    $products_sort_id 產品分類ID
      * ]
-     * @return binary
+     * @return int $product_id
      */
-
     public function create($data)
     {
         $rules = [
@@ -70,8 +77,12 @@ class ProductRepository
     }
 
     /**
-     * $param array $imageData
-     * $param int $product_id
+     * 插入一筆圖片文件(這個感覺要另外寫class)
+     * @param array $imageData[
+     *      @var string $image_path 圖片路徑
+     *      @var string @image_name 圖片名稱  
+     * ]
+     * @param int $product_id 產品ID
      * @return bool 
      */
     public function createPic(array $imageData, int $product_id)
@@ -90,6 +101,18 @@ class ProductRepository
         return true;
     }
 
+    /**
+     * 更新商品資料
+     *
+     * @param array $data[
+     *      @var string $name 商品名稱
+     *      @var string $description 商品描述
+     *      @var int    $price 商品價格
+     *      @var int    $products_sort_id 產品分類ID
+     * ]
+     * @param int $product_id 產品ID
+     * @return int $product_id
+     */
     public function update($data, $id)
     {
         $rules = [
@@ -118,6 +141,15 @@ class ProductRepository
         return true;
     }
 
+    /**
+     * 更新一筆圖片文件(這個感覺要另外寫class)
+     * @param array $imageData[
+     *      @var string $image_path 圖片路徑
+     *      @var string @image_name 圖片名稱  
+     * ]
+     * @param int $product_id 產品ID
+     * @return boolean 
+     */
     public function updatePic($imageData, $product_id)
     {
         $productImageData = $this->productImage::where('products_id', '=', $product_id)
@@ -151,13 +183,19 @@ class ProductRepository
         return true;
     }
 
+    /**
+     * 刪除一筆資料
+     * 
+     * @param int $id product id
+     * @return boolean
+     */
     public function delete($id)
     {
         $bookData = $this->book::find($id);
         if (empty($bookData)) {
-            // return '你輸入的帳號或密碼錯誤，請重新輸入';
             throw new \App\Exceptions\DatabaseQueryException('ID錯誤!!');
         }
+
         try {
             $bookData->delete();
 
@@ -168,7 +206,6 @@ class ProductRepository
 
         return true;
     }
-
 
     protected function validate($input, array $rules)
     {
