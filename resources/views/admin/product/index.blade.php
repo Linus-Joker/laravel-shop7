@@ -71,42 +71,42 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-    
-                    <form id="editProduct">
-                        <div class="modal-body">
+
+                    <div class="modal-body">
+                        <form id="editProduct">
                             <div id="errorMessageUpdate" class="alert alert-danger d-none"></div>
                             
                             <input type="hidden" name="product_id" id="product_id" >
-                            <div class="mb-3">
+                            <div class="mb-3 form-group">
                                 <label for="">product_name</label>
                                 <input type="text" name="product_name" id="product_name" class="form-control" required="required"/>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 form-group">
                                 <label for="">description</label>
                                 <input type="text" name="description" id="description" class="form-control" required="required"/>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 form-group">
                                 <label for="">price</label>
                                 <input type="text" name="price" id="price" class="form-control" required="required"/>
                             </div>
 
-                            <div class="form-group">
+                            <div class="mb-3 form-group">
                                 <label for="exampleInputPreviewPic">previewPic</label>
                                 <img src="" alt="NoPic" class="form-control previewPic">
                             </div>
 
-                            <div class="mb-3">
+                            <div class="mb-3 form-group">
                                 <label for="">pic_file</label>
                                 <input type="file" name="pic_file" id="pic_file" class="form-control pic_file" />
                             </div>
                             {{-- 還有一個產品種類沒放 --}}
-                        </div>
-    
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">update</button>
-                        </div>
-                    </form>
+                            
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">update</button>
+                            </div>
+                        </form>
+                    </div>
     
                 </div>
             </div>
