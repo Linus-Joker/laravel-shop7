@@ -96,7 +96,7 @@ class MemberRegistrationServiceTest extends TestCase
      * @expectedException \InvalidParameterException
      */
     //刻意的信箱註冊驗證異常測試，晚點加上一般註冊驗證
-    public function testEmailAccountRegisteValidateException()
+    public function testEmailAccountRegisterValidateException()
     {
         //在測試中以 $this->ExpectedException('ExceptionClassName'); 
         //來設定程式預期會丟出的異常，因為有異常所以過???
