@@ -14,40 +14,31 @@ class HomeController extends Controller
         return view('admin.index');
     }
 
+    public function adminProducts()
+    {
+        $products = Books::all();
+
+        return view('admin.product.index', [
+            'products' => $products,
+        ]);
+    }
+
     /**
-     * 顯示後台產品頁面(不用前端資料驅動畫面只想到這樣寫)
+     * 顯示搜尋產品頁面(不用前端資料驅動畫面只想到這樣寫)
      * 
-     * @param $param 
-     * 
+     * @param Request $request
      * @return view
      */
-    public function adminProducts($param = null)
+    public function search(Request $request)
     {
-        //如果沒有參數就返回全部資料
-        if (is_null($param)) {
-            $products = Books::all();
-
-            return view('admin.product.index', [
-                'products' => $products,
-            ]);
-        }
+        //似乎不用查詢防呆，NULL也可以返回視窗
+        $query = $request->input('query');
 
         //搜尋關鍵字
-        $products = Books::where('name', 'like', '%' . $param . '%')->get();
+        $products = Books::where('name', 'like', '%' . $query . '%')->get();
 
-        //如果沒有找到也返回全部資料
-        //這個好像有問題，
-        if (is_null($param)) {
-            $products = Books::all();
-
-            return view('admin.product.index', [
-                'products' => $products,
-            ]);
-        } else {
-            //有找到資料就只返回關鍵字內容
-            return view('admin.product.index', [
-                'products' => $products,
-            ]);
-        }
+        return view('admin.product.index', [
+            'products' => $products,
+        ]);
     }
 }

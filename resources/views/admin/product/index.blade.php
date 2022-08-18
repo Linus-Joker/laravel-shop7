@@ -61,64 +61,76 @@
         </div>
     </div>
 
-        {{-- Edit Model --}}
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">edit Modal</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="editProduct">
-                            <div id="errorMessageUpdate" class="alert alert-danger d-none"></div>
-                            
-                            <input type="hidden" name="product_id" id="product_id" >
-                            <div class="mb-3 form-group">
-                                <label for="">product_name</label>
-                                <input type="text" name="product_name" id="product_name" class="form-control" required="required"/>
-                            </div>
-                            <div class="mb-3 form-group">
-                                <label for="">description</label>
-                                <input type="text" name="description" id="description" class="form-control" required="required"/>
-                            </div>
-                            <div class="mb-3 form-group">
-                                <label for="">price</label>
-                                <input type="text" name="price" id="price" class="form-control" required="required"/>
-                            </div>
-
-                            <div class="mb-3 form-group">
-                                <label for="exampleInputPreviewPic">previewPic</label>
-                                <img src="" alt="NoPic" class="form-control previewPic">
-                            </div>
-
-                            <div class="mb-3 form-group">
-                                <label for="">pic_file</label>
-                                <input type="file" name="pic_file" id="pic_file" class="form-control pic_file" />
-                            </div>
-                            {{-- 還有一個產品種類沒放 --}}
-                            
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">update</button>
-                            </div>
-                        </form>
-                    </div>
-    
+    {{-- Edit Model --}}
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">edit Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
+                <div class="modal-body">
+                    <form id="editProduct">
+                        <div id="errorMessageUpdate" class="alert alert-danger d-none"></div>
+                        
+                        <input type="hidden" name="product_id" id="product_id" >
+                        <div class="mb-3 form-group">
+                            <label for="">product_name</label>
+                            <input type="text" name="product_name" id="product_name" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="">description</label>
+                            <input type="text" name="description" id="description" class="form-control" required="required"/>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <label for="">price</label>
+                            <input type="text" name="price" id="price" class="form-control" required="required"/>
+                        </div>
+
+                        <div class="mb-3 form-group">
+                            <label for="exampleInputPreviewPic">previewPic</label>
+                            <img src="" alt="NoPic" class="form-control previewPic">
+                        </div>
+
+                        <div class="mb-3 form-group">
+                            <label for="">pic_file</label>
+                            <input type="file" name="pic_file" id="pic_file" class="form-control pic_file" />
+                        </div>
+                        {{-- 還有一個產品種類沒放 --}}
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">update</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
+    </div>
 
 
     {{-- 主標題 --}}
     <h4 class="text-primary">AJAX CRUD Book Product using Bootstrap Modal</h4>
-    <button id="create" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-        新增
-    </button>
 
+    <div class="row mb-3">
+        <div class="col-6">
+            <button id="create" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                新增
+            </button>
+        </div>
+
+        <div class="col-6">
+            <form class="form-inline my-2 my-lg-0 float-right" type="get" action="{{url('/search')}}">
+                <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search Product" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+
+    </div>
 
     <table id="bookTable" class="table">
         <thead>
