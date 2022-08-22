@@ -78,6 +78,9 @@ class OrdersController extends Controller
 
         //取得購物車Session
         $cart = session()->get('cart');
+        if (is_null($cart)) {
+            return $this->response(500, '購物車沒有資料。');
+        }
 
         // return response()->json([
         //     'product' => $cart->items,
@@ -163,5 +166,14 @@ class OrdersController extends Controller
     {
         session()->flash('success', 'Order success!');
         return redirect('/');
+    }
+
+    private function response(int $code, $message, array $data = [])
+    {
+        return response()->json([
+            'status' => $code,
+            'message' => $message,
+            'data' => $data
+        ]);
     }
 }

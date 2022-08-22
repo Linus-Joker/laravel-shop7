@@ -33,14 +33,16 @@
                 <th class="px-4 py-2">Total</th>
               </thead>
               <tbody class="text-center">
-                @foreach ($products as $p)
-                <tr>
-                  <th scope="row">{{$p['item']['name']}}</th>
-                  <td>{{$p['item']['price']}}元</td>
-                  <td>{{$p['qty']}}</td>
-                  <td class="border px-4 py-2"> {{$p['qty'] * $p['item']['price']}}元</td>
-                </tr>
-                @endforeach
+                @if($products)
+                  @foreach ($products as $p)
+                  <tr>
+                    <th scope="row">{{$p['item']['name']}}</th>
+                    <td>{{$p['item']['price']}}元</td>
+                    <td>{{$p['qty']}}</td>
+                    <td class="border px-4 py-2"> {{$p['qty'] * $p['item']['price']}}元</td>
+                  </tr>
+                  @endforeach
+                @endif
               </tbody>
             </table>
             <p>總金額:{{ $totalPrice }}元</p>
