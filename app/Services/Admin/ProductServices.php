@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use DB;
 use Illuminate\Support\Facades\Validator;
+
 use App\Repositories\Admin\ProductRepository;
 
 
@@ -126,47 +127,7 @@ class ProductServices
         return true;
     }
 
-    /**
-     * 上傳圖片文件
-     * @param image $data $request-file('pci_file'); 
-     * @return void
-     */
-    public function uploadImage($data)
-    {
-        //副檔名，在原DOC中是$request->photo->extension();
-        //不是$request-file('')->extension(); 
-        $extension = $data->extension();
-        $file_name = time() . rand(0, 1048577) . "." . $extension;
-
-        //放置圖片位置
-        $image_path = public_path('images');
-
-        //rule mimes是驗證整個文件，所以必須傳文件進去驗證
-        $validateData = [
-            'data' => $data,
-            'file_name' => $file_name,
-            'image_path' => $image_path
-        ];
-
-        //驗證文件的副檔名(jpg,jpeg,png)，名稱和位置
-        $rules = [
-            'data' => 'required|mimes:jpeg,png,jpg',
-            'file_name' => 'required',
-            'image_path' => 'required'
-        ];
-
-        $this->validate($validateData, $rules);
-
-        //這個方法在Laravel5.2的中文Doc才有
-        $data->move($image_path, $file_name);
-
-        return [
-            'image_path' => $image_path,
-            'file_name' => $file_name
-        ];
-    }
-
-    public function validate($input, $rules)
+    private function validate($input, $rules)
     {
         $validator = validator::make($input, $rules);
         if ($validator->fails()) {

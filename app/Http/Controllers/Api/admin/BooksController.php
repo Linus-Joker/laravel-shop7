@@ -8,12 +8,14 @@ use DB;
 
 use App\Books;
 use App\Services\Admin\ProductServices;
+use App\Services\Admin\ImageServices;
 
 class BooksController extends Controller
 {
     public function __construct()
     {
         $this->productService = new ProductServices();
+        $this->imageService = new ImageServices();
     }
 
     public function index()
@@ -53,7 +55,7 @@ class BooksController extends Controller
         }
 
         //圖片資料沒問題，先上傳圖片並取得圖片名稱和路徑
-        $imageData = $this->productService->uploadImage($request->file('pic_file'));
+        $imageData = $this->imageService->uploadImage($request->file('pic_file'));
 
         try {
             DB::beginTransaction();
@@ -116,6 +118,15 @@ class BooksController extends Controller
     public function destroy($id)
     {
         try {
+            $data = $this->imageService->showPic($id);
+        } catch (\Throwable $e) {
+            return $this->response(500, $e->getMessage());
+        }
+
+        $temporary_image_name = $data['image_name'];
+
+        // //先執行刪除一般資料
+        try {
             DB::beginTransaction();
 
             $this->productService->delete($id);
@@ -126,14 +137,17 @@ class BooksController extends Controller
             return $this->response(500, $e->getMessage());
         }
 
+        // //刪除伺服器文件圖片資料
+        $this->imageService->deletePicture($temporary_image_name);
+
         return $this->response(204, 'data delete success.');
     }
 
     private function response(int $code, $message, $data = [])
     {
         return response()->json([
-            'status' => $code,
-            'message' => $message,
+            "status" => $code,
+            "message" => $message,
             'data' => $data
         ]);
     }

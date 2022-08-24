@@ -30,11 +30,23 @@ class ProductRepository
     public function show($id)
     {
         $bookData = $this->book::find($id);
-        if (empty($bookData)) {
+
+        if (is_null($bookData)) {
             throw new \App\Exceptions\DatabaseQueryException('找不到該id產品!!');
         }
 
         return $bookData;
+    }
+
+    public function showPic($id)
+    {
+        $imageData = $this->productImage::where('products_id', '=', $id)->first();
+
+        if (is_null($imageData)) {
+            throw new \App\Exceptions\DatabaseQueryException('找不到該id產品圖片!!');
+        }
+
+        return $imageData;
     }
 
     /**
