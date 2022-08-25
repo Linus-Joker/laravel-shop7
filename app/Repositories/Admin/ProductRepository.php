@@ -38,6 +38,13 @@ class ProductRepository
         return $bookData;
     }
 
+    /**
+     * 取得一筆產品圖片資料
+     * 
+     * @param int $id table product id
+     * @return @imageData
+     * 
+     */
     public function showPic($id)
     {
         $imageData = $this->productImage::where('products_id', '=', $id)->first();
