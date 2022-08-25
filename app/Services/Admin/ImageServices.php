@@ -69,6 +69,34 @@ class ImageServices
     }
 
     /**
+     * 更新一筆圖片文件(這個感覺要另外寫class)
+     * @param array $imageData[
+     *      @var string $image_path 圖片路徑
+     *      @var string @image_name 圖片名稱  
+     * ]
+     * @param int $product_id 產品ID
+     * @return void 
+     */
+    public function updatePic($imageData, $product_id)
+    {
+        $validateData = [
+            'product_id'    => $product_id,
+            'file_name'     => $imageData['file_name'],
+            'image_path'    => $imageData['image_path']
+        ];
+
+        $rules = [
+            'product_id'    => 'required',
+            'file_name'     => 'required',
+            'image_path'    => 'required'
+        ];
+
+        $this->validate($validateData, $rules);
+
+        $this->products->updatePic($imageData, $product_id);
+    }
+
+    /**
      * 刪除在儲存庫的圖片文件
      * @param string $image_name
      * @return boolean 

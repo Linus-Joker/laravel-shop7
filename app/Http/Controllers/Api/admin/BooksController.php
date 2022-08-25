@@ -86,13 +86,24 @@ class BooksController extends Controller
     {
         //如果有更新圖片，就先上傳圖片
         if ($request->file('pic_file')) {
+
+            //取得舊的圖片資料
+            try {
+                $oldImageData = $this->imageService->showPic($id);
+                $temporary_image_name = $oldImageData['image_name'];
+            } catch (\Throwable $e) {
+                return $this->response(500, $e->getMessage());
+            }
+
+            //上傳新圖片，並取得圖片名稱和路徑
+            $imageData = $this->imageService->uploadImage($request->file('pic_file'));
+
             try {
                 DB::beginTransaction();
-                //取得圖片名稱和路徑資料
-                $imageData = $this->productService->uploadImage($request->file('pic_file'));
 
                 //儲存圖片文件到文件位置和圖片資料表中
-                $this->productService->updatePic($imageData, $id);
+                $this->imageService->updatePic($imageData, $id);
+
                 DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
@@ -101,12 +112,16 @@ class BooksController extends Controller
             }
         }
 
+        //更新資料
         try {
-            //更新資料
             $this->productService->update($request->input(), $id);
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
+
+        //刪除伺服器文件圖片資料
+        $this->imageService->deletePicture($temporary_image_name);
+
         return $this->response(200, 'data update success.');
     }
 
@@ -118,12 +133,13 @@ class BooksController extends Controller
     public function destroy($id)
     {
         try {
-            $data = $this->imageService->showPic($id);
+            //取得舊的圖片資料
+            $oldImageData = $this->imageService->showPic($id);
+
+            $temporary_image_name = $oldImageData['image_name'];
         } catch (\Throwable $e) {
             return $this->response(500, $e->getMessage());
         }
-
-        $temporary_image_name = $data['image_name'];
 
         // //先執行刪除一般資料
         try {
@@ -137,7 +153,7 @@ class BooksController extends Controller
             return $this->response(500, $e->getMessage());
         }
 
-        // //刪除伺服器文件圖片資料
+        //刪除伺服器文件圖片資料
         $this->imageService->deletePicture($temporary_image_name);
 
         return $this->response(204, 'data delete success.');
