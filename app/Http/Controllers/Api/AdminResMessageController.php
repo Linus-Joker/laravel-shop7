@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class AdminResMessageController extends Controller
 {
     /**
      * 新增管理員回覆留言
-     * 
+     *
      * @param json {
      *      @var int $message_id 訊息編號
      *      @var string $res_content 管理員的回覆訊息
      * }
-     * 
-     * @return json 
+     *
+     * @return json
      */
     public function insert(Request $request)
     {

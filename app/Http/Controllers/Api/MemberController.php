@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Session;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 use App\Services\Account\Registration\RegistrationFactory;
-
-use PhpParser\Node\Stmt\TryCatch;
-
 use App\Models\Member;
 
 class MemberController extends Controller
